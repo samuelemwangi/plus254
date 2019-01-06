@@ -21,19 +21,28 @@ namespace App.Persistence.Migrations
 
             modelBuilder.Entity("App.Domain.Entities.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<long>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("CategoryID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasMaxLength(15);
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<short>("Deleted");
+
                     b.Property<string>("Description")
                         .HasColumnType("varchar(200)");
 
-                    b.HasKey("CategoryId");
+                    b.Property<string>("LastEditedBy");
+
+                    b.Property<DateTime?>("LastEditedDate");
+
+                    b.HasKey("ID");
 
                     b.ToTable("Categories");
                 });
@@ -47,12 +56,18 @@ namespace App.Persistence.Migrations
                     b.Property<string>("Body")
                         .IsRequired();
 
-                    b.Property<long>("CreatedBy");
+                    b.Property<string>("CreatedBy");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<short>("Deleted");
 
                     b.Property<string>("From")
                         .IsRequired();
+
+                    b.Property<string>("LastEditedBy");
+
+                    b.Property<DateTime?>("LastEditedDate");
 
                     b.Property<string>("Subject")
                         .IsRequired();
@@ -67,15 +82,23 @@ namespace App.Persistence.Migrations
 
             modelBuilder.Entity("App.Domain.Entities.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<long>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ProductID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnName("CategoryID");
+                    b.Property<long?>("CategoryID");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<short>("Deleted");
 
                     b.Property<bool>("Discontinued");
+
+                    b.Property<string>("LastEditedBy");
+
+                    b.Property<DateTime?>("LastEditedDate");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -97,20 +120,30 @@ namespace App.Persistence.Migrations
 
                     b.Property<short?>("UnitsOnOrder");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("ID");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("App.Domain.Entities.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<long>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("UserId");
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<short>("Deleted");
+
+                    b.Property<string>("LastEditedBy");
+
+                    b.Property<DateTime?>("LastEditedDate");
+
+                    b.HasKey("ID");
 
                     b.ToTable("Users");
                 });
@@ -119,7 +152,7 @@ namespace App.Persistence.Migrations
                 {
                     b.HasOne("App.Domain.Entities.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CategoryID")
                         .HasConstraintName("FK_Product_Categories");
                 });
 
@@ -127,7 +160,7 @@ namespace App.Persistence.Migrations
                 {
                     b.OwnsOne("App.Domain.ValueObjects.UniqueUserCode", "UniqueUserCode", b1 =>
                         {
-                            b1.Property<int>("UserId")
+                            b1.Property<long>("UserID")
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -135,13 +168,13 @@ namespace App.Persistence.Migrations
 
                             b1.Property<string>("UserName");
 
-                            b1.HasKey("UserId");
+                            b1.HasKey("UserID");
 
                             b1.ToTable("Users");
 
                             b1.HasOne("App.Domain.Entities.User")
                                 .WithOne("UniqueUserCode")
-                                .HasForeignKey("App.Domain.ValueObjects.UniqueUserCode", "UserId")
+                                .HasForeignKey("App.Domain.ValueObjects.UniqueUserCode", "UserID")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
                 });

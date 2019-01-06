@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace App.Persistence.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialiseDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,14 +12,19 @@ namespace App.Persistence.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryID = table.Column<int>(nullable: false)
+                    ID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    LastEditedBy = table.Column<string>(nullable: true),
+                    LastEditedDate = table.Column<DateTime>(nullable: true),
+                    Deleted = table.Column<short>(nullable: false),
                     CategoryName = table.Column<string>(maxLength: 15, nullable: false),
                     Description = table.Column<string>(type: "varchar(200)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryID);
+                    table.PrimaryKey("PK_Categories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -28,12 +33,15 @@ namespace App.Persistence.Migrations
                 {
                     ID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    LastEditedBy = table.Column<string>(nullable: true),
+                    LastEditedDate = table.Column<DateTime>(nullable: true),
+                    Deleted = table.Column<short>(nullable: false),
                     From = table.Column<string>(nullable: false),
                     To = table.Column<string>(nullable: false),
                     Subject = table.Column<string>(nullable: false),
-                    Body = table.Column<string>(nullable: false),
-                    CreatedBy = table.Column<long>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false)
+                    Body = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,39 +52,49 @@ namespace App.Persistence.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false)
+                    ID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    LastEditedBy = table.Column<string>(nullable: true),
+                    LastEditedDate = table.Column<DateTime>(nullable: true),
+                    Deleted = table.Column<short>(nullable: false),
                     UniqueUserCode_UserName = table.Column<string>(nullable: true),
                     UniqueUserCode_Domain = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_Users", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
-                    ProductID = table.Column<int>(nullable: false)
+                    ID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    LastEditedBy = table.Column<string>(nullable: true),
+                    LastEditedDate = table.Column<DateTime>(nullable: true),
+                    Deleted = table.Column<short>(nullable: false),
                     ProductName = table.Column<string>(maxLength: 40, nullable: false),
-                    CategoryID = table.Column<int>(nullable: true),
                     QuantityPerUnit = table.Column<string>(maxLength: 20, nullable: true),
                     UnitPrice = table.Column<decimal>(type: "money", nullable: true, defaultValueSql: "((0))"),
                     UnitsInStock = table.Column<short>(nullable: true),
                     UnitsOnOrder = table.Column<short>(nullable: true),
                     ReorderLevel = table.Column<short>(nullable: true, defaultValueSql: "((0))"),
-                    Discontinued = table.Column<bool>(nullable: false)
+                    Discontinued = table.Column<bool>(nullable: false),
+                    CategoryID = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.ProductID);
+                    table.PrimaryKey("PK_Products", x => x.ID);
                     table.ForeignKey(
                         name: "FK_Product_Categories",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
-                        principalColumn: "CategoryID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 

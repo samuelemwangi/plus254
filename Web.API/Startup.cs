@@ -2,6 +2,9 @@
 using App.Application.EntitiesCommandsQueries.Product.Queries.GetProduct;
 using App.Application.Infrastructure;
 using App.Application.Infrastructure.AutoMapper;
+using App.Application.Interfaces;
+using App.Common.Interfaces;
+using App.Infrastructure;
 using App.Persistence;
 using AutoMapper;
 using FluentValidation.AspNetCore;
@@ -13,14 +16,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 using NSwag.AspNetCore;
-using App.Application.Interfaces;
-using App.Common.Interfaces;
-using App.Infrastructure;
-
-// using NJsonSchema;
-
+using System.Reflection;
 
 namespace Web.API
 {
@@ -58,8 +55,18 @@ namespace Web.API
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCategoryCommandValidator>());
 
+
+            //Add AddFluentEmail
+            services.AddFluentEmail("noreplyapp@app.app")
+                .AddRazorRenderer()
+                .AddSmtpSender("localhost", 25);
+
+
+            
             //Add swagger Ui services
             services.AddSwaggerDocument();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,7 +8,7 @@ using App.Domain.Entities;
 
 namespace App.Application.EntitiesCommandsQueries.Categories.Commands.CreateCategory
 {
-    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, int>
+    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, long>
     {
         private readonly AppDbContext _appDbContext;
 
@@ -18,7 +18,7 @@ namespace App.Application.EntitiesCommandsQueries.Categories.Commands.CreateCate
 
         }
 
-        public async Task<int> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<long> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             var entity = new Category
             {
@@ -30,7 +30,7 @@ namespace App.Application.EntitiesCommandsQueries.Categories.Commands.CreateCate
             _appDbContext.Categories.Add(entity);
             await _appDbContext.SaveChangesAsync(cancellationToken);
 
-            return entity.CategoryId;
+            return entity.ID;
         }
     }
 }

@@ -2,9 +2,8 @@
 
 namespace App.Domain.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
-        public int UserId { get; set; }
         public UniqueUserCode UniqueUserCode { get; set; }
     }
 }

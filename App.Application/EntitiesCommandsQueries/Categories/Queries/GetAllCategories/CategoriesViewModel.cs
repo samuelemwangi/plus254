@@ -2,7 +2,7 @@
 
 namespace App.Application.EntitiesCommandsQueries.Categories.Queries.GetAllCategories
 {
-    public class CategoryViewModel
+    public class CategoriesViewModel
     {
         public IEnumerable<CategoryDTO> Categories { get; set; }
 
