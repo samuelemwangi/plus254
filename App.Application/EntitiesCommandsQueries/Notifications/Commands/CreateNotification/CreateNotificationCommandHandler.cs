@@ -5,6 +5,8 @@ using App.Domain.Entities;
 using App.Persistence;
 using App.Common.Interfaces;
 
+
+
 namespace App.Application.EntitiesCommandsQueries.Notifications.Commands.CreateNotification
 {
     public class CreateNotificationCommandHandler : IRequestHandler<CreateNotificationCommand, long>
@@ -12,14 +14,19 @@ namespace App.Application.EntitiesCommandsQueries.Notifications.Commands.CreateN
         private readonly AppDbContext _appDbContext;
         private readonly IDateTime _dateTime;
 
-        public CreateNotificationCommandHandler(AppDbContext appDbContext, IDateTime dateTime)
+        private readonly IMediator _mediator;
+        
+
+        public CreateNotificationCommandHandler(AppDbContext appDbContext, IDateTime dateTime, IMediator mediator)
         {
             _appDbContext = appDbContext;
             _dateTime = dateTime;
+            _mediator = mediator;
+            
         }
-        
 
-       public async Task<long> Handle(CreateNotificationCommand request, CancellationToken cancellationToken)
+
+        public async Task<long> Handle(CreateNotificationCommand request, CancellationToken cancellationToken)
         {
             var entity = new Notification
             {
@@ -27,12 +34,15 @@ namespace App.Application.EntitiesCommandsQueries.Notifications.Commands.CreateN
                 To = request.To,
                 Subject = request.Subject,
                 Body = request.Body,
-                CreatedDate =  _dateTime.Now               
+                CreatedDate = _dateTime.Now
 
             };
 
             _appDbContext.Notifications.Add(entity);
+            
             await _appDbContext.SaveChangesAsync(cancellationToken);
+
+            await _mediator.Publish(new NotificationCreated { ID = entity.ID});
 
             return entity.ID;
         }
