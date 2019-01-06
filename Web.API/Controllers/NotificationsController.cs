@@ -1,9 +1,9 @@
 ﻿using App.Application.EntitiesCommandsQueries.Notifications.Commands.CreateNotification;
 using App.Application.EntitiesCommandsQueries.Notifications.Queries.GetNotification;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using System.Threading.Tasks;
-using System;
 
 namespace Web.API.Controllers
 {
@@ -11,21 +11,20 @@ namespace Web.API.Controllers
     [ApiController]
     public class NotificationsController : BaseController
     {
-        // POST api/customers
+
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody]CreateNotificationCommand command)
         {
-            await Mediator.Send(command);
-
-            return NoContent();
+            return Created(CurrentUri, await Mediator.Send(command));
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<NotificationViewModel>> Get(string id)
         {
             long Id;
-            Int64.TryParse(id,out Id);
+            Int64.TryParse(id, out Id);
+
             return Ok(await Mediator.Send(new GetNotificationQuery { ID = Id }));
         }
 

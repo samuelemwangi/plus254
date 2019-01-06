@@ -1,7 +1,7 @@
 ﻿using System;
 using App.Common.Interfaces;
 
-namespace App.Infrastucture
+namespace App.Infrastructure
 {
     public class MachineDateTime : IDateTime
     {

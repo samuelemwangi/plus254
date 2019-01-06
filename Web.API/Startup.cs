@@ -15,6 +15,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using NSwag.AspNetCore;
+using App.Application.Interfaces;
+using App.Common.Interfaces;
+using App.Infrastructure;
+
 // using NJsonSchema;
 
 
@@ -34,6 +38,10 @@ namespace Web.API
         {
             //Add AutoMapper
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
+
+            // Add framework services.
+            services.AddTransient<INotificationService, NotificationService>();
+            services.AddTransient<IDateTime, MachineDateTime>();
 
             //Add Mediator
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));

@@ -1,9 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using App.Common.Interfaces;
 using App.Domain.Entities;
 using App.Persistence;
-using App.Common.Interfaces;
+using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 
@@ -15,14 +15,14 @@ namespace App.Application.EntitiesCommandsQueries.Notifications.Commands.CreateN
         private readonly IDateTime _dateTime;
 
         private readonly IMediator _mediator;
-        
+
 
         public CreateNotificationCommandHandler(AppDbContext appDbContext, IDateTime dateTime, IMediator mediator)
         {
             _appDbContext = appDbContext;
             _dateTime = dateTime;
             _mediator = mediator;
-            
+
         }
 
 
@@ -39,10 +39,10 @@ namespace App.Application.EntitiesCommandsQueries.Notifications.Commands.CreateN
             };
 
             _appDbContext.Notifications.Add(entity);
-            
+
             await _appDbContext.SaveChangesAsync(cancellationToken);
 
-            await _mediator.Publish(new NotificationCreated { ID = entity.ID});
+            await _mediator.Publish(new NotificationCreated { ID = entity.ID });
 
             return entity.ID;
         }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using App.Application.EntitiesCommandsQueries.Notifications.Queries.GetNotification;
+﻿using App.Application.EntitiesCommandsQueries.Notifications.Queries.GetNotification;
 using App.Application.Interfaces;
+using System.Threading.Tasks;
 
-namespace App.Infrastucture
+namespace App.Infrastructure
 {
     public class NotificationService : INotificationService
     {

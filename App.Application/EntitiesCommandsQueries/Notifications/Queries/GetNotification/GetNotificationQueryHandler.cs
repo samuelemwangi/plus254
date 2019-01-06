@@ -4,7 +4,7 @@ using App.Persistence;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System;
 
 namespace App.Application.EntitiesCommandsQueries.Notifications.Queries.GetNotification
 {
@@ -25,6 +25,8 @@ namespace App.Application.EntitiesCommandsQueries.Notifications.Queries.GetNotif
             {
                 throw new NotFoundException(nameof(Notification), request.ID);
             }
+
+            //Console.WriteLine(_appDbContext.Database.ProviderName);
 
 
             return new NotificationViewModel
