@@ -1,14 +1,15 @@
 
-INSERT INTO dbo.Notifications(
-       [From],
-       [To],
-       [Subject],
-       [Body],
-	   [CreatedBy],
-	   [CreatedDate],
-	   [LastEditedBy],
-       [LastEditedDate],
-	   [Deleted]
+INSERT INTO dbo.Notifications
+(
+	[From],
+	[To],
+	[Subject],
+	[Body],
+	[CreatedBy],
+	[CreatedDate],
+	[LastEditedBy],
+	[LastEditedDate],
+	[Deleted]
 )
 VALUES('test.from@example.com', 'sammiemwangi4@gmail.com', 'Sending Good Vibes Yo', 'Receive Good Vibes', 'System', GETUTCDATE(),'System',GETUTCDATE(),0),
       ('test.from@example.com', 'sammiemwangi4@gmail.com', 'Sending Good Vibes Yo', 'Receive Good Vibes', 'System', GETUTCDATE(),'System',GETUTCDATE(),0),
