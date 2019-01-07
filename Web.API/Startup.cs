@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NSwag.AspNetCore;
 using System.Reflection;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Web.API
 {

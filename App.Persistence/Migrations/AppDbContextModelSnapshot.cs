@@ -104,19 +104,19 @@ namespace App.Persistence.Migrations
 
                     b.Property<short>("ReorderLevel")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("((0))");
+                        .HasDefaultValue((short)0);
 
                     b.Property<decimal>("UnitPrice")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("((0))");
+                        .HasDefaultValue(0m);
 
                     b.Property<short>("UnitsInStock")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("((0))");
+                        .HasDefaultValue((short)0);
 
                     b.Property<short>("UnitsOnOrder")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("((0))");
+                        .HasDefaultValue((short)0);
 
                     b.HasKey("ID");
 
