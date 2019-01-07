@@ -1,4 +1,5 @@
 ﻿using App.Persistence;
+using App.Common.Interfaces;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +20,10 @@ namespace Web.API
                 try
                 {
                     var context = scope.ServiceProvider.GetService<AppDbContext>();
+                    var dateTime = scope.ServiceProvider.GetService<IDateTime>();
                     context.Database.Migrate();
 
-                    AppDbInitializer.Initialize(context);
+                    AppDbInitializer.Initialize(context, dateTime);
                 }
                 catch (Exception ex)
                 {

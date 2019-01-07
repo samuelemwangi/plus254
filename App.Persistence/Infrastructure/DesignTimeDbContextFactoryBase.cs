@@ -9,7 +9,7 @@ namespace App.Persistence.Infrastructure
     public abstract class DesignTimeDbContextFactoryBase<TContext>: 
         IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {
-        private const string ConnectionStringName = "AppDatabase";
+        private const string ConnectionStringName = "AppDatabaseMYSQL";
         private const string AspNetCoreEnvironment = "ASPNETCORE_ENVIRONMENT";
 
         public abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
@@ -48,7 +48,7 @@ namespace App.Persistence.Infrastructure
 
             var optionsBuilder = new DbContextOptionsBuilder<TContext>();
               
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseMySql(connectionString);
 
             return CreateNewInstance(optionsBuilder.Options);
         }

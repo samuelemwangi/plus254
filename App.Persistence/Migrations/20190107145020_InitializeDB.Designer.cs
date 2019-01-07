@@ -3,29 +3,26 @@ using System;
 using App.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace App.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190106182124_InitialiseDB")]
-    partial class InitialiseDB
+    [Migration("20190107145020_InitializeDB")]
+    partial class InitializeDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("App.Domain.Entities.Category", b =>
                 {
                     b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
@@ -52,8 +49,7 @@ namespace App.Persistence.Migrations
             modelBuilder.Entity("App.Domain.Entities.Notification", b =>
                 {
                     b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Body")
                         .IsRequired();
@@ -85,8 +81,7 @@ namespace App.Persistence.Migrations
             modelBuilder.Entity("App.Domain.Entities.Product", b =>
                 {
                     b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<long?>("CategoryID");
 
@@ -109,18 +104,21 @@ namespace App.Persistence.Migrations
                     b.Property<string>("QuantityPerUnit")
                         .HasMaxLength(20);
 
-                    b.Property<short?>("ReorderLevel")
+                    b.Property<short>("ReorderLevel")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("((0))");
 
-                    b.Property<decimal?>("UnitPrice")
+                    b.Property<decimal>("UnitPrice")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("money")
                         .HasDefaultValueSql("((0))");
 
-                    b.Property<short?>("UnitsInStock");
+                    b.Property<short>("UnitsInStock")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("((0))");
 
-                    b.Property<short?>("UnitsOnOrder");
+                    b.Property<short>("UnitsOnOrder")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("((0))");
 
                     b.HasKey("ID");
 
@@ -132,8 +130,7 @@ namespace App.Persistence.Migrations
             modelBuilder.Entity("App.Domain.Entities.User", b =>
                 {
                     b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CreatedBy");
 
@@ -162,9 +159,7 @@ namespace App.Persistence.Migrations
                 {
                     b.OwnsOne("App.Domain.ValueObjects.UniqueUserCode", "UniqueUserCode", b1 =>
                         {
-                            b1.Property<long>("UserID")
-                                .ValueGeneratedOnAdd()
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                            b1.Property<long>("UserID");
 
                             b1.Property<string>("Domain");
 

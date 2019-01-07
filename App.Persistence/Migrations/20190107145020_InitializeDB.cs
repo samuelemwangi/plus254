@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace App.Persistence.Migrations
 {
-    public partial class InitialiseDB : Migration
+    public partial class InitializeDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace App.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     LastEditedBy = table.Column<string>(nullable: true),
@@ -32,7 +32,7 @@ namespace App.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     LastEditedBy = table.Column<string>(nullable: true),
@@ -53,7 +53,7 @@ namespace App.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     LastEditedBy = table.Column<string>(nullable: true),
@@ -72,7 +72,7 @@ namespace App.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     LastEditedBy = table.Column<string>(nullable: true),
@@ -80,10 +80,10 @@ namespace App.Persistence.Migrations
                     Deleted = table.Column<short>(nullable: false),
                     ProductName = table.Column<string>(maxLength: 40, nullable: false),
                     QuantityPerUnit = table.Column<string>(maxLength: 20, nullable: true),
-                    UnitPrice = table.Column<decimal>(type: "money", nullable: true, defaultValueSql: "((0))"),
-                    UnitsInStock = table.Column<short>(nullable: true),
-                    UnitsOnOrder = table.Column<short>(nullable: true),
-                    ReorderLevel = table.Column<short>(nullable: true, defaultValueSql: "((0))"),
+                    UnitPrice = table.Column<decimal>(nullable: false, defaultValueSql: "((0))"),
+                    UnitsInStock = table.Column<short>(nullable: false, defaultValueSql: "((0))"),
+                    UnitsOnOrder = table.Column<short>(nullable: false, defaultValueSql: "((0))"),
+                    ReorderLevel = table.Column<short>(nullable: false, defaultValueSql: "((0))"),
                     Discontinued = table.Column<bool>(nullable: false),
                     CategoryID = table.Column<long>(nullable: true)
                 },

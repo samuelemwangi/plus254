@@ -1,24 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.IO;
-using System.Reflection;
 using System.Linq;
+using App.Common.Interfaces;
+using App.Persistence.DBSeed;
 
 namespace App.Persistence
 {
     public class AppDbInitializer
     {
-        public static void Initialize(AppDbContext context)
+        public static void Initialize(AppDbContext context, IDateTime dateTime)
         {
             var initializer = new AppDbInitializer();
+
             context.Database.EnsureCreated();
-             
-            //For MSSQLServer 
-            initializer.SeedDBUsingSQLScripts(context, GetSQLScriptDirectoryFullPath("DBViews"));
-            
-            // If Table has records do not seed
+
             if (!context.Notifications.Any())
-                initializer.SeedDBUsingSQLScripts(context, GetSQLScriptDirectoryFullPath("SeedDBTables"));
+                SeedDB.Tables(context, dateTime);
+
+            //Run DB Scripts
+            initializer.SeedDBUsingSQLScripts(context, GetSQLScriptDirectoryFullPath("DBViews"));
+
         }
 
         private static string GetSQLScriptDirectoryFullPath(string targetFolder)

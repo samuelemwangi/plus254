@@ -14,7 +14,7 @@ namespace App.Domain.Entities
         public string Description { get; set; }
 
 
-        public ICollection<Product> Products { get; private set; }
+        public ICollection<Product> Products { get; set; }
 
 
     }

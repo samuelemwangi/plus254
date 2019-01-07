@@ -46,9 +46,12 @@ namespace Web.API
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehaviour<,>));
             services.AddMediatR(typeof(GetProductQueryHandler).GetTypeInfo().Assembly);
 
-            // Add DbContext using SQL Server Provider
+            
+            // Add DbContext using MYSQL Server Provider
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AppDatabase")));
+               options.UseMySql(Configuration.GetConnectionString("AppDatabaseMYSQL")));
+
+
 
             //Add Fluent Validation
             services.AddMvc()
@@ -62,7 +65,7 @@ namespace Web.API
                 .AddSmtpSender("localhost", 25);
 
 
-            
+
             //Add swagger Ui services
             services.AddSwaggerDocument();
 
@@ -86,8 +89,8 @@ namespace Web.API
             app.UseStaticFiles();
 
             // Add OpenAPI/Swagger middlewares
-            app.UseSwagger(); // Serves the registered OpenAPI/Swagger documents by default on `/swagger/{documentName}/swagger.json`
-            app.UseSwaggerUi3(); // Serves the Swagger UI 3 web ui to view the OpenAPI/Swagger documents by default on `/swagger`
+            app.UseSwagger(); 
+            app.UseSwaggerUi3();
 
             app.UseMvc();
         }

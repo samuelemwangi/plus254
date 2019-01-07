@@ -1,0 +1,9 @@
+CREATE OR REPLACE  VIEW VW_Notifications
+AS 
+SELECT
+    `FROM` AS SentFrom,
+    `TO` AS SentTo,
+    `Subject` AS Subject,
+	`Body` AS NotificationMessage,
+	`CreatedBy` AS CreatedBy 
+FROM Notifications
