@@ -18,7 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NSwag.AspNetCore;
 using System.Reflection;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Web.API.Extensions;
 
 namespace Web.API
 {
@@ -61,9 +61,10 @@ namespace Web.API
 
 
             //Add AddFluentEmail
-            services.AddFluentEmail("noreplyapp@app.app")
-                .AddRazorRenderer()
-                .AddSmtpSender("localhost", 25);
+            services.ConfigureEmailService(Configuration);
+
+            //CORS
+            services.ConfigureCors();
 
 
 
@@ -76,6 +77,9 @@ namespace Web.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            var appSettings = Configuration.GetSection("AppDetails");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -86,14 +90,26 @@ namespace Web.API
                 app.UseHsts();
             }
 
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             // Add OpenAPI/Swagger middlewares
-            app.UseSwagger(); 
+            app.UseSwagger(settings =>
+            {
+                settings.PostProcess = (document, request) =>
+                {
+                    document.Info.Title = appSettings["Name"];
+                };
+            });
+
             app.UseSwaggerUi3();
 
             app.UseMvc();
+
+           
+            
+            
         }
     }
 }

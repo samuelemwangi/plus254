@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 
+
 namespace App.Infrastructure
 {
     public class NotificationService : INotificationService
@@ -16,17 +17,24 @@ namespace App.Infrastructure
             _emailService = serviceProvider.GetService<IFluentEmail>();
 
         }
-        public Task SendAsync(NotificationViewModel notification)
+        public async Task SendAsync(NotificationViewModel notification)
         {
-            //await _emailService
-            //    .To(notification.SentTo)
-            //    .Subject(notification.Subject)
-            //    .Body(notification.NotificationMessage)
-            //    .SendAsync();
+            try
+            {
 
+                await _emailService
+               .To(notification.SentTo)
+               .Subject(notification.Subject)
+               .Body(notification.NotificationMessage)
+               .SendAsync();
+            }
+            catch (Exception ex)
+            {
+
+                return;
+            }
             //Implement Sending mail , add to Queue maybe
 
-            return Task.CompletedTask;
         }
     }
 }
