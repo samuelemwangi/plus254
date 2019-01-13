@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EntitiesCommandsQueries\Categories\**" />
+    <EmbeddedResource Remove="EntitiesCommandsQueries\Categories\**" />
+    <None Remove="EntitiesCommandsQueries\Categories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="FluentValidation" Version="8.1.2" />
     <PackageReference Include="MediatR" Version="6.0.0" />
@@ -17,8 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EntitiesCommandsQueries\Categories\Commands\DeleteCategory\" />
-    <Folder Include="EntitiesCommandsQueries\Categories\Commands\UpdateCategory\" />
     <Folder Include="EntitiesCommandsQueries\Product\Commands\DeleteProduct\" />
     <Folder Include="EntitiesCommandsQueries\Product\Commands\EditProduct\" />
   </ItemGroup>

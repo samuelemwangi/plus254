@@ -1,5 +1,5 @@
 ﻿using App.Application.EntitiesCommandsQueries.ProductCategories.Commands.CreateProductCategory;
-using App.Application.EntitiesCommandsQueries.Product.Queries.GetProduct;
+using App.Application.EntitiesCommandsQueries.Products.Queries.GetProductDetail;
 using App.Application.Infrastructure;
 using App.Application.Infrastructure.AutoMapper;
 using App.Application.Interfaces;
@@ -45,7 +45,7 @@ namespace Web.API
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehaviour<,>));
-            services.AddMediatR(typeof(GetProductQueryHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetProductDetailQueryHandler).GetTypeInfo().Assembly);
 
             
             // Add DbContext using MYSQL Server Provider

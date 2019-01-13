@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace App.Application.EntitiesCommandsQueries.ProductCategories.Commands.UpdateCategory
+namespace App.Application.EntitiesCommandsQueries.ProductCategories.Commands.UpdateProductCategory
 {
     public class UpdateProductCategoryCommandValidator : AbstractValidator<UpdateProductCategoryCommand>
     {

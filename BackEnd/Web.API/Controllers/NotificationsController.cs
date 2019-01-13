@@ -22,8 +22,8 @@ namespace Web.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<NotificationViewModel>> Get(string id)
         {
-            long Id;
-            Int64.TryParse(id, out Id);
+
+            Int64.TryParse(id, out long Id);
 
             return Ok(await Mediator.Send(new GetNotificationQuery { ID = Id }));
         }

@@ -3,8 +3,12 @@ using App.Domain.Entities;
 using App.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace App.Application.EntitiesCommandsQueries.ProductCategories.Queries.GetProductCategory
 {
@@ -12,29 +16,37 @@ namespace App.Application.EntitiesCommandsQueries.ProductCategories.Queries.GetP
     {
 
         private readonly AppDbContext _appDbContext;
+        private readonly IMapper _mapper;
 
-        public GetProductCategoryQueryHandler(AppDbContext appDbContext)
+
+        public GetProductCategoryQueryHandler(AppDbContext appDbContext, IMapper mapper)
         {
             _appDbContext = appDbContext;
+            _mapper = mapper;
 
         }
         public async Task<ProductCategoryViewModel> Handle(GetProductCategoryQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _appDbContext.ProductCategories.FirstOrDefaultAsync(e => e.ID == request.ID && e.Deleted != 1, cancellationToken);
+            //Recheck this 
+            var productCategory = _mapper.Map<ProductCategoryViewModel>(await _appDbContext.ProductCategories
+                .Include(c => c.Products)
+                .Where(e => e.ID == request.ID && e.Deleted != 1)
+                .Select(ProductCategoryViewModel.Projection)
+                .FirstOrDefaultAsync(cancellationToken)
+                );
+            
 
-            if (entity == null)
+            if (productCategory == null)
             {
                 throw new NotFoundException(nameof(ProductCategory), request.ID);
             }
 
-            return new ProductCategoryViewModel
-            {
-                CategoryName = entity.CategoryName,
-                CategoryDescription = entity.CategoryDescription,
-                LastUpdatedBy = "",
-                LastUpdatedDate = entity.LastEditedDate + "",
+            //implement permission resolver
+            productCategory.EditEnabled = true;
+            productCategory.DeleteEnabled = true;
 
-            };
+            return productCategory;
+
         }
     }
 }

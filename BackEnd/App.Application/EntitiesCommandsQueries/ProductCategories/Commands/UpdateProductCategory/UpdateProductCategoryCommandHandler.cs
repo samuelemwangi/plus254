@@ -7,7 +7,7 @@ using App.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using App.Application.Exceptions;
 
-namespace App.Application.EntitiesCommandsQueries.ProductCategories.Commands.UpdateCategory
+namespace App.Application.EntitiesCommandsQueries.ProductCategories.Commands.UpdateProductCategory
 {
     public class UpdateProductCategoryCommandHandler : IRequestHandler<UpdateProductCategoryCommand, Unit>
     {
@@ -23,7 +23,7 @@ namespace App.Application.EntitiesCommandsQueries.ProductCategories.Commands.Upd
         public async Task<Unit> Handle(UpdateProductCategoryCommand request, CancellationToken cancellationToken)
         {
             var entity = await _appDbContext.ProductCategories
-                .SingleAsync(e => e.ID == request.ID, cancellationToken);
+                .SingleAsync(e => e.ID == request.ID && e.Deleted != 1, cancellationToken);
 
             if(entity == null)
             {
@@ -33,6 +33,7 @@ namespace App.Application.EntitiesCommandsQueries.ProductCategories.Commands.Upd
             entity.CategoryName = request.CategoryName;
             entity.CategoryDescription = request.CategoryDescription;
             entity.LastEditedDate = _dateTime.Now;
+            entity.Deleted = request.Deleted;
 
             _appDbContext.ProductCategories.Update(entity);
 
