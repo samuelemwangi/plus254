@@ -1,6 +1,6 @@
-﻿namespace App.Application.EntitiesCommandsQueries.Categories.Queries.GetCategory
+﻿namespace App.Application.EntitiesCommandsQueries.ProductCategories.Queries.GetProductCategory
 {
-    public class CategoryViewModel
+    public class ProductCategoryViewModel
     {
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }

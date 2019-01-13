@@ -1,6 +1,6 @@
-﻿namespace App.Application.EntitiesCommandsQueries.Categories.Queries.GetAllCategories
+﻿namespace App.Application.EntitiesCommandsQueries.ProductCategories.Queries.GetAllProductCategories
 {
-    public class CategoryDTO
+    public class ProductCategoryDTO
     {
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }

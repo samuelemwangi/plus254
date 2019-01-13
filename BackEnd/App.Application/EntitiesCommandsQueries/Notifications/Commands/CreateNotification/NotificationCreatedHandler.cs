@@ -1,7 +1,8 @@
-using MediatR;
+using App.Application.EntitiesCommandsQueries.Notifications.Commands.UpdateNotification;
 using App.Application.EntitiesCommandsQueries.Notifications.Queries.GetNotification;
 using App.Application.Interfaces;
 using App.Persistence;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,9 +30,10 @@ namespace App.Application.EntitiesCommandsQueries.Notifications.Commands.CreateN
 
             var entity = await _mediator.Send(new GetNotificationQuery { ID = notification.ID });
 
+
             await _notificationService.SendAsync(entity);
 
-            // implement update Database for sent 
+            await _mediator.Send(new UpdateNotificationCommand { ID = notification.ID, MailQueued = 1 });            
 
         }
 

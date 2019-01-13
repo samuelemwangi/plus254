@@ -34,7 +34,8 @@ namespace App.Application.EntitiesCommandsQueries.Notifications.Commands.CreateN
                 To = request.To,
                 Subject = request.Subject,
                 Body = request.Body,
-                CreatedDate = _dateTime.Now
+                CreatedDate = _dateTime.Now,
+                LastEditedDate = _dateTime.Now
 
             };
 

@@ -1,5 +1,5 @@
-﻿using App.Application.EntitiesCommandsQueries.Categories.Commands.CreateCategory;
-using App.Application.EntitiesCommandsQueries.Categories.Queries.GetCategory;
+﻿using App.Application.EntitiesCommandsQueries.ProductCategories.Commands.CreateProductCategory;
+using App.Application.EntitiesCommandsQueries.ProductCategories.Queries.GetProductCategory;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -14,18 +14,17 @@ namespace Web.API.Controllers
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<IActionResult> Create([FromBody]CreateCategoryCommand command)
+        public async Task<IActionResult> Create([FromBody]CreateProductCategoryCommand command)
         {
             return Created(CurrentUri, await Mediator.Send(command));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryViewModel>> Get(string id)
+        public async Task<ActionResult<ProductCategoryViewModel>> Get(string id)
         {
-            long Id;
-            Int64.TryParse(id, out Id);
-
-            return Ok(await Mediator.Send(new GetCategoryQuery { ID = Id }));
+            
+            Int64.TryParse(id, out long Id);
+            return Ok(await Mediator.Send(new GetProductCategoryQuery { ID = Id }));
         }
 
 

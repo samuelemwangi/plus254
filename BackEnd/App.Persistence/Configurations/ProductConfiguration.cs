@@ -10,16 +10,11 @@ namespace App.Persistence.Configurations
         {
 
             builder.Property(e => e.ProductName).IsRequired().HasMaxLength(40);
-            builder.Property(e => e.QuantityPerUnit).HasMaxLength(20);
-            builder.Property(e => e.UnitsInStock).HasDefaultValue(0);
-            builder.Property(e => e.UnitsOnOrder).HasDefaultValue(0);
-            builder.Property(e => e.ReorderLevel).HasDefaultValue(0);
-            builder.Property(e => e.UnitPrice)
-                .HasDefaultValue(0);
+            builder.Property(e => e.ProductDescription).HasMaxLength(800);
 
-            builder.HasOne(d => d.Category)
+            builder.HasOne(d => d.ProductCategory)
                 .WithMany(p => p.Products)
-                .HasForeignKey(d => d.CategoryID)
+                .HasForeignKey(d => d.ProductCategoryID)
                 .HasConstraintName("FK_Product_Categories");
 
         }

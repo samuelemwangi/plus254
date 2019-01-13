@@ -11,8 +11,8 @@ namespace App.Persistence.Configurations
             builder.Property(e => e.From).IsRequired();
             builder.Property(e => e.To).IsRequired();
             builder.Property(e => e.Subject).IsRequired();
-            builder.Property(e => e.Body).IsRequired();           
-
+            builder.Property(e => e.Body).IsRequired();
+            builder.Property(e => e.MailQueued).HasDefaultValue(0);
 
         }
     }

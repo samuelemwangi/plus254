@@ -1,4 +1,4 @@
-﻿using App.Application.EntitiesCommandsQueries.Categories.Commands.CreateCategory;
+﻿using App.Application.EntitiesCommandsQueries.ProductCategories.Commands.CreateProductCategory;
 using App.Application.EntitiesCommandsQueries.Product.Queries.GetProduct;
 using App.Application.Infrastructure;
 using App.Application.Infrastructure.AutoMapper;
@@ -57,7 +57,7 @@ namespace Web.API
             //Add Fluent Validation
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCategoryCommandValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProductCategoryCommandValidator>());
 
 
             //Add AddFluentEmail

@@ -2,9 +2,9 @@
 using App.Domain.Entities;
 using App.Persistence;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
-using System;
 
 namespace App.Application.EntitiesCommandsQueries.Notifications.Queries.GetNotification
 {
@@ -19,15 +19,13 @@ namespace App.Application.EntitiesCommandsQueries.Notifications.Queries.GetNotif
         }
         public async Task<NotificationViewModel> Handle(GetNotificationQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _appDbContext.Notifications.FindAsync(request.ID);
+            var entity = await _appDbContext.Notifications.
+                FirstOrDefaultAsync(e => e.ID == request.ID && e.Deleted != 1, cancellationToken);
 
             if (entity == null)
             {
                 throw new NotFoundException(nameof(Notification), request.ID);
             }
-
-            //Console.WriteLine(_appDbContext.Database.ProviderName);
-
 
             return new NotificationViewModel
             {
