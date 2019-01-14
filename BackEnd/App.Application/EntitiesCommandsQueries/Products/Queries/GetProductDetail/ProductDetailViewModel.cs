@@ -7,7 +7,7 @@ namespace App.Application.EntitiesCommandsQueries.Products.Queries.GetProductDet
     public class ProductDetailViewModel : ProductDTO
     {
         public string CreatedBy { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }        
         public bool EditEnabled { get; set; }
         public bool DeleteEnabled { get; set; }
 
@@ -22,7 +22,7 @@ namespace App.Application.EntitiesCommandsQueries.Products.Queries.GetProductDet
                     ProductDescription = product.ProductDescription,
                     ProductCategoryName = product.ProductCategory.CategoryName,
                     CreatedBy = product.CreatedBy,
-                    CreatedDate = product.CreatedDate
+                    CreatedDate = product.CreatedDate,                    
 
                 };
             }

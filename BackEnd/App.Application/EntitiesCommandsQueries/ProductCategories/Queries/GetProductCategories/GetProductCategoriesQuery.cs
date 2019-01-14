@@ -2,7 +2,8 @@
 
 namespace App.Application.EntitiesCommandsQueries.ProductCategories.Queries.GetProductCategories
 {
-    public class GetProductCategoriesQuery: IRequest<ProductCategoriesViewModel>
+    public class GetProductCategoriesQuery : IRequest<ProductCategoriesViewModel>
+
     {
     }
 }

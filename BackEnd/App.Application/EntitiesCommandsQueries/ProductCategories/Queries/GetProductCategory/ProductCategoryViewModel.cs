@@ -21,10 +21,11 @@ namespace App.Application.EntitiesCommandsQueries.ProductCategories.Queries.GetP
                 {
                     ID = productCategory.ID,
                     ProductCategoryName = productCategory.CategoryName,
-                    ProductCategoryDescription = productCategory.CategoryDescription,
+                    ProductCategoryDescription = productCategory.CategoryDescription,                    
                     CategoryProducts = productCategory.Products.AsQueryable()
                                             .Select(CategoryProductsDTO.Projection)
-                                            .Take(2)
+                                            .Take(5)
+                                            .OrderBy(p => p.ID)
                                             .ToList()
 
 

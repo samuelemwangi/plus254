@@ -22,9 +22,4 @@
     <ProjectReference Include="..\App.Persistence\App.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntitiesCommandsQueries\Product\Commands\DeleteProduct\" />
-    <Folder Include="EntitiesCommandsQueries\Product\Commands\EditProduct\" />
-  </ItemGroup>
-
 </Project>
