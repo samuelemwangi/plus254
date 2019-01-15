@@ -24,7 +24,7 @@ namespace App.Application.EntitiesCommandsQueries.ProductCategories.Queries.GetP
                     ProductCategoryDescription = productCategory.CategoryDescription,                    
                     CategoryProducts = productCategory.Products.AsQueryable()
                                             .Select(CategoryProductsDTO.Projection)
-                                            .Take(5)
+                                            .Take(2)
                                             .OrderBy(p => p.ID)
                                             .ToList()
 
