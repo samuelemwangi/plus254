@@ -7,7 +7,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 // Custom Components
 import { appTheme } from "../../Components/Layout/AppTheme";
 import Navigator from "../../Components/Layout/Navigator";
-import Content from "../../Components/Layout/Content";
 import Header from "../../Components/Layout/Header";
 
 class Layout extends Component {
@@ -25,20 +24,14 @@ class Layout extends Component {
   }
 
   handleDrawerToggle() {
-    this.setState(prevState => ({ mobileOpen: !prevState.mobileOpen }));
+    this.setState(prevstate => ({ mobileOpen: !prevstate.mobileOpen }));
   }
 
   render() {
-    const { contentComponent, routeProps } = this.props;
+    const { currentComponent, routeProps } = this.props;
 
     const { mobileOpen } = this.state;
 
-    const headerComponent = (
-      <Header
-        onDrawerToggle={this.handleDrawerToggle}
-        routeProps={routeProps}
-      />
-    );
     return (
       <MuiThemeProvider theme={appTheme}>
         <div style={{ display: "flex", minHeight: "100vh" }}>
@@ -48,10 +41,12 @@ class Layout extends Component {
             mobileOpen={mobileOpen}
             currentLink={routeProps.path}
           />
-          <Content
-            headerComponent={headerComponent}
-            contentComponent={contentComponent}
-          />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Header
+              onDrawerToggle={this.handleDrawerToggle}
+              pageTitle={routeProps.pageTitle}
+            />
+          </div>
         </div>
       </MuiThemeProvider>
     );
@@ -59,7 +54,7 @@ class Layout extends Component {
 }
 
 Layout.propTypes = {
-  contentComponent: PropTypes.object.isRequired,
+  currentComponent: PropTypes.object.isRequired,
   routeProps: PropTypes.object.isRequired
 };
 
