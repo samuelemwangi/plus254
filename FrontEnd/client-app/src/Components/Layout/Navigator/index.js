@@ -8,7 +8,6 @@ import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import HomeIcon from "@material-ui/icons/Home";
 import Link from "react-router-dom/Link";
 
 // Custom Components
@@ -35,24 +34,12 @@ const Navigator = ({ ...navigatorProps }) => {
     <List disablePadding>
       <ListItem
         className={classNames(
-          classes.firebase,
+          classes.profileHeader,
           classes.item,
           classes.itemCategory
         )}
       >
-        Admin Portal
-      </ListItem>
-      <ListItem className={classNames(classes.item, classes.itemCategory)}>
-        <ListItemIcon>
-          <HomeIcon />
-        </ListItemIcon>
-        <ListItemText
-          classes={{
-            primary: classes.itemPrimary
-          }}
-        >
-          Manage App
-        </ListItemText>
+        App
       </ListItem>
       {navigatorMenu.map(({ id, children }) => (
         <React.Fragment key={id}>

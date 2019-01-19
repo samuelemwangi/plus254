@@ -5,7 +5,7 @@ import Switch from "react-router-dom/Switch";
 
 // CUstom Components
 import { appRoutes } from "./Routes";
-import Layout from "./Containers/Layout";
+import LayoutContainer from "./Containers/Layout";
 
 const ScrollToTop = () => {
   window.scrollTo(0, 0);
@@ -24,7 +24,10 @@ const App = () => (
           render={props => {
             const currentComponent = <prop.component {...props} />;
             return (
-              <Layout currentComponent={currentComponent} routeProps={prop} />
+              <LayoutContainer
+                currentComponent={currentComponent}
+                routeProps={prop}
+              />
             );
           }}
         />

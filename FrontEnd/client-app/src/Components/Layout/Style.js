@@ -1,8 +1,7 @@
 export const conatinerFluid = {
-  paddingRight: "20px",
-  paddingLeft: "0px",
   marginRight: "auto",
   marginLeft: "auto",
+  padding: "0px 10px",
   width: "100%"
 };
 export const container = {

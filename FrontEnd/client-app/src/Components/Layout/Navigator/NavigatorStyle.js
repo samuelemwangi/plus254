@@ -20,15 +20,15 @@ export const navigatorStyle = theme => ({
     color: "rgba(255, 255, 255, 0.7)"
   },
   itemCategory: {
-    backgroundColor: "#010114",
-    boxShadow: "0 -1px 0 #373c43 inset",
+    backgroundColor: "#f6f6f6",
     paddingTop: 16,
-    paddingBottom: 16
+    paddingBottom: 16,
+    color: theme.palette.common.black
   },
-  firebase: {
+  profileHeader: {
     fontSize: 24,
     fontFamily: theme.typography.fontFamily,
-    color: theme.palette.common.white
+    height: "25vh"
   },
   itemActionable: {
     "&:hover": {

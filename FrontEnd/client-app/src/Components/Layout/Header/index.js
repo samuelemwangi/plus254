@@ -2,10 +2,12 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Hidden from "@material-ui/core/Hidden";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
+import Link from "react-router-dom/Link";
 
 // Custom Components
 
@@ -22,7 +24,7 @@ const Header = ({ ...headerProps }) => {
   });
 
   return (
-    <AppBar color="primary" position="sticky" className={appBarClasses}>
+    <AppBar color="primary" position="fixed" className={appBarClasses}>
       <Toolbar className={classes.container}>
         <Hidden smUp>
           <IconButton
@@ -34,9 +36,14 @@ const Header = ({ ...headerProps }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        <HeaderLeftLinks pageTitle={pageTitle} />
         <Hidden smDown implementation="css">
-          <div className={classes.flex} />
+          <Button className={classes.title} component={Link} to="/">
+            App
+          </Button>
+        </Hidden>
+        <HeaderLeftLinks pageTitle={pageTitle} />
+        <div className={classes.flex} />
+        <Hidden smDown implementation="css">
           <HeaderRightLinks />
         </Hidden>
       </Toolbar>

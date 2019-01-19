@@ -1,14 +1,16 @@
-import NotFoundContainer from "../Containers/Layout/NotFoundContainer";
+import NotFoundContainer from "../Containers/NotFound";
+import SignUpFormed from "../Containers/Auth/SignUpContainer";
 
-export const appItems = [
-  {
-    id: 0,
-    link: "/items",
-    linkTitle: "Main Items"
-  }
-];
+import { appItems, authItems } from "./RouteItems";
 
 export const appRoutes = [
+  {
+    path: authItems[0].link,
+    matching: true,
+    pageTitle: "Sign Up",
+    component: SignUpFormed,
+    connectedlinks: authItems
+  },
   {
     path: appItems[0].link,
     matching: true,

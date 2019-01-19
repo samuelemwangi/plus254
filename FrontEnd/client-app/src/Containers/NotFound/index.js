@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // Custom Components
-import NotFound from "../../Components/Layout/NotFound";
+import NotFound from "../../Components/NotFound";
 
 class NotFoundContainer extends Component {
   constructor() {

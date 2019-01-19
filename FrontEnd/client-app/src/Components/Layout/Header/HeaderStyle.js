@@ -36,5 +36,16 @@ export const headerStyle = {
   },
   flex: {
     flex: 1
+  },
+  title: {
+    lineHeight: "30px",
+    fontSize: "25px",
+    borderRadius: "3px",
+    textTransform: "none",
+    color: "inherit",
+    "&:hover,&:focus": {
+      color: "inherit",
+      background: "transparent"
+    }
   }
 };

@@ -35,7 +35,7 @@ const RightLinks = ({ ...rightLinksProps }) => {
         <Button
           type="Flat"
           component={Link}
-          to="/sign-in"
+          to="/sign-up"
           className={classes.navLink}
         >
           {rightLinksProps.signedIn && rightLinksProps.signedIn === 1 && (
@@ -43,7 +43,7 @@ const RightLinks = ({ ...rightLinksProps }) => {
           )}
           {((rightLinksProps.signedIn && rightLinksProps.signedIn !== 1) ||
             rightLinksProps.signedIn === undefined) &&
-            "Sign In"}
+            "Sign Up"}
         </Button>
       </ListItem>
     </List>

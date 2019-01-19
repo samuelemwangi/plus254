@@ -11,9 +11,12 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      light: "#63ccff",
+      light: "#6151ee",
       main: "#150b6a",
       dark: "#0f0937"
+    },
+    background: {
+      default: "#f6f6f6"
     }
   },
   shape: {
@@ -26,7 +29,14 @@ export const appTheme = {
   overrides: {
     MuiDrawer: {
       paper: {
-        backgroundColor: "#060622"
+        backgroundColor: "#150b6a"
+      }
+    },
+    MuiCard: {
+      root: {
+        borderRadius: "4px",
+        boxShadow: "none",
+        backgroundColor: "#ffffff"
       }
     },
     MuiButton: {

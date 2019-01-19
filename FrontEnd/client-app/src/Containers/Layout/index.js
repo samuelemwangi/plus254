@@ -8,8 +8,9 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { appTheme } from "../../Components/Layout/AppTheme";
 import Navigator from "../../Components/Layout/Navigator";
 import Header from "../../Components/Layout/Header";
+import Content from "../../Components/Layout/Content";
 
-class Layout extends Component {
+class LayoutContainer extends Component {
   constructor() {
     super();
     this.state = {
@@ -34,28 +35,27 @@ class Layout extends Component {
 
     return (
       <MuiThemeProvider theme={appTheme}>
-        <div style={{ display: "flex", minHeight: "100vh" }}>
-          <CssBaseline />
-          <Navigator
-            handleDrawerToggle={this.handleDrawerToggle}
-            mobileOpen={mobileOpen}
-            currentLink={routeProps.path}
+        <CssBaseline />
+        <Navigator
+          handleDrawerToggle={this.handleDrawerToggle}
+          mobileOpen={mobileOpen}
+          currentLink={routeProps.path}
+        />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Header
+            onDrawerToggle={this.handleDrawerToggle}
+            pageTitle={routeProps.pageTitle}
           />
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <Header
-              onDrawerToggle={this.handleDrawerToggle}
-              pageTitle={routeProps.pageTitle}
-            />
-          </div>
         </div>
+        <Content contentComponent={currentComponent} />
       </MuiThemeProvider>
     );
   }
 }
 
-Layout.propTypes = {
+LayoutContainer.propTypes = {
   currentComponent: PropTypes.object.isRequired,
   routeProps: PropTypes.object.isRequired
 };
 
-export default Layout;
+export default LayoutContainer;
