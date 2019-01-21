@@ -1,6 +1,9 @@
-export const authStyle = {
+export const authStyle = theme => ({
   authSubHeaderWrapper: {
     background: "transparent"
+  },
+  authCard: {
+    background: "#f6f6f6"
   },
   authCardHeader: {
     padding: "15px 20px",
@@ -16,7 +19,10 @@ export const authStyle = {
   },
   authFormGroup: {
     padding: "10px 0px",
-    color: "#222"
+    color: "#222",
+    "&>fieldset": {
+      width: "80%"
+    }
   },
   authHouseCheckBox: {
     lineHeight: "1.42857",
@@ -35,5 +41,20 @@ export const authStyle = {
     lineHeight: "1.428571429",
     paddingLeft: "0px",
     paddingTop: "5px"
+  },
+  radioGroup: {
+    paddingLeft: "5px",
+    "& svg": {
+      fontSize: "30px",
+      width: "0.8em",
+      height: "0.8em"
+    }
+  },
+  margin: {
+    margin: theme.spacing.unit
+  },
+  menu: {
+    width: "200px",
+    border: "10px solid yellow"
   }
-};
+});

@@ -48,6 +48,9 @@ export const appTheme = {
         "&:active": {
           boxShadow: "none"
         }
+      },
+      root: {
+        borderRadius: "4px"
       }
     },
     MuiTabs: {

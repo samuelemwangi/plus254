@@ -12,6 +12,7 @@ const FormInputBox = ({ ...formInputBoxProps }) => {
     label,
     meta: { touched, error },
     classes,
+    selectOptions,
     ...custom
   } = formInputBoxProps;
 
@@ -24,7 +25,9 @@ const FormInputBox = ({ ...formInputBoxProps }) => {
       className={classNames(classes.margin, classes.textField)}
       {...input}
       {...custom}
-    />
+    >
+      {selectOptions !== undefined && selectOptions}
+    </TextField>
   );
 };
 

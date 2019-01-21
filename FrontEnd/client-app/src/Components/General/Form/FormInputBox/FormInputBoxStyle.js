@@ -4,9 +4,8 @@ export const formInputBoxStyle = {
     flexWrap: "wrap"
   },
   textField: {
-    width: "85%",
     flexBasis: 200,
-    "& fieldset": {
+    "& div fieldset": {
       borderWidth: "1px",
       borderRadius: "4px"
     },

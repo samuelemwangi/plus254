@@ -14,19 +14,32 @@ class SignUpContainer extends Component {
 
   componentDidMount() {}
 
-  handleFormSubmit() {
+  handleFormSubmit(values) {
+    console.log(values);
     console.log(this.props);
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, pristine, invalid, dirty, submitting } = this.props;
 
-    return <SignUp handleFormSubmit={handleSubmit(this.handleFormSubmit)} />;
+    return (
+      <SignUp
+        pristine={pristine}
+        submitting={submitting}
+        invalid={invalid}
+        formIsDirty={dirty}
+        handleFormSubmit={handleSubmit(this.handleFormSubmit)}
+      />
+    );
   }
 }
 
 SignUpContainer.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = () => ({});
