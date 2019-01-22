@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 // Custom Components
-import CarouselSlideContainer from "./CarouselSlideContainer";
+
 import CarouselControlContainer from "./CarouselControlContainer";
+
+import CarouselCurrentSlide from "../../Components/Carousel/CarouselCurrentSlide";
 
 class CarouselContainer extends Component {
   constructor() {
@@ -16,6 +18,8 @@ class CarouselContainer extends Component {
     };
     this.slideChange = this.slideChange.bind(this);
   }
+
+  componentDidMount() {}
 
   slideChange = newCurrentSlide => {
     const { images } = this.props;
@@ -35,7 +39,7 @@ class CarouselContainer extends Component {
 
     return (
       <div style={{ paddingTop: "10%", textAlign: "center" }}>
-        <CarouselSlideContainer currentSlide={currentSlide} images={images} />
+        <CarouselCurrentSlide image={images[currentSlide]} />
         <CarouselControlContainer
           handleSlideChange={this.slideChange}
           images={images}

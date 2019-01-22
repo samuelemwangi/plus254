@@ -7,8 +7,7 @@ export const primaryColor = "#150b6a";
 export const carouselControlStyle = {
   slideControl: {
     height: "64px",
-    textAlign: "center",
-    marginTop: "300px"
+    textAlign: "center"
   },
   btn: {
     width: "32px",
