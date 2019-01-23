@@ -1,16 +1,12 @@
 export const thumbsShown = 3;
-export const thumbsWidth = 66;
+export const thumbsWidth = 90;
 export const thumbsHeight = 84;
 
 export const primaryColor = "#150b6a";
 
 export const carouselControlStyle = {
-  slideControl: {
-    height: "64px",
-    textAlign: "center"
-  },
   btn: {
-    width: "32px",
+    width: "20px",
     height: `${thumbsHeight}px`,
     display: "inline-block",
     margin: "0",
@@ -48,7 +44,7 @@ export const carouselControlStyle = {
     },
     "& button": {
       display: "block",
-      borderRadius: "3px",
+      borderRadius: "0px",
       padding: "0px",
       height: `${thumbsHeight - 3}px`,
       width: `${thumbsWidth - 3}px`,
@@ -63,7 +59,7 @@ export const carouselControlStyle = {
 
     "& img": {
       display: "inline-block",
-      borderRadius: "4px"
+      borderRadius: "0px"
     }
   },
   isActive: {

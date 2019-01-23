@@ -20,7 +20,7 @@ class CarouselControlContainer extends Component {
     this.slidePrev = this.slidePrev.bind(this);
   }
 
-  thumbWidth = () => 66;
+  thumbWidth = () => 90;
 
   componentDidUpdate = nextProps => {
     const { currentSlide } = this.props;

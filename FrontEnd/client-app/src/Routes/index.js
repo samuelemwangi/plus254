@@ -1,6 +1,6 @@
 import NotFoundContainer from "../Containers/NotFound";
 import SignUpFormed from "../Containers/Auth/SignUpContainer";
-import CarouselContainer from "../Containers/Carousel";
+import ProductContainer from "../Containers/Product";
 
 import { appItems, authItems } from "./RouteItems";
 
@@ -20,10 +20,10 @@ export const appRoutes = [
     connectedlinks: appItems
   },
   {
-    path: "/slides",
+    path: "/product",
     matching: true,
-    pageTitle: "Slide Items",
-    component: CarouselContainer,
+    pageTitle: "Product Item",
+    component: ProductContainer,
     connectedlinks: []
   },
   {

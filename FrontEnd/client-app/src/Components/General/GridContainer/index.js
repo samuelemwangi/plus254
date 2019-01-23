@@ -6,7 +6,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { gridContainerStyle } from "./GridContainerStyle";
 
 const GridContainer = ({ ...gridContainerProps }) => {
-  const { classes, children } = gridContainerProps;
+  const { classes, children, className, ...rest } = gridContainerProps;
 
   return (
     <Grid
@@ -14,7 +14,8 @@ const GridContainer = ({ ...gridContainerProps }) => {
       direction="row"
       justify="center"
       alignItems="center"
-      className={classes.container}
+      className={`${classes.container} ${className}`}
+      {...rest}
     >
       {children}
     </Grid>

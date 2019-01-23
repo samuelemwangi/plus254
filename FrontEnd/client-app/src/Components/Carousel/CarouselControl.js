@@ -42,27 +42,32 @@ const CarouselControl = ({ ...carouselControlProps }) => {
 
   return (
     <div className={classes.slideControl}>
-      <button
-        className={`${classes.btn} ${isLeftDisabled && classes.btnDisabled}`}
-        onClick={() => slidePrev()}
-        disabled={isLeftDisabled}
-        type="button"
-      >
-        ‹
-      </button>
+      {images.length > 1 && (
+        <button
+          className={`${classes.btn} ${isLeftDisabled && classes.btnDisabled}`}
+          onClick={() => slidePrev()}
+          disabled={isLeftDisabled}
+          type="button"
+        >
+          ‹
+        </button>
+      )}
+
       <div className={classes.controlsWrapper}>
         <ul className={classes.controls} style={style}>
           {sliderimages}
         </ul>
       </div>
-      <button
-        className={`${classes.btn} ${isRightDisabled && classes.btnDisabled}`}
-        onClick={() => slideNext()}
-        disabled={isRightDisabled}
-        type="button"
-      >
-        ›
-      </button>
+      {images.length > 1 && (
+        <button
+          className={`${classes.btn} ${isRightDisabled && classes.btnDisabled}`}
+          onClick={() => slideNext()}
+          disabled={isRightDisabled}
+          type="button"
+        >
+          ›
+        </button>
+      )}
     </div>
   );
 };

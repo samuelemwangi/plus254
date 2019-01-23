@@ -38,7 +38,7 @@ class CarouselContainer extends Component {
     const { currentSlide, isLeftDisabled, isRightDisabled } = this.state;
 
     return (
-      <div style={{ paddingTop: "10%", textAlign: "center" }}>
+      <React.Fragment>
         <CarouselCurrentSlide image={images[currentSlide]} />
         <CarouselControlContainer
           handleSlideChange={this.slideChange}
@@ -48,36 +48,12 @@ class CarouselContainer extends Component {
           isLeftDisabled={isLeftDisabled}
           isRightDisabled={isRightDisabled}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
 CarouselContainer.propTypes = {
-  images: PropTypes.array
+  images: PropTypes.array.isRequired
 };
 
-CarouselContainer.defaultProps = {
-  images: [
-    {
-      id: 0,
-      url: "http://react-compare-app.surge.sh/images/Cherry.png"
-    },
-    {
-      id: 1,
-      url: "http://react-compare-app.surge.sh/images/Nuts.png"
-    },
-    {
-      id: 2,
-      url: "http://react-compare-app.surge.sh/images/Orange.png"
-    },
-    {
-      id: 3,
-      url: "http://react-compare-app.surge.sh/images/Strawberry.png"
-    },
-    {
-      id: 4,
-      url: "http://react-compare-app.surge.sh/images/Orange.png"
-    }
-  ]
-};
 export default CarouselContainer;

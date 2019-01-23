@@ -8,9 +8,9 @@ import { carouselCurrentSlideStyle } from "./CarouselCurrentSlideStyle";
 const CarouselCurrentSlide = ({ ...carouselSlideProps }) => {
   const { classes, image } = carouselSlideProps;
 
-  const currentImage = (
+  const currentImage = image && image.id !== undefined && (
     <div key={`${image.id}slider`}>
-      <Magnifier src={image.url} width={200} mgShowOverflow={false} />
+      <Magnifier src={image.url} width="100%" mgShowOverflow={false} />
     </div>
   );
 
