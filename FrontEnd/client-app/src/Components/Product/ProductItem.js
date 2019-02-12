@@ -57,10 +57,10 @@ const ProductItem = ({ ...productItemProps }) => {
           align="left"
           className={classes.productName}
         >
-          <Link to="/product">{productDetail.name}</Link>
+          <Link to="/products/1">{productDetail.name}</Link>
         </Typography>
         <Typography variant="caption" className={classes.detailDescription}>
-          <Link to="/product">{productDescription}</Link>
+          <Link to="/products/1">{productDescription}</Link>
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
