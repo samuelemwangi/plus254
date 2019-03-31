@@ -20,8 +20,8 @@ const ProductList = ({ ...productListProps }) => {
       <Grid
         item
         md={3}
-        sm={2}
-        xs={2}
+        sm={6}
+        xs={6}
         key={itemscount}
         className={classes.productListItemWrapper}
       >

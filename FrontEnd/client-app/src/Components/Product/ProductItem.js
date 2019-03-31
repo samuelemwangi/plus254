@@ -68,6 +68,7 @@ const ProductItem = ({ ...productItemProps }) => {
           {productRating}
           {contentOptions.showReviews && <span>{productDetail.reviews}</span>}
         </div>
+
         <IconButton
           aria-label="Share"
           className={classes.cardActionsFarLeftIcons}
