@@ -1,2 +1,2 @@
 # plus254
-A Repo for trying & learning new things :smile: :smile: 
+A Repo for trying & learning new things...
