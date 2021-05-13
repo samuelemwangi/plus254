@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /// <summary>
 ///  Tracks Request Perfomance
 /// </summary>
+
+
 namespace App.Application.Infrastructure
 {
     public class RequestPerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
@@ -27,16 +29,23 @@ namespace App.Application.Infrastructure
 
             _timer.Stop();
 
-            if(_timer.ElapsedMilliseconds > 500)
+            var name = typeof(TRequest).Name;
+
+            if (_timer.ElapsedMilliseconds > 500)
             {
-                var name = typeof(TRequest).Name;
-                //Capture user Details
 
                 _logger.LogWarning("App Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, _timer.ElapsedMilliseconds, request);
+
+            }
+            else
+            {
+                _logger.LogInformation("App Request Running Normally: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, _timer.ElapsedMilliseconds, request);
 
             }
 
             return response;
         }
     }
+
+
 }

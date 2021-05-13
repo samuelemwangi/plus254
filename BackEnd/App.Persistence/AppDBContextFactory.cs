@@ -1,7 +1,6 @@
 ﻿using App.Persistence.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace App.Persistence
 {
     public class AppDbContextFactory : DesignTimeDbContextFactoryBase<AppDbContext>

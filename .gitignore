@@ -262,4 +262,4 @@ __pycache__/
 
 
 # Ignore Migrations
-[Mm]igrations/
+[Ll]ogs/

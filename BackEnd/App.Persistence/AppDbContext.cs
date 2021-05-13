@@ -1,28 +1,40 @@
-﻿using App.Domain.Entities;
+﻿using App.Domain.Entities.Messages;
+using App.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Persistence
 {
     public class AppDbContext : DbContext
     {
+        private string _entityKeyPrefix = "";
+
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
-
+            
         }
 
-        public DbSet<ProductCategory> ProductCategories { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
-        public DbSet<County> Counties { get; set; }
-        public DbSet<CountyGovernor> CountyGovernors { get; set; }
-        
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<MessageStatus> MessageStatuses { get; set; }
+        public DbSet<MessageSummaryView> MessagesSummary { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-            
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
+            modelBuilder.ApplyConfiguration(new MessageStatusConfiguration());
+
+            // Queries
+            modelBuilder.ApplyConfiguration(new MessageViewConfiguration());
+
+            // Entities
+            modelBuilder.Entity<Message>().ToTable(_entityKeyPrefix + "message");
+            modelBuilder.Entity<MessageStatus>().ToTable(_entityKeyPrefix + "message_status");
+
+            // Views 
+            modelBuilder.Entity<MessageSummaryView>().ToView(_entityKeyPrefix + "vw_message_summary");
+
+
         }
     }
 }

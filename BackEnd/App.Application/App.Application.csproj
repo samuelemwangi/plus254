@@ -1,23 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="EntitiesCommandsQueries\Categories\**" />
-    <EmbeddedResource Remove="EntitiesCommandsQueries\Categories\**" />
-    <None Remove="EntitiesCommandsQueries\Categories\**" />
+    <PackageReference Include="FluentValidation" Version="10.0.4" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.0.0" />
-    <PackageReference Include="FluentValidation" Version="8.1.2" />
-    <PackageReference Include="MediatR" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\App.Common\App.Common.csproj" />
     <ProjectReference Include="..\App.Domain\App.Domain.csproj" />
     <ProjectReference Include="..\App.Persistence\App.Persistence.csproj" />
   </ItemGroup>

@@ -2,23 +2,29 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+/// <summary>
+/// DesignTimeDbContextFactoryBase
+/// </summary>
 
 namespace App.Persistence.Infrastructure
 {
-    public abstract class DesignTimeDbContextFactoryBase<TContext>: 
+    public abstract class DesignTimeDbContextFactoryBase<TContext> :
         IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {
-        private const string ConnectionStringName = "AppDatabaseMYSQL";
+        private const string ConnectionStringName = "AppDB";
         private const string AspNetCoreEnvironment = "ASPNETCORE_ENVIRONMENT";
 
         public abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
-
         public TContext CreateDbContext(string[] args)
         {
-            var basePath = Directory.GetCurrentDirectory() + string.Format("{0}..{0}Web.API", Path.DirectorySeparatorChar);
+            string basePath = Directory.GetCurrentDirectory() + string.Format("{0}..{0}App.API", Path.DirectorySeparatorChar);
             return Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment));
-
         }
 
         private TContext Create(string basePath, string environmentName)
@@ -46,9 +52,10 @@ namespace App.Persistence.Infrastructure
 
             Console.WriteLine($"DesignTimeDbContextFactoryBase.Create(string): Connection string: '{connectionString}'.");
 
+
             var optionsBuilder = new DbContextOptionsBuilder<TContext>();
-              
-            optionsBuilder.UseMySql(connectionString);
+
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
             return CreateNewInstance(optionsBuilder.Options);
         }
