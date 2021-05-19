@@ -17,7 +17,7 @@ import * as yup from "yup";
 
 // Components
 import Page from "../../components/Page";
-import FAQS from "../Home/FAQs";
+import Footer from "../Home/Footer";
 import FormInputBox from "../../components/Form/FormInputBox";
 
 // Actions & Store
@@ -184,7 +184,7 @@ const ContactUs: FC<IContactUsProps> = ({ className }) => {
           </Grid>
         </Box>
       </Container>
-      <FAQS />
+      <Footer />
     </Page>
   );
 };

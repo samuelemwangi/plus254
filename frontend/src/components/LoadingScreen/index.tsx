@@ -1,28 +1,29 @@
-import React, { useEffect } from "react";
+import React from "react";
 import type { FC } from "react";
-import NProgress from "nprogress";
+
+// Material
 import { Box, LinearProgress } from "@material-ui/core";
+import { experimentalStyled as styled } from "@material-ui/core/styles";
 
 // Styles
-import loadingScreenStyles from "./LoadingScreenStyles";
+const LoadingWrapperStyle = styled("div")(({ theme }) => ({
+  alignItems: "center",
+  backgroundColor: theme.palette.background.default,
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+  justifyContent: "center",
+  minHeight: "100%",
+  padding: theme.spacing(3),
+}));
 
 const LoadingScreen: FC = () => {
-  const classes = loadingScreenStyles();
-
-  useEffect(() => {
-    NProgress.start();
-
-    return () => {
-      NProgress.done();
-    };
-  }, []);
-
   return (
-    <div className={classes.root}>
+    <LoadingWrapperStyle>
       <Box width={400}>
-        <LinearProgress />
+        <LinearProgress color="secondary" />
       </Box>
-    </div>
+    </LoadingWrapperStyle>
   );
 };
 

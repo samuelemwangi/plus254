@@ -1,15 +1,22 @@
 import React from "react";
 import type { FC } from "react";
+
+// Material
 import { TextField } from "@material-ui/core";
+import { experimentalStyled as styled } from "@material-ui/core/styles";
+
+// React hook form
 import { useController } from "react-hook-form";
 
-// Styles
-import useStyles from "./FormInputBoxStyles";
-
+// Interfaces
 interface IFormInputBoxProps {
   [key: string]: any;
 }
 
+// Styles
+const TextFieldStyle = styled(TextField)(() => ({}));
+
+// Main component
 const FormInputBox: FC<IFormInputBoxProps> = ({
   control,
   name,
@@ -18,7 +25,6 @@ const FormInputBox: FC<IFormInputBoxProps> = ({
   label,
   ...rest
 }) => {
-  const classes = useStyles();
   const {
     field: { ref, ...inputProps },
     fieldState: { isTouched, error },
@@ -30,10 +36,9 @@ const FormInputBox: FC<IFormInputBoxProps> = ({
   });
 
   return (
-    <TextField
+    <TextFieldStyle
       error={isTouched && error !== undefined}
-      helperText={isTouched && error?.message}
-      className={classes.textField}
+      helperText={isTouched && error && error.message}
       variant="outlined"
       label={label}
       {...rules}

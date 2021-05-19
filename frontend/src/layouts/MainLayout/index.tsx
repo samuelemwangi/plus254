@@ -1,32 +1,23 @@
 import React from "react";
 import type { FC, ReactNode } from "react";
-import PropTypes from "prop-types";
-import TopBar from "./TopBar";
+// material
+import { Box } from "@material-ui/core";
 
-// Styles
-import mainLayoutStyles from "./MainLayoutStyles";
+//custom components
+import Navbar from "./Navbar";
 
-interface MainLayoutProps {
+// interfaces
+interface IMainLayoutProps {
   children?: ReactNode;
 }
 
-const MainLayout: FC<MainLayoutProps> = ({ children }) => {
-  const classes = mainLayoutStyles();
-
+const MainLayout: FC<IMainLayoutProps> = ({ children }) => {
   return (
-    <div className={classes.root}>
-      <TopBar />
-      <div className={classes.wrapper}>
-        <div className={classes.contentContainer}>
-          <div className={classes.content}>{children}</div>
-        </div>
-      </div>
-    </div>
+    <Box sx={{ height: "100%" }}>
+      <Navbar />
+      <Box sx={{ height: "100%" }}>{children}</Box>
+    </Box>
   );
-};
-
-MainLayout.propTypes = {
-  children: PropTypes.node,
 };
 
 export default MainLayout;

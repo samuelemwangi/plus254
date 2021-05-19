@@ -5,14 +5,12 @@ import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
-// Styles
-
-interface PageProps extends HTMLProps<HTMLDivElement> {
+interface IPageProps extends HTMLProps<HTMLDivElement> {
   children?: ReactNode;
   title?: string;
 }
 
-const Page = forwardRef<HTMLDivElement, PageProps>(
+const Page = forwardRef<HTMLDivElement, IPageProps>(
   ({ children, title = "", ...rest }, ref) => {
     const location = useLocation();
 

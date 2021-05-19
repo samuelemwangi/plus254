@@ -4,7 +4,7 @@ import { Typography, Container, Box, Grid } from "@material-ui/core";
 import clsx from "clsx";
 
 import Page from "../../components/Page";
-import FAQS from "../Home/FAQs";
+import Footer from "../Home/Footer";
 // Styles
 import useStyles from "./AboutUsStyles";
 
@@ -34,7 +34,7 @@ const AboutUs: FC<IAboutUsProps> = ({ className }) => {
           </Grid>
         </Box>
       </Container>
-      <FAQS />
+      <Footer />
     </Page>
   );
 };

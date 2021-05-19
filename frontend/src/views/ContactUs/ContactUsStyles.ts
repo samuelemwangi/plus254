@@ -3,7 +3,7 @@ import { Theme } from "../../theme";
 
 export default makeStyles((theme: Theme) => ({
   root: {},
-  hireUsWrapper: {
+  contactUsWrapper: {
     paddingTop: 80,
     paddingBottom: 50,
     paddingLeft: 50,

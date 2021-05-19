@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { colors, createMuiTheme, responsiveFontSizes } from "@material-ui/core";
-import type { Theme as MuiTheme } from "@material-ui/core/styles/createMuiTheme";
+import { colors, createTheme, responsiveFontSizes } from "@material-ui/core";
+import type { Theme as MuiTheme } from "@material-ui/core/styles/";
 import type { Shadows as MuiShadows } from "@material-ui/core/styles/shadows";
 import type {
   Palette as MuiPalette,
@@ -95,14 +95,17 @@ const themesOptions: ThemeOptions[] = [
         paper: colors.common.white,
       },
       primary: {
-        main: "#263238",
+        main: "#A7131D",
       },
       secondary: {
-        main: "#2C0548",
+        main: "#005D28",
       },
       text: {
         primary: colors.blueGrey[900],
         secondary: colors.blueGrey[600],
+      },
+      white: {
+        main: "#FFF",
       },
     },
     shadows: softShadows,
@@ -134,19 +137,22 @@ const themesOptions: ThemeOptions[] = [
         primary: "#e6e5e8",
         secondary: "#adb0bb",
       },
+      white: {
+        main: "#FFF",
+      },
     },
     shadows: strongShadows,
   },
 ];
 
-export const createTheme = (config: ThemeConfig = {}): Theme => {
+export const createAppTheme = (config: ThemeConfig = {}): Theme => {
   let themeOptions = themesOptions.find((theme) => theme.name === config.theme);
 
   if (!themeOptions) {
     [themeOptions] = themesOptions;
   }
 
-  let theme = createMuiTheme(
+  let theme = createTheme(
     _.merge({}, baseOptions, themeOptions, { direction: config.direction })
   );
 

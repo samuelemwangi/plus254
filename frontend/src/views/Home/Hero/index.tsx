@@ -1,109 +1,169 @@
-import React from "react";
-import type { FC } from "react";
-import PropTypes from "prop-types";
-import clsx from "clsx";
+/* eslint-disable react/no-unescaped-entities */
+import React, { FC } from "react";
+import { motion } from "framer-motion";
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Container, Grid, Typography, Button } from "@material-ui/core";
-import {
-  WebOutlined,
-  PhoneAndroidOutlined,
-  GradeOutlined,
-  LinkOutlined,
-} from "@material-ui/icons";
-// Styles
-import heroStyles from "./HeroStyles";
 
+// material
+import { experimentalStyled as styled } from "@material-ui/core/styles";
+import { Button, Box, Container, Typography } from "@material-ui/core";
+// routes
+
+//
+import {
+  varFadeIn,
+  varWrapEnter,
+  varFadeInUp,
+  varFadeInRight,
+} from "../../../components/Animate";
+
+// interfaces
 interface IHeroProps {
   className?: string;
 }
 
-const Hero: FC<IHeroProps> = ({ className, ...rest }) => {
-  const classes = heroStyles();
+// styles
+const RootStyle = styled(motion.div)(({ theme }) => ({
+  position: "relative",
+  backgroundColor: "#F2F3F5",
+  [theme.breakpoints.up("md")]: {
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100vh",
+    display: "flex",
+    position: "fixed",
+    alignItems: "center",
+  },
+}));
 
+const ContentStyle = styled("div")(({ theme }) => ({
+  zIndex: 10,
+  maxWidth: 520,
+  margin: "auto",
+  textAlign: "center",
+  position: "relative",
+  paddingTop: theme.spacing(15),
+  paddingBottom: theme.spacing(15),
+  [theme.breakpoints.up("md")]: {
+    margin: "unset",
+    textAlign: "left",
+  },
+}));
+
+const HeroOverlayStyle = styled(motion.img)({
+  zIndex: 9,
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  position: "absolute",
+});
+
+const HeroImgStyle = styled(motion.img)(({ theme }) => ({
+  top: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 8,
+  width: "100%",
+  margin: "auto",
+  position: "absolute",
+  [theme.breakpoints.up("lg")]: {
+    right: "15%",
+    width: "auto",
+    height: "72vh",
+  },
+}));
+
+// main component
+const Hero: FC<IHeroProps> = () => {
   return (
-    <div className={clsx(classes.root, className)} {...rest}>
-      <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={5}>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              height="100%"
-            >
-              <Typography variant="h1" color="textPrimary">
-                Upfik
-              </Typography>
-              <Box mt={3}>
-                <Typography variant="body1" color="textSecondary">
-                  A technology consulting company providing solutions to SMEs
-                  and Corporations.
-                </Typography>
-              </Box>
-              <Box mt={3}>
-                <Grid container spacing={3}>
-                  <Grid item>
-                    <Typography variant="h1" color="secondary">
-                      <WebOutlined fontSize="large" />
-                    </Typography>
-                    <Typography variant="overline" color="textSecondary">
-                      Web
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="h1" color="secondary">
-                      <PhoneAndroidOutlined fontSize="large" />
-                    </Typography>
-                    <Typography variant="overline" color="textSecondary">
-                      Mobile
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="h1" color="secondary">
-                      <GradeOutlined fontSize="large" />
-                    </Typography>
-                    <Typography variant="overline" color="textSecondary">
-                      Quality
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="h1" color="secondary">
-                      <LinkOutlined fontSize="large" />
-                    </Typography>
-                    <Typography variant="overline" color="textSecondary">
-                      Integration
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Box>
-              <Box mt={3}>
-                <Button
-                  component={RouterLink}
-                  to="/contact-us"
-                  variant="outlined"
-                  size="large"
-                  color="secondary"
-                >
-                  Hire us
-                </Button>
-              </Box>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={7}>
-            <Box position="relative">
-              <div className={classes.image}>
-                <img alt="Presentation" src="/static/home/content_team.svg" />
-              </div>
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
-    </div>
-  );
-};
+    <>
+      <RootStyle initial="initial" animate="animate" variants={varWrapEnter}>
+        <HeroOverlayStyle
+          alt="overlay"
+          src="/static/home/overlay.svg"
+          variants={varFadeIn}
+        />
 
-Hero.propTypes = {
-  className: PropTypes.string,
+        <HeroImgStyle
+          alt="hero"
+          src="/static/home/kenya.png"
+          variants={varFadeInUp}
+        />
+
+        <Container maxWidth="lg">
+          <ContentStyle>
+            <motion.div variants={varFadeInRight}>
+              <Typography variant="h1" sx={{ color: "common.white" }}>
+                Welcome to
+                <br />
+                <Typography
+                  component="span"
+                  variant="h1"
+                  sx={{ color: "primary.main" }}
+                >
+                  plus254
+                </Typography>
+              </Typography>
+            </motion.div>
+
+            <motion.div variants={varFadeInRight}>
+              <Typography sx={{ py: 5, color: "common.white" }}>
+                A country in East Africa with coastline on the Indian Ocean. It
+                encompasses savannah, lakelands, the dramatic Great Rift Valley
+                and mountain highlands. It's also home to wildlife like lions,
+                elephants and rhinos. From Nairobi, the capital, safaris visit
+                the Maasai Mara Reserve, known for its annual wildebeest
+                migrations, and Amboseli National Park, offering views of
+                Tanzania's 5,895m Mt. Kilimanjaro. ― Google
+              </Typography>
+            </motion.div>
+
+            <motion.div variants={varFadeInRight}>
+              <Button
+                size="large"
+                variant="contained"
+                component={RouterLink}
+                to="/"
+              >
+                Explore
+              </Button>
+            </motion.div>
+
+            <Box
+              sx={{
+                mt: 5,
+                display: "flex",
+                justifyContent: { xs: "center", md: "flex-start" },
+                "& > :not(:last-of-type)": { mr: 1.5 },
+              }}
+            >
+              <motion.img
+                variants={varFadeInRight}
+                src="/static/home/icons/forest.png"
+              />
+              <motion.img
+                variants={varFadeInRight}
+                src="/static/home/icons/lake.png"
+              />
+              <motion.img
+                variants={varFadeInRight}
+                src="/static/home/icons/culture.png"
+              />
+              <motion.img
+                variants={varFadeInRight}
+                src="/static/home/icons/lion.png"
+              />
+              <motion.img
+                variants={varFadeInRight}
+                src="/static/home/icons/running.png"
+              />
+            </Box>
+          </ContentStyle>
+        </Container>
+      </RootStyle>
+      <Box sx={{ height: { md: "100vh" } }} />
+    </>
+  );
 };
 
 export default Hero;

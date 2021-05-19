@@ -1,7 +1,8 @@
 import React from "react";
 import type { FC } from "react";
-import PropTypes from "prop-types";
 import clsx from "clsx";
+
+// Material
 import {
   Box,
   Container,
@@ -11,17 +12,47 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core";
-
 import { Instagram, Twitter, Facebook } from "@material-ui/icons";
-// Styles
-import fAQsStyles from "./FAQsStyles";
+import { makeStyles } from "@material-ui/styles";
+import { Theme } from "../../../theme";
 
-interface IFAQSProps {
+// interfaces
+interface IFooterProps {
   className?: string;
 }
 
-const FAQS: FC<IFAQSProps> = ({ className, ...rest }) => {
-  const classes = fAQsStyles();
+// Styles
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    backgroundColor: theme.palette.background.dark,
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
+    "& dt": {
+      marginTop: theme.spacing(2),
+    },
+  },
+  services: {
+    paddingTop: "20px",
+    "& li": {
+      padding: "2px 0px 2px 0px",
+    },
+  },
+  socialLinks: {
+    paddingTop: "10px",
+    textDecoration: "none",
+    "& *": {
+      color: theme.palette.text.secondary,
+    },
+    "& a": {
+      textDecoration: "none",
+      paddingRight: "10px",
+    },
+  },
+}));
+
+// Main Component
+const Footer: FC<IFooterProps> = ({ className, ...rest }) => {
+  const classes = useStyles();
 
   return (
     <div className={clsx(classes.root, className)} {...rest}>
@@ -116,8 +147,4 @@ const FAQS: FC<IFAQSProps> = ({ className, ...rest }) => {
   );
 };
 
-FAQS.propTypes = {
-  className: PropTypes.string,
-};
-
-export default FAQS;
+export default Footer;
