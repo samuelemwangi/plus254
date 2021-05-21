@@ -3,6 +3,8 @@ import type { FC } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { create } from "jss";
 import rtl from "jss-rtl";
+
+//  Material
 import { StylesProvider, ThemeProvider } from "@material-ui/styles";
 import { jssPreset } from "@material-ui/styles";
 
@@ -15,6 +17,7 @@ import routes, { renderRoutes } from "./routes";
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
+// App component
 const App: FC = () => {
   const { settings } = useSettings();
 
