@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useForm, SubmitHandler } from "react-hook-form";
 import type { FC } from "react";
+
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+
+// Material
 import {
   Box,
   Container,
@@ -9,9 +12,12 @@ import {
   Typography,
   FormHelperText,
   Button,
+  experimentalStyled as styled,
+  useTheme,
 } from "@material-ui/core";
 
-import clsx from "clsx";
+// React Hook Form
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -19,24 +25,58 @@ import * as yup from "yup";
 import Page from "../../components/Page";
 import Footer from "../Home/Footer";
 import FormInputBox from "../../components/Form/FormInputBox";
+import { varFadeInUp, MotionInView } from "../../components/Animate";
 
 // Actions & Store
 import { IContactUsPayload } from "../../contracts/ContactUs";
 import { clearContactUs, contactUsUpdate } from "../../actions/ContactUs";
 import { AppState } from "../../reducers";
 
-// styles
-import useStyles from "./ContactUsStyles";
+//Styles
+const PageStyle = styled(Page)(() => {
+  const appTheme = useTheme();
+
+  return {
+    backgroundColor: appTheme.palette.background.default,
+    paddingTop: 200,
+    paddingBottom: 150,
+    paddingLeft: 10,
+    [appTheme.breakpoints.down("md")]: {
+      paddingTop: 80,
+      paddingBottom: 60,
+      paddingLeft: 5,
+    },
+  };
+});
+
+const FormWrapperStyle = styled("div")(() => ({
+  "& form": {
+    paddingLeft: 0,
+    paddingRight: 5,
+  },
+}));
+
+const ContactUsImageStyle = styled("div")(() => ({
+  perspectiveOrigin: "left center",
+  transformStyle: "preserve-3d",
+  perspective: 1500,
+  "& > img": {
+    maxWidth: "100%",
+    height: "auto",
+    padding: 20,
+    transform: "rotateY(-35deg) rotateX(15deg)",
+    backfaceVisibility: "hidden",
+  },
+}));
 
 // Interfaces
 interface IContactUsProps {
   className?: string;
 }
+
 interface IFormInput extends IContactUsPayload {}
 
-const ContactUs: FC<IContactUsProps> = ({ className }) => {
-  const classes = useStyles();
-
+const ContactUs: FC<IContactUsProps> = () => {
   // Connect to redux
   const dispatch = useDispatch();
   const contactUsState: any = useSelector(
@@ -100,92 +140,100 @@ const ContactUs: FC<IContactUsProps> = ({ className }) => {
 
   // Decide whether to show error
   const formHelperProps = {
-    className: classes.formHelperResult,
     error: updateSuccessful ? false : true,
   };
 
-  const classNames = clsx({
-    [classes.buttonProgress]: formSubmitting,
-  });
-
   return (
-    <Page className={clsx(classes.root, className)} title="Hire Us">
-      <Container maxWidth="lg" className={classes.contactUsWrapper}>
-        <Box mt={8}>
+    <>
+      <PageStyle title="Contact Us">
+        <Container maxWidth="lg">
           <Grid container spacing={3}>
-            <Grid item md={8} sm={8} xs={10}>
-              <Typography variant="h2" align="left" color="textPrimary">
-                Hire Us
+            <Grid item xs={12} md={7}>
+              <Typography variant="h2" align="left" color="primary">
+                Contact Us
               </Typography>
+              <FormWrapperStyle>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <FormInputBox
+                    control={control}
+                    name="name"
+                    label="Your Name"
+                    margin="normal"
+                    type="text"
+                    fullWidth
+                  />
+                  <FormInputBox
+                    control={control}
+                    name="email"
+                    label="Email Address"
+                    margin="normal"
+                    type="email"
+                    fullWidth
+                  />
+
+                  <FormInputBox
+                    control={control}
+                    label="Mobile Number"
+                    margin="normal"
+                    name="mobile"
+                    type="text"
+                    fullWidth
+                  />
+
+                  <FormInputBox
+                    control={control}
+                    label="How can we help you?"
+                    margin="normal"
+                    name="desc"
+                    type="text"
+                    fullWidth
+                    multiline
+                    rows={4}
+                  />
+
+                  <Box mt={3}>
+                    <FormHelperText
+                      {...formHelperProps}
+                      onLoad={() => resetForm()}
+                    >
+                      {updateSuccessful
+                        ? contactUsState.data
+                        : contactUsState.error}
+                    </FormHelperText>
+                  </Box>
+                  <Box mt={2}>
+                    <Button
+                      color="secondary"
+                      disabled={formSubmitting}
+                      size="large"
+                      type="submit"
+                      variant="outlined"
+                    >
+                      Submit
+                    </Button>
+                  </Box>
+                </form>
+              </FormWrapperStyle>
             </Grid>
-            <Grid item md={8} sm={8} xs={10} className={classes.formWrapper}>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <FormInputBox
-                  control={control}
-                  name="name"
-                  label="Your Name"
-                  margin="normal"
-                  type="text"
-                  fullWidth
-                />
-                <FormInputBox
-                  control={control}
-                  name="email"
-                  label="Email Address"
-                  margin="normal"
-                  type="email"
-                  fullWidth
-                />
-
-                <FormInputBox
-                  control={control}
-                  label="Mobile Number"
-                  margin="normal"
-                  name="mobile"
-                  type="text"
-                  fullWidth
-                />
-
-                <FormInputBox
-                  control={control}
-                  label="How can we help you?"
-                  margin="normal"
-                  name="desc"
-                  type="text"
-                  fullWidth
-                  multiline
-                  rows={4}
-                />
-
-                <Box mt={3}>
-                  <FormHelperText
-                    {...formHelperProps}
-                    onLoad={() => resetForm()}
-                  >
-                    {updateSuccessful
-                      ? contactUsState.data
-                      : contactUsState.error}
-                  </FormHelperText>
-                </Box>
-                <Box mt={2}>
-                  <Button
-                    color="secondary"
-                    disabled={formSubmitting}
-                    size="large"
-                    type="submit"
-                    variant="outlined"
-                    className={classNames}
-                  >
-                    Submit
-                  </Button>
-                </Box>
-              </form>
+            <Grid item xs={12} md={5}>
+              <Box position="relative">
+                <ContactUsImageStyle>
+                  <MotionInView variants={varFadeInUp}>
+                    <Box
+                      component="img"
+                      alt="Contact us"
+                      src="/static/contact-us/contact-us.svg"
+                      sx={{ m: "auto" }}
+                    />
+                  </MotionInView>
+                </ContactUsImageStyle>
+              </Box>
             </Grid>
           </Grid>
-        </Box>
-      </Container>
+        </Container>
+      </PageStyle>
       <Footer />
-    </Page>
+    </>
   );
 };
 

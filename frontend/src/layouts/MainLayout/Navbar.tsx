@@ -4,7 +4,11 @@ import { useState, useRef } from "react";
 import { NavLink as RouterLink, useLocation } from "react-router-dom";
 
 // material
-import { alpha, experimentalStyled as styled } from "@material-ui/core/styles";
+import {
+  alpha,
+  experimentalStyled as styled,
+  useTheme,
+} from "@material-ui/core/styles";
 import {
   Box,
   List,
@@ -18,6 +22,7 @@ import {
   useMediaQuery,
   makeStyles,
 } from "@material-ui/core";
+import { Menu as MenuIcon } from "@material-ui/icons";
 
 // hooks
 import useOffSetTop from "../../hooks/useOffSetTop";
@@ -40,7 +45,7 @@ const MENU_LINKS = [
 ];
 
 const APP_BAR_MOBILE = 64;
-const APP_BAR_DESKTOP = 96;
+const APP_BAR_DESKTOP = 75;
 
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -72,19 +77,6 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   [theme.breakpoints.up("md")]: { height: APP_BAR_DESKTOP },
 }));
 
-const ToolbarShadowStyle = styled("div")(({ theme }) => ({
-  left: 0,
-  right: 0,
-  bottom: 0,
-  height: 24,
-  zIndex: -1,
-  margin: "auto",
-  borderRadius: "50%",
-  position: "absolute",
-  width: `calc(100% - 48px)`,
-  boxShadow: theme.shadows[24],
-}));
-
 const Navbar: FC<INavbarProps> = () => {
   const anchorRef = useRef(null);
   const { pathname } = useLocation();
@@ -93,6 +85,7 @@ const Navbar: FC<INavbarProps> = () => {
   const isHome = pathname === "/";
 
   const classes = useStyles();
+  const appTheme: Theme = useTheme();
 
   const renderMenuDesktop = (
     <>
@@ -108,14 +101,14 @@ const Navbar: FC<INavbarProps> = () => {
           className={classes.link}
           sx={{
             mr: 5,
-            color: (theme) => theme.palette.text.secondary,
-            transition: (theme) =>
-              theme.transitions.create("opacity", {
-                duration: theme.transitions.duration.shortest,
+            color: appTheme.palette.text.secondary,
+            transition: () =>
+              appTheme.transitions.create("opacity", {
+                duration: appTheme.transitions.duration.shortest,
               }),
             "&:hover": { opacity: 0.48 },
             ...(isHome && { color: "#000" }),
-            ...(offset && { color: (theme) => theme.palette.text.secondary }),
+            ...(offset && { color: appTheme.palette.text.secondary }),
           }}
         >
           {link.title}
@@ -151,20 +144,24 @@ const Navbar: FC<INavbarProps> = () => {
     </MenuPopover>
   );
 
-  const mdUP = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
-  const mdDown = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
+  const mdUP = useMediaQuery(appTheme.breakpoints.up("md"));
+  const mdDown = useMediaQuery(appTheme.breakpoints.down("md"));
 
   return (
-    <RootStyle color="transparent">
-      <ToolbarStyle
-        disableGutters
-        sx={{
-          ...(offset && {
-            bgcolor: "background.default",
-            height: { md: APP_BAR_DESKTOP - 20 },
-          }),
-        }}
-      >
+    <RootStyle
+      color="transparent"
+      sx={{
+        ...(offset && {
+          backgroundColor: appTheme.palette.background.dark,
+          boxShadow: appTheme.shadows[24],
+        }),
+        ...(!isHome && {
+          backgroundColor: appTheme.palette.background.dark,
+          boxShadow: appTheme.shadows[24],
+        }),
+      }}
+    >
+      <ToolbarStyle disableGutters>
         <Container
           maxWidth="lg"
           sx={{
@@ -189,18 +186,17 @@ const Navbar: FC<INavbarProps> = () => {
                   ml: 1,
                   ...(isHome && { color: "#FFF" }),
                   ...(offset && {
-                    color: (theme) => theme.palette.primary.main,
+                    color: appTheme.palette.primary.main,
                   }),
                 }}
-              ></IconButton>
+              >
+                <MenuIcon />
+              </IconButton>
               {renderMenuMobile}
             </>
           )}
         </Container>
       </ToolbarStyle>
-
-      {offset && <ToolbarShadowStyle />}
-      {/* {!isHome && <ToolbarShadowStyle />} */}
     </RootStyle>
   );
 };

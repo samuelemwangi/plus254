@@ -57,12 +57,12 @@ const routes: Routes = [
       },
       {
         exact: true,
-        path: "/about",
+        path: "/about-us",
         component: lazy(() => import("./views/AboutUs")),
       },
       {
         exact: true,
-        path: "/hire-us",
+        path: "/contact-us",
         component: lazy(() => import("./views/ContactUs")),
       },
       {

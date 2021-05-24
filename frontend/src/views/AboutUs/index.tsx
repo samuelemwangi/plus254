@@ -1,59 +1,96 @@
 import React from "react";
 import type { FC } from "react";
-import clsx from "clsx";
 
 // Material
 import {
-  Typography,
   Container,
   Box,
   Grid,
+  Typography,
   experimentalStyled as styled,
+  useTheme,
 } from "@material-ui/core";
 
 // Components
 import Page from "../../components/Page";
 import Footer from "../Home/Footer";
+import { varFadeInUp, MotionInView } from "../../components/Animate";
 
 // Styles
-import useStyles from "./AboutUsStyles";
+const PageStyle = styled(Page)(() => {
+  const appTheme = useTheme();
 
-const ContentStyle = styled("div")(({ theme }) => ({
-  overflow: "hidden",
-  position: "relative",
-  backgroundColor: theme.palette.background.default,
+  return {
+    backgroundColor: appTheme.palette.background.default,
+    paddingTop: 200,
+    paddingBottom: 200,
+    paddingLeft: 40,
+    [appTheme.breakpoints.down("md")]: {
+      paddingTop: 80,
+      paddingBottom: 60,
+      paddingLeft: 5,
+    },
+  };
+});
+
+const AboutUsImageStyle = styled("div")(() => ({
+  perspectiveOrigin: "left center",
+  transformStyle: "preserve-3d",
+  perspective: 1500,
+  "& > img": {
+    maxWidth: "100%",
+    height: "auto",
+    padding: 20,
+    transform: "rotateY(-35deg) rotateX(15deg)",
+    backfaceVisibility: "hidden",
+  },
 }));
 
 interface IAboutUsProps {
   className?: string;
 }
 
-const AboutUs: FC<IAboutUsProps> = ({ className }) => {
-  const classes = useStyles();
-
+const AboutUs: FC<IAboutUsProps> = () => {
   return (
-    <Page className={clsx(classes.root, className)} title="About Us">
-      <ContentStyle>
-        <Container maxWidth="lg" className={classes.aboutUs}>
-          <Box mt={8}>
-            <Grid container spacing={3}>
-              <Grid item md={8} sm={8} xs={10}>
-                <Typography variant="h2" align="left" color="textPrimary">
-                  About Us
+    <>
+      <PageStyle title="About Us">
+        <Container maxWidth="lg">
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={5}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                height="100%"
+              >
+                <Typography variant="h1" color="primary" paddingBottom="5px">
+                  About us
                 </Typography>
-                <Typography component="p" className={classes.aboutBody}>
-                  We are we
+                <Typography variant="body1" color="textSecondary">
+                  We are about documenting the beautiful plus254
                 </Typography>
-                <Typography component="p" className={classes.aboutCaption}>
-                  We ....
-                </Typography>
-              </Grid>
+              </Box>
             </Grid>
-          </Box>
+            <Grid item xs={12} md={7}>
+              <Box position="relative">
+                <AboutUsImageStyle>
+                  <MotionInView variants={varFadeInUp}>
+                    <Box
+                      component="img"
+                      alt="Contact us"
+                      src="/static/about-us/personal_information.svg"
+                      height="400px"
+                      sx={{ m: "auto" }}
+                    />
+                  </MotionInView>
+                </AboutUsImageStyle>
+              </Box>
+            </Grid>
+          </Grid>
         </Container>
-        <Footer />
-      </ContentStyle>
-    </Page>
+      </PageStyle>
+      <Footer />
+    </>
   );
 };
 
