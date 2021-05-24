@@ -200,6 +200,7 @@ const Navbar: FC<INavbarProps> = () => {
       </ToolbarStyle>
 
       {offset && <ToolbarShadowStyle />}
+      {/* {!isHome && <ToolbarShadowStyle />} */}
     </RootStyle>
   );
 };
