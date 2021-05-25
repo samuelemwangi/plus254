@@ -2,20 +2,20 @@ import React from "react";
 import type { FC } from "react";
 
 // Material
-import { Typography } from "@material-ui/core";
-import { experimentalStyled as styled } from "@material-ui/core/styles";
-
-// Interfaces
-interface LogoProps {
-  [key: string]: any;
-}
+import { Typography, experimentalStyled as styled } from "@material-ui/core";
 
 // Styles
 const TypographyStyle = styled(Typography)(() => ({}));
+
 const ImageStyle = styled("img")(() => ({}));
 
+// Interfaces
+interface ILogoProps {
+  [key: string]: any;
+}
+
 // Main component
-const Logo: FC<LogoProps> = (props) => {
+const Logo: FC<ILogoProps> = (props) => {
   const logo =
     props && props.name ? (
       <TypographyStyle variant="h2" color="primary">

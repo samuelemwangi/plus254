@@ -12,15 +12,19 @@ interface formFileType {
 export const required = (value: formValueType): returnValueType =>
   value ? undefined : "Required";
 
-export const minLength = (min: Number) => (
-  value: formValueType
-): returnValueType =>
-  value && value.length < min ? `Must be ${min} characters or more` : undefined;
+export const minLength =
+  (min: Number) =>
+  (value: formValueType): returnValueType =>
+    value && value.length < min
+      ? `Must be ${min} characters or more`
+      : undefined;
 
-export const maxLength = (max: Number) => (
-  value: formValueType
-): returnValueType =>
-  value && value.length > max ? `Must be ${max} characters or less` : undefined;
+export const maxLength =
+  (max: Number) =>
+  (value: formValueType): returnValueType =>
+    value && value.length > max
+      ? `Must be ${max} characters or less`
+      : undefined;
 
 export const alphaNumeric = (value: formValueType): returnValueType =>
   value && !/^[A-Z0-9 ]+$/i.test(value) ? "Alphanumeric required" : undefined;

@@ -11,10 +11,10 @@ import {
   Grid,
   Typography,
   FormHelperText,
-  Button,
   experimentalStyled as styled,
   useTheme,
 } from "@material-ui/core";
+import { LoadingButton } from "@material-ui/lab";
 
 // React Hook Form
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -23,7 +23,7 @@ import * as yup from "yup";
 
 // Components
 import Page from "../../components/Page";
-import Footer from "../Home/Footer";
+import Footer from "../Footer";
 import FormInputBox from "../../components/Form/FormInputBox";
 import { varFadeInUp, MotionInView } from "../../components/Animate";
 
@@ -32,14 +32,17 @@ import { IContactUsPayload } from "../../contracts/ContactUs";
 import { clearContactUs, contactUsUpdate } from "../../actions/ContactUs";
 import { AppState } from "../../reducers";
 
+// Theme
+import { Theme } from "../../theme";
+
 //Styles
 const PageStyle = styled(Page)(() => {
-  const appTheme = useTheme();
+  const appTheme: Theme = useTheme();
 
   return {
     backgroundColor: appTheme.palette.background.default,
-    paddingTop: 200,
-    paddingBottom: 150,
+    paddingTop: 155,
+    paddingBottom: 155,
     paddingLeft: 10,
     [appTheme.breakpoints.down("md")]: {
       paddingTop: 80,
@@ -202,15 +205,16 @@ const ContactUs: FC<IContactUsProps> = () => {
                     </FormHelperText>
                   </Box>
                   <Box mt={2}>
-                    <Button
+                    <LoadingButton
                       color="secondary"
                       disabled={formSubmitting}
+                      loading={formSubmitting}
                       size="large"
                       type="submit"
                       variant="outlined"
                     >
                       Submit
-                    </Button>
+                    </LoadingButton>
                   </Box>
                 </form>
               </FormWrapperStyle>

@@ -1,10 +1,7 @@
 import React from "react";
 import type { FC } from "react";
-
-// Router
 import { Link as RouterLink } from "react-router-dom";
 
-// Material
 import {
   Box,
   Button,
@@ -15,11 +12,12 @@ import {
   useTheme,
 } from "@material-ui/core";
 
+import Page from "../../../components/Page";
+
 // Animation
 import { varFadeInUp, MotionInView } from "../../../components/Animate";
 
 // Components
-import Page from "../../../components/Page";
 import Footer from "../../Footer";
 
 const PageStyle = styled(Page)(() => {
@@ -35,11 +33,11 @@ const PageStyle = styled(Page)(() => {
 });
 
 // Interfaces
-interface INotFoundViewProps {
+interface ISystemErrorViewProps {
   className?: string;
 }
 
-const NotFoundView: FC<INotFoundViewProps> = () => {
+const SystemErrorView: FC<ISystemErrorViewProps> = () => {
   const theme = useTheme();
   const mobileDevice = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -52,10 +50,10 @@ const NotFoundView: FC<INotFoundViewProps> = () => {
             variant={mobileDevice ? "h4" : "h1"}
             color="textPrimary"
           >
-            404: Page not found
+            500: System Error
           </Typography>
           <Typography align="center" variant="subtitle2" color="textSecondary">
-            This page is not available. Sorry about that.
+            A System error occured. Sorry about that.
           </Typography>
 
           <MotionInView variants={varFadeInUp}>
@@ -65,7 +63,7 @@ const NotFoundView: FC<INotFoundViewProps> = () => {
               justifyContent="center"
               component="img"
               alt="Contact us"
-              src="/static/not_found.svg"
+              src="/static/server_down.svg"
               height="400px"
               sx={{
                 m: "auto",
@@ -94,4 +92,4 @@ const NotFoundView: FC<INotFoundViewProps> = () => {
   );
 };
 
-export default NotFoundView;
+export default SystemErrorView;

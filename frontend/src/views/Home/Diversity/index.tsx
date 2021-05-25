@@ -1,14 +1,10 @@
 import React from "react";
 import type { FC } from "react";
+
+// Router
 import { Link as RouterLink } from "react-router-dom";
 
-// material
-import {
-  alpha,
-  useTheme,
-  experimentalStyled as styled,
-} from "@material-ui/core/styles";
-
+// Material
 import {
   Box,
   Grid,
@@ -16,47 +12,58 @@ import {
   Container,
   Typography,
   useMediaQuery,
+  experimentalStyled as styled,
+  useTheme,
+  alpha,
 } from "@material-ui/core";
 
-//
+// Animation
 import {
   varFadeInUp,
   varFadeInRight,
   MotionInView,
 } from "../../../components/Animate";
 
-// Interfaces
-interface IDiversityProps {
-  className?: string;
-}
-// Styles
-const RootStyle = styled("div")(({ theme }) => ({
-  padding: theme.spacing(15, 0),
-  paddingTop: 175,
-  backgroundImage:
-    theme.palette.mode === "light"
-      ? `linear-gradient(180deg, ${alpha(theme.palette.grey[300], 0)} 0%, ${
-          theme.palette.grey[300]
-        } 100%)`
-      : "none",
-}));
+// Theme
+import { Theme } from "../../../theme";
 
-const ContentStyle = styled("div")(({ theme }) => ({
-  maxWidth: 520,
-  margin: "auto",
-  textAlign: "center",
-  marginBottom: theme.spacing(10),
-  [theme.breakpoints.up("md")]: {
-    height: "100%",
-    marginBottom: 0,
-    textAlign: "left",
-    display: "inline-flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    paddingRight: theme.spacing(5),
-  },
-}));
+// Styles
+const RootStyle = styled("div")(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    padding: appTheme.spacing(15, 0),
+    paddingTop: 175,
+    backgroundImage:
+      appTheme.palette.mode === "light"
+        ? `linear-gradient(180deg, ${alpha(
+            appTheme.palette.grey[300],
+            0
+          )} 0%, ${appTheme.palette.grey[300]} 100%)`
+        : "none",
+  };
+});
+
+const ContentStyle = styled("div")(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    maxWidth: 520,
+    margin: "auto",
+    textAlign: "center",
+    marginBottom: appTheme.spacing(10),
+    [appTheme.breakpoints.up("md")]: {
+      height: "100%",
+      marginBottom: 0,
+      textAlign: "left",
+      display: "inline-flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      justifyContent: "center",
+      paddingRight: appTheme.spacing(5),
+    },
+  };
+});
 
 const ScreenStyle = styled(MotionInView)({
   bottom: 0,
@@ -84,6 +91,11 @@ const variantScreenRight = {
   initial: { x: "34%", y: -50, opacity: 0 },
   animate: { x: "64%", y: -80, opacity: 1 },
 };
+
+// Interfaces
+interface IDiversityProps {
+  className?: string;
+}
 
 const Diversity: FC<IDiversityProps> = () => {
   const theme = useTheme();

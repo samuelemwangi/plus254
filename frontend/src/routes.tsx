@@ -67,6 +67,11 @@ const routes: Routes = [
       },
       {
         exact: true,
+        path: "/500",
+        component: lazy(() => import("./views/errors/SystemErrorView")),
+      },
+      {
+        exact: true,
         path: "/404",
         component: lazy(() => import("./views/errors/NotFoundView")),
       },

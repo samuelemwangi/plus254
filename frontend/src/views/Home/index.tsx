@@ -2,19 +2,17 @@ import React from "react";
 import type { FC } from "react";
 
 // Material
-import { makeStyles, experimentalStyled as styled } from "@material-ui/core";
+import { experimentalStyled as styled } from "@material-ui/core";
 
 // Components
 import Page from "../../components/Page";
 import Hero from "./Hero";
 import Diversity from "./Diversity";
 import Summary from "./Summary";
-import Footer from "./Footer";
+import Footer from "../Footer";
 
 // Styles
-const useStyles = makeStyles(() => ({
-  root: {},
-}));
+const PageStyle = styled(Page)(() => ({}));
 
 const ContentStyle = styled("div")(({ theme }) => ({
   overflow: "hidden",
@@ -24,17 +22,15 @@ const ContentStyle = styled("div")(({ theme }) => ({
 
 // Main component
 const Home: FC = () => {
-  const classes = useStyles();
-
   return (
-    <Page className={classes.root} title="Home">
+    <PageStyle title="Home">
       <Hero />
       <ContentStyle>
         <Diversity />
         <Summary />
         <Footer />
       </ContentStyle>
-    </Page>
+    </PageStyle>
   );
 };
 

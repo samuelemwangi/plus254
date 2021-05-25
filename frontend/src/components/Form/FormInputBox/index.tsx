@@ -2,8 +2,7 @@ import React from "react";
 import type { FC } from "react";
 
 // Material
-import { TextField } from "@material-ui/core";
-import { experimentalStyled as styled } from "@material-ui/core/styles";
+import { TextField, experimentalStyled as styled } from "@material-ui/core";
 
 // React hook form
 import { useController } from "react-hook-form";

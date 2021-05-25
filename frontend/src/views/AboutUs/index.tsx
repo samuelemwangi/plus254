@@ -13,17 +13,22 @@ import {
 
 // Components
 import Page from "../../components/Page";
-import Footer from "../Home/Footer";
+import Footer from "../Footer";
+
+// Animation
 import { varFadeInUp, MotionInView } from "../../components/Animate";
+
+// Theme
+import { Theme } from "../../theme";
 
 // Styles
 const PageStyle = styled(Page)(() => {
-  const appTheme = useTheme();
+  const appTheme: Theme = useTheme();
 
   return {
     backgroundColor: appTheme.palette.background.default,
-    paddingTop: 200,
-    paddingBottom: 200,
+    paddingTop: 155,
+    paddingBottom: 155,
     paddingLeft: 40,
     [appTheme.breakpoints.down("md")]: {
       paddingTop: 80,
@@ -46,6 +51,7 @@ const AboutUsImageStyle = styled("div")(() => ({
   },
 }));
 
+// Interfaces
 interface IAboutUsProps {
   className?: string;
 }
@@ -78,7 +84,7 @@ const AboutUs: FC<IAboutUsProps> = () => {
                     <Box
                       component="img"
                       alt="Contact us"
-                      src="/static/about-us/personal_information.svg"
+                      src="/static/about-us/personal-information.svg"
                       height="400px"
                       sx={{ m: "auto" }}
                     />

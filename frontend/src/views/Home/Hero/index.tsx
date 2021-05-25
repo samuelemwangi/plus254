@@ -1,14 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { FC } from "react";
+import React from "react";
+import type { FC } from "react";
+
+// Framer Motion
 import { motion } from "framer-motion";
+
+// React Router DOM
 import { Link as RouterLink } from "react-router-dom";
 
-// material
-import { experimentalStyled as styled } from "@material-ui/core/styles";
-import { Button, Box, Container, Typography } from "@material-ui/core";
-// routes
+// Material
+import {
+  Button,
+  Box,
+  Container,
+  Typography,
+  experimentalStyled as styled,
+  useTheme,
+} from "@material-ui/core";
 
-//
+// Animation
 import {
   varFadeIn,
   varWrapEnter,
@@ -16,39 +26,45 @@ import {
   varFadeInRight,
 } from "../../../components/Animate";
 
-// interfaces
-interface IHeroProps {
-  className?: string;
-}
+// Theme
+import { Theme } from "../../../theme";
 
-// styles
-const RootStyle = styled(motion.div)(({ theme }) => ({
-  position: "relative",
-  backgroundColor: "#F2F3F5",
-  [theme.breakpoints.up("md")]: {
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100vh",
-    display: "flex",
-    position: "fixed",
-    alignItems: "center",
-  },
-}));
+// Styles
+const RootStyle = styled(motion.div)(() => {
+  const appTheme: Theme = useTheme();
 
-const ContentStyle = styled("div")(({ theme }) => ({
-  zIndex: 10,
-  maxWidth: 520,
-  margin: "auto",
-  textAlign: "center",
-  position: "relative",
-  paddingTop: theme.spacing(15),
-  paddingBottom: theme.spacing(15),
-  [theme.breakpoints.up("md")]: {
-    margin: "unset",
-    textAlign: "left",
-  },
-}));
+  return {
+    position: "relative",
+    backgroundColor: "#F2F3F5",
+    [appTheme.breakpoints.up("md")]: {
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100vh",
+      display: "flex",
+      position: "fixed",
+      alignItems: "center",
+    },
+  };
+});
+
+const ContentStyle = styled("div")(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    zIndex: 10,
+    maxWidth: 520,
+    margin: "auto",
+    textAlign: "center",
+    position: "relative",
+    paddingTop: appTheme.spacing(15),
+    paddingBottom: appTheme.spacing(15),
+    [appTheme.breakpoints.up("md")]: {
+      margin: "unset",
+      textAlign: "left",
+    },
+  };
+});
 
 const HeroOverlayStyle = styled(motion.img)({
   zIndex: 9,
@@ -58,20 +74,29 @@ const HeroOverlayStyle = styled(motion.img)({
   position: "absolute",
 });
 
-const HeroImgStyle = styled(motion.img)(({ theme }) => ({
-  top: 0,
-  right: 0,
-  bottom: 0,
-  zIndex: 8,
-  width: "100%",
-  margin: "auto",
-  position: "absolute",
-  [theme.breakpoints.up("lg")]: {
-    right: "15%",
-    width: "auto",
-    height: "72vh",
-  },
-}));
+const HeroImgStyle = styled(motion.img)(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 8,
+    width: "100%",
+    margin: "auto",
+    position: "absolute",
+    [appTheme.breakpoints.up("lg")]: {
+      right: "15%",
+      width: "auto",
+      height: "72vh",
+    },
+  };
+});
+
+// interfaces
+interface IHeroProps {
+  className?: string;
+}
 
 // main component
 const Hero: FC<IHeroProps> = () => {

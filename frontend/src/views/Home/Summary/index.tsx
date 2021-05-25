@@ -2,26 +2,43 @@ import React from "react";
 import type { FC } from "react";
 
 // Material
-import { experimentalStyled as styled } from "@material-ui/core/styles";
-import { Box, Container, Typography } from "@material-ui/core";
-//
+import {
+  Box,
+  Container,
+  Typography,
+  experimentalStyled as styled,
+  useTheme,
+} from "@material-ui/core";
+
+// Animation
 import { varFadeInUp, MotionInView } from "../../../components/Animate";
 
-// Styles
-const RootStyle = styled("div")(({ theme }) => ({
-  paddingTop: theme.spacing(15),
-  paddingBottom: theme.spacing(10),
-}));
+// Theme
+import { Theme } from "../../../theme";
 
-const ContentStyle = styled("div")(({ theme }) => ({
-  maxWidth: 520,
-  margin: "auto",
-  textAlign: "center",
-  [theme.breakpoints.up("md")]: {
-    textAlign: "left",
-    position: "absolute",
-  },
-}));
+// Styles
+const RootStyle = styled("div")(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    paddingTop: appTheme.spacing(15),
+    paddingBottom: appTheme.spacing(10),
+  };
+});
+
+const ContentStyle = styled("div")(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    maxWidth: 520,
+    margin: "auto",
+    textAlign: "center",
+    [appTheme.breakpoints.up("md")]: {
+      textAlign: "left",
+      position: "absolute",
+    },
+  };
+});
 
 // Main component
 const Summary: FC = () => {

@@ -1,6 +1,5 @@
 import React from "react";
 import type { FC } from "react";
-import clsx from "clsx";
 
 // Material
 import {
@@ -11,51 +10,61 @@ import {
   List,
   ListItem,
   ListItemText,
+  experimentalStyled as styled,
+  alpha,
+  useTheme,
 } from "@material-ui/core";
 import { Instagram, Twitter, Facebook } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/styles";
-import { Theme } from "../../../theme";
+
+// Theme
+import { Theme } from "../../theme";
+
+// Styles
+const RowStyle = styled("div")(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    backgroundColor: appTheme.palette.background.dark,
+    paddingTop: appTheme.spacing(6),
+    paddingBottom: appTheme.spacing(6),
+    "& dt": {
+      marginTop: appTheme.spacing(2),
+    },
+    backgroundImage:
+      appTheme.palette.mode === "light"
+        ? `linear-gradient(180deg, ${alpha(
+            appTheme.palette.grey[400],
+            0
+          )} 0%, ${appTheme.palette.grey[400]} 100%)`
+        : "none",
+  };
+});
+
+const SocialLinksStyle = styled("div")(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    paddingTop: "10px",
+    textDecoration: "none",
+    "& *": {
+      color: appTheme.palette.text.secondary,
+    },
+    "& a": {
+      textDecoration: "none",
+      paddingRight: "10px",
+    },
+  };
+});
 
 // interfaces
 interface IFooterProps {
   className?: string;
 }
 
-// Styles
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.dark,
-    paddingTop: theme.spacing(6),
-    paddingBottom: theme.spacing(6),
-    "& dt": {
-      marginTop: theme.spacing(2),
-    },
-  },
-  services: {
-    paddingTop: "20px",
-    "& li": {
-      padding: "2px 0px 2px 0px",
-    },
-  },
-  socialLinks: {
-    paddingTop: "10px",
-    textDecoration: "none",
-    "& *": {
-      color: theme.palette.text.secondary,
-    },
-    "& a": {
-      textDecoration: "none",
-      paddingRight: "10px",
-    },
-  },
-}));
-
 // Main Component
-const Footer: FC<IFooterProps> = ({ className, ...rest }) => {
-  const classes = useStyles();
-
+const Footer: FC<IFooterProps> = ({ ...rest }) => {
   return (
-    <div className={clsx(classes.root, className)} {...rest}>
+    <RowStyle {...rest}>
       <Container maxWidth="lg">
         <Grid container spacing={3} component="dl">
           <Grid item xs={12} md={4}>
@@ -80,7 +89,15 @@ const Footer: FC<IFooterProps> = ({ className, ...rest }) => {
                 </Typography>
               </dt>
               <dd>
-                <List disablePadding className={classes.services}>
+                <List
+                  disablePadding
+                  sx={{
+                    paddingTop: "20px",
+                    "& li": {
+                      padding: "2px 0px 2px 0px",
+                    },
+                  }}
+                >
                   <ListItem disableGutters>
                     <ListItemText primary="-  Information" />
                   </ListItem>
@@ -115,7 +132,7 @@ const Footer: FC<IFooterProps> = ({ className, ...rest }) => {
                 </Typography>
               </dt>
               <dd>
-                <div className={classes.socialLinks}>
+                <SocialLinksStyle>
                   <a
                     href="https://www.instagram.com"
                     target="_blank"
@@ -137,13 +154,13 @@ const Footer: FC<IFooterProps> = ({ className, ...rest }) => {
                   >
                     <Facebook />
                   </a>
-                </div>
+                </SocialLinksStyle>
               </dd>
             </Box>
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </RowStyle>
   );
 };
 

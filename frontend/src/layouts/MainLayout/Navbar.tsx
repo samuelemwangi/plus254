@@ -1,14 +1,11 @@
 import React from "react";
 import type { FC } from "react";
 import { useState, useRef } from "react";
+
+// Router
 import { NavLink as RouterLink, useLocation } from "react-router-dom";
 
-// material
-import {
-  alpha,
-  experimentalStyled as styled,
-  useTheme,
-} from "@material-ui/core/styles";
+// Material
 import {
   Box,
   List,
@@ -21,6 +18,9 @@ import {
   IconButton,
   useMediaQuery,
   makeStyles,
+  experimentalStyled as styled,
+  useTheme,
+  alpha,
 } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 
@@ -30,16 +30,14 @@ import useOffSetTop from "../../hooks/useOffSetTop";
 // components
 import Logo from "../../components/Logo";
 import MenuPopover from "../../components/MenuPopover";
-import { Theme } from "../../theme";
 
-// interfaces
-interface INavbarProps {
-  className?: string;
-}
+// Theme
+import { Theme } from "../../theme";
 
 // links
 const MENU_LINKS = [
   { title: "Home", href: "/" },
+  { title: "Explore", href: "/explore" },
   { title: "About Us", href: "/about-us" },
   { title: "Contact Us", href: "/contact-us" },
 ];
@@ -68,14 +66,23 @@ const RootStyle = styled(AppBar)(({}) => ({
   boxShadow: "none",
 }));
 
-const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
-  height: APP_BAR_MOBILE,
-  transition: theme.transitions.create(["height", "background-color"], {
-    easing: theme.transitions.easing.easeInOut,
-    duration: theme.transitions.duration.shorter,
-  }),
-  [theme.breakpoints.up("md")]: { height: APP_BAR_DESKTOP },
-}));
+const ToolbarStyle = styled(Toolbar)(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    height: APP_BAR_MOBILE,
+    transition: appTheme.transitions.create(["height", "background-color"], {
+      easing: appTheme.transitions.easing.easeInOut,
+      duration: appTheme.transitions.duration.shorter,
+    }),
+    [appTheme.breakpoints.up("md")]: { height: APP_BAR_DESKTOP },
+  };
+});
+
+// interfaces
+interface INavbarProps {
+  className?: string;
+}
 
 const Navbar: FC<INavbarProps> = () => {
   const anchorRef = useRef(null);
@@ -84,8 +91,9 @@ const Navbar: FC<INavbarProps> = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const isHome = pathname === "/";
 
-  const classes = useStyles();
   const appTheme: Theme = useTheme();
+
+  const classes = useStyles();
 
   const renderMenuDesktop = (
     <>

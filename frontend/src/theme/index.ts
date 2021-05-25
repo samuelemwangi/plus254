@@ -14,7 +14,7 @@ import typography from "./typography";
 
 interface TypeBackground extends MuiTypeBackground {
   dark: string;
-  default: any; // @TODO: to change
+  default: any;
 }
 
 interface Palette extends MuiPalette {
@@ -24,7 +24,7 @@ interface Palette extends MuiPalette {
 export interface Theme extends MuiTheme {
   name: string;
   palette: Palette;
-  spacing: any; // @TODO: to change
+  spacing: any;
 }
 
 type Direction = "ltr" | "rtl";

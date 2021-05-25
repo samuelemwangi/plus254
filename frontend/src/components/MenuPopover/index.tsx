@@ -2,8 +2,37 @@ import React from "react";
 import type { FC, ReactNode } from "react";
 
 // material
-import { colors, Popover } from "@material-ui/core";
-import { alpha, experimentalStyled as styled } from "@material-ui/core/styles";
+import {
+  colors,
+  Popover,
+  experimentalStyled as styled,
+  useTheme,
+  alpha,
+} from "@material-ui/core";
+
+// Theme
+import { Theme } from "../../theme";
+
+const ArrowStyle = styled("span")(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    [appTheme.breakpoints.up("sm")]: {
+      top: -7,
+      zIndex: 1,
+      width: 12,
+      right: 20,
+      height: 12,
+      content: "''",
+      position: "absolute",
+      borderRadius: "0 0 4px 0",
+      transform: "rotate(-135deg)",
+      background: appTheme.palette.background.paper,
+      borderRight: `solid 1px ${alpha(appTheme.palette.grey[500], 0.12)}`,
+      borderBottom: `solid 1px ${alpha(appTheme.palette.grey[500], 0.12)}`,
+    },
+  };
+});
 
 // interfaces
 interface IMenuPopoverProps {
@@ -12,23 +41,6 @@ interface IMenuPopoverProps {
   open: boolean;
   disablePortal: boolean;
 }
-
-const ArrowStyle = styled("span")(({ theme }) => ({
-  [theme.breakpoints.up("sm")]: {
-    top: -7,
-    zIndex: 1,
-    width: 12,
-    right: 20,
-    height: 12,
-    content: "''",
-    position: "absolute",
-    borderRadius: "0 0 4px 0",
-    transform: "rotate(-135deg)",
-    background: theme.palette.background.paper,
-    borderRight: `solid 1px ${alpha(theme.palette.grey[500], 0.12)}`,
-    borderBottom: `solid 1px ${alpha(theme.palette.grey[500], 0.12)}`,
-  },
-}));
 
 const MenuPopover: FC<IMenuPopoverProps> = ({
   children,
