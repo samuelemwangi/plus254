@@ -66,12 +66,20 @@ const ContentStyle = styled("div")(() => {
   };
 });
 
-const HeroOverlayStyle = styled(motion.img)({
-  zIndex: 9,
-  width: "100%",
-  height: "100%",
-  objectFit: "cover",
-  position: "absolute",
+const HeroOverlayStyle = styled(motion.img)(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    zIndex: 9,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    position: "absolute",
+    [appTheme.breakpoints.down("md")]: {
+      height: "100vh",
+      width: "auto",
+    },
+  };
 });
 
 const HeroImgStyle = styled(motion.img)(() => {
@@ -85,10 +93,14 @@ const HeroImgStyle = styled(motion.img)(() => {
     width: "100%",
     margin: "auto",
     position: "absolute",
-    [appTheme.breakpoints.up("lg")]: {
+    overflow: "hidden",
+    [appTheme.breakpoints.up("md")]: {
       right: "15%",
       width: "auto",
       height: "72vh",
+    },
+    [appTheme.breakpoints.down("md")]: {
+      maxHeight: "100vh",
     },
   };
 });

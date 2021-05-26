@@ -7,6 +7,7 @@ import {
   LinearProgress,
   experimentalStyled as styled,
   useTheme,
+  useMediaQuery,
 } from "@material-ui/core";
 
 // Theme
@@ -29,9 +30,17 @@ const LoadingWrapperStyle = styled("div")(() => {
 });
 
 const LoadingScreen: FC = () => {
+  const theme = useTheme();
+
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
   return (
     <LoadingWrapperStyle>
-      <Box width={400}>
+      <Box
+        sx={{
+          width: isDesktop ? "400px" : "40vw",
+        }}
+      >
         <LinearProgress color="secondary" />
       </Box>
     </LoadingWrapperStyle>

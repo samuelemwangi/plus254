@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: theme.palette.primary.main + "!important",
     },
     "&.isMobileActive": {
-      color: theme.palette.primary.main,
+      color: theme.palette.primary.main + "!important",
       fontWeight: theme.typography.fontWeightMedium,
       backgroundColor: alpha(
         theme.palette.primary.main,
