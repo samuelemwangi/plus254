@@ -47,7 +47,7 @@ const SystemErrorView: FC<ISystemErrorViewProps> = () => {
         <Container maxWidth="lg">
           <Typography
             align="center"
-            variant={mobileDevice ? "h4" : "h1"}
+            variant={mobileDevice ? "h4" : "h3"}
             color="textPrimary"
           >
             500: System Error

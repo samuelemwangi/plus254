@@ -49,7 +49,7 @@ const NotFoundView: FC<INotFoundViewProps> = () => {
         <Container maxWidth="lg">
           <Typography
             align="center"
-            variant={mobileDevice ? "h4" : "h1"}
+            variant={mobileDevice ? "h4" : "h3"}
             color="textPrimary"
           >
             404: Page not found

@@ -130,12 +130,12 @@ const Hero: FC<IHeroProps> = () => {
         <Container maxWidth="lg">
           <ContentStyle>
             <motion.div variants={varFadeInRight}>
-              <Typography variant="h1" sx={{ color: "common.white" }}>
+              <Typography variant="h3" sx={{ color: "common.white" }}>
                 Welcome to
                 <br />
                 <Typography
                   component="span"
-                  variant="h1"
+                  variant="h3"
                   sx={{ color: "primary.main" }}
                 >
                   plus254
@@ -157,7 +157,7 @@ const Hero: FC<IHeroProps> = () => {
 
             <motion.div variants={varFadeInRight}>
               <Button
-                size="large"
+                size="medium"
                 variant="contained"
                 component={RouterLink}
                 to="/"

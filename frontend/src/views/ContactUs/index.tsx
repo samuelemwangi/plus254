@@ -152,7 +152,7 @@ const ContactUs: FC<IContactUsProps> = () => {
         <Container maxWidth="lg">
           <Grid container spacing={3}>
             <Grid item xs={12} md={7}>
-              <Typography variant="h2" align="left" color="primary">
+              <Typography variant="h3" align="left" color="primary">
                 Contact Us
               </Typography>
               <FormWrapperStyle>

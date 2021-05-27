@@ -69,7 +69,7 @@ const AboutUs: FC<IAboutUsProps> = () => {
                 justifyContent="center"
                 height="100%"
               >
-                <Typography variant="h1" color="primary" paddingBottom="5px">
+                <Typography variant="h3" color="primary" paddingBottom="5px">
                   About us
                 </Typography>
                 <Typography variant="body1" color="textSecondary">

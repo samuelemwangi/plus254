@@ -117,7 +117,7 @@ const Diversity: FC<IDiversityProps> = () => {
           <Grid item xs={12} md={4} lg={5}>
             <ContentStyle>
               <MotionInView variants={textAnimate}>
-                <Typography variant="h2" paragraph color="primary">
+                <Typography variant="h3" paragraph color="primary">
                   Diversity
                 </Typography>
               </MotionInView>

@@ -57,7 +57,7 @@ const Summary: FC = () => {
           </MotionInView>
 
           <MotionInView variants={varFadeInUp}>
-            <Typography variant="h2" paragraph>
+            <Typography variant="h3" paragraph>
               We are friendly!
             </Typography>
           </MotionInView>
