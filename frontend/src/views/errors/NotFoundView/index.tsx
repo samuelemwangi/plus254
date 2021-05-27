@@ -54,7 +54,12 @@ const NotFoundView: FC<INotFoundViewProps> = () => {
           >
             404: Page not found
           </Typography>
-          <Typography align="center" variant="subtitle2" color="textSecondary">
+          <Typography
+            align="center"
+            variant="subtitle2"
+            color="textSecondary"
+            paddingBottom="30px"
+          >
             This page is not available. Sorry about that.
           </Typography>
 
