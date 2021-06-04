@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Reflection;
 
 namespace App.API
@@ -36,6 +37,7 @@ namespace App.API
 
             string dbConnectionString = Configuration.GetConnectionString("AppDB");
 
+            
             // DB Contexts
             services.AddDbContext<AppDbContext>(options =>
               options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
@@ -62,6 +64,7 @@ namespace App.API
             //CORS
             services.ConfigureCors(Configuration);
 
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +76,7 @@ namespace App.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "App.API v1"));
             }
+           
 
             app.UseHttpsRedirection();
 

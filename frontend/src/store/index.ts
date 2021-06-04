@@ -7,11 +7,13 @@ import rootSaga from "../sagas";
 
 const sagaMiddleware = createSagaMiddleware();
 
+const middleWare =
+  process.env.NODE_ENV !== "production"
+    ? composeWithDevTools(applyMiddleware(sagaMiddleware))
+    : applyMiddleware(sagaMiddleware);
+
 const configureStore = () => {
-  const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(sagaMiddleware))
-  );
+  const store = createStore(rootReducer, middleWare);
   sagaMiddleware.run(rootSaga);
   return store;
 };

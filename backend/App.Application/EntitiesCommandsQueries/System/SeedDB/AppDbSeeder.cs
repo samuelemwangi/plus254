@@ -66,7 +66,7 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                
                 _machineLogger.LogDetails(LogLevel.Error, e.Message);
 
             }

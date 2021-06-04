@@ -29,15 +29,13 @@ namespace App.Persistence.Infrastructure
 
         private TContext Create(string basePath, string environmentName)
         {
-            var configuration = new ConfigurationBuilder()
+            IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.Local.json", optional: true)
-                .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
 
-
+            
             var connectionString = configuration.GetConnectionString(ConnectionStringName);
 
             return Create(connectionString);
