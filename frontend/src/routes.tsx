@@ -68,12 +68,12 @@ const routes: Routes = [
       {
         exact: true,
         path: "/500",
-        component: lazy(() => import("./views/Errors/SystemErrorView")),
+        component: lazy(() => import("./views/AppErrors/SystemErrorView")),
       },
       {
         exact: true,
         path: "/404",
-        component: lazy(() => import("./views/Errors/NotFoundView")),
+        component: lazy(() => import("./views/AppErrors/NotFoundView")),
       },
       {
         component: () => <Redirect to="/404" />,
