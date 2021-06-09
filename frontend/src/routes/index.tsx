@@ -2,9 +2,13 @@ import React, { Suspense, Fragment, lazy } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 
 // Custom components
-import MainLayout from "./layouts/MainLayout";
-import LoadingScreen from "./components/LoadingScreen";
+import MainLayout from "../layouts/MainLayout";
+import LoadingScreen from "../components/LoadingScreen";
 
+// Paths
+import { PATHS } from "./paths";
+
+// Interfaces & types
 type Routes = {
   exact?: boolean;
   path?: string | string[];
@@ -52,31 +56,41 @@ const routes: Routes = [
     routes: [
       {
         exact: true,
-        path: "/",
-        component: lazy(() => import("./views/Home")),
+        path: PATHS.HOME,
+        component: lazy(() => import("../views/Home")),
       },
       {
         exact: true,
-        path: "/about-us",
-        component: lazy(() => import("./views/AboutUs")),
+        path: PATHS.ABOUT_US,
+        component: lazy(() => import("../views/AboutUs")),
       },
       {
         exact: true,
-        path: "/contact-us",
-        component: lazy(() => import("./views/ContactUs")),
+        path: PATHS.CONTACT_US,
+        component: lazy(() => import("../views/ContactUs")),
       },
       {
         exact: true,
-        path: "/500",
-        component: lazy(() => import("./views/Errors/SystemErrorView")),
+        path: PATHS.LOGIN,
+        component: lazy(() => import("../views/Auth/Login")),
       },
       {
         exact: true,
-        path: "/404",
-        component: lazy(() => import("./views/Errors/NotFoundView")),
+        path: PATHS.REGISTER,
+        component: lazy(() => import("../views/Auth/Register")),
       },
       {
-        component: () => <Redirect to="/404" />,
+        exact: true,
+        path: PATHS.ERROR_500,
+        component: lazy(() => import("../views/Errors/SystemErrorView")),
+      },
+      {
+        exact: true,
+        path: PATHS.ERROR_404,
+        component: lazy(() => import("../views/Errors/NotFoundView")),
+      },
+      {
+        component: () => <Redirect to={PATHS.ERROR_404} />,
       },
     ],
   },

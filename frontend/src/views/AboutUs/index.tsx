@@ -13,7 +13,6 @@ import {
 
 // Components
 import Page from "../../components/Page";
-import Footer from "../Footer";
 
 // Animation
 import { varFadeInUp, MotionInView } from "../../components/Animate";
@@ -95,7 +94,6 @@ const AboutUs: FC<IAboutUsProps> = () => {
           </Grid>
         </Container>
       </PageStyle>
-      <Footer />
     </>
   );
 };

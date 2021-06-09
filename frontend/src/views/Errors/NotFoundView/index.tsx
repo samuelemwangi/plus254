@@ -20,7 +20,9 @@ import { varFadeInUp, MotionInView } from "../../../components/Animate";
 
 // Components
 import Page from "../../../components/Page";
-import Footer from "../../Footer";
+
+// Paths
+import { PATHS } from "../../../routes/paths";
 
 const PageStyle = styled(Page)(() => {
   const appTheme = useTheme();
@@ -44,58 +46,55 @@ const NotFoundView: FC<INotFoundViewProps> = () => {
   const mobileDevice = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <>
-      <PageStyle>
-        <Container maxWidth="lg">
-          <Typography
-            align="center"
-            variant={mobileDevice ? "h4" : "h3"}
-            color="textPrimary"
-          >
-            404: Page not found
-          </Typography>
-          <Typography
-            align="center"
-            variant="subtitle2"
-            color="textSecondary"
-            paddingBottom="30px"
-          >
-            This page is not available. Sorry about that.
-          </Typography>
+    <PageStyle>
+      <Container maxWidth="lg">
+        <Typography
+          align="center"
+          variant={mobileDevice ? "h4" : "h3"}
+          color="textPrimary"
+        >
+          404: Page not found
+        </Typography>
+        <Typography
+          align="center"
+          variant="subtitle2"
+          color="textSecondary"
+          paddingBottom="30px"
+        >
+          This page is not available. Sorry about that.
+        </Typography>
 
-          <MotionInView variants={varFadeInUp}>
-            <Box
-              mt={6}
-              display="flex"
-              justifyContent="center"
-              component="img"
-              alt="Contact us"
-              src="/static/not_found.svg"
-              height="400px"
-              sx={{
-                m: "auto",
-                maxWidth: "100%",
-                width: 560,
-                maxHeight: 300,
-                height: "auto",
-              }}
-            />
-          </MotionInView>
+        <MotionInView variants={varFadeInUp}>
+          <Box
+            mt={6}
+            display="flex"
+            justifyContent="center"
+            component="img"
+            alt="Contact us"
+            src="/static/not_found.svg"
+            height="400px"
+            sx={{
+              m: "auto",
+              maxWidth: "100%",
+              width: 560,
+              maxHeight: 300,
+              height: "auto",
+            }}
+          />
+        </MotionInView>
 
-          <Box mt={6} display="flex" justifyContent="center">
-            <Button
-              color="secondary"
-              component={RouterLink}
-              to="/"
-              variant="outlined"
-            >
-              Back to home
-            </Button>
-          </Box>
-        </Container>
-      </PageStyle>
-      <Footer />
-    </>
+        <Box mt={6} display="flex" justifyContent="center">
+          <Button
+            color="secondary"
+            component={RouterLink}
+            to={PATHS.HOME}
+            variant="outlined"
+          >
+            Back to home
+          </Button>
+        </Box>
+      </Container>
+    </PageStyle>
   );
 };
 

@@ -17,13 +17,14 @@ import {
 import { Instagram, Twitter, Facebook } from "@material-ui/icons";
 
 // Theme
-import { Theme } from "../../theme";
+import { Theme } from "../../../theme";
 
 // Styles
 const RowStyle = styled("div")(() => {
   const appTheme: Theme = useTheme();
 
   return {
+    position: "relative",
     backgroundColor: appTheme.palette.background.dark,
     paddingTop: appTheme.spacing(6),
     paddingBottom: appTheme.spacing(6),

@@ -9,7 +9,6 @@ import Page from "../../components/Page";
 import Hero from "./Hero";
 import Diversity from "./Diversity";
 import Summary from "./Summary";
-import Footer from "../Footer";
 
 // Styles
 const PageStyle = styled(Page)(() => ({}));
@@ -28,7 +27,6 @@ const Home: FC = () => {
       <ContentStyle>
         <Diversity />
         <Summary />
-        <Footer />
       </ContentStyle>
     </PageStyle>
   );

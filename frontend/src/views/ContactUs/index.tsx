@@ -23,7 +23,6 @@ import * as yup from "yup";
 
 // Components
 import Page from "../../components/Page";
-import Footer from "../Footer";
 import FormInputBox from "../../components/Form/FormInputBox";
 import { varFadeInUp, MotionInView } from "../../components/Animate";
 
@@ -236,7 +235,6 @@ const ContactUs: FC<IContactUsProps> = () => {
           </Grid>
         </Container>
       </PageStyle>
-      <Footer />
     </>
   );
 };

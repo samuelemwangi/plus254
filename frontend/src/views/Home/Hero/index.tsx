@@ -29,6 +29,9 @@ import {
 // Theme
 import { Theme } from "../../../theme";
 
+// Paths
+import { PATHS } from "../../../routes/paths";
+
 // Styles
 const RootStyle = styled(motion.div)(() => {
   const appTheme: Theme = useTheme();
@@ -160,7 +163,7 @@ const Hero: FC<IHeroProps> = () => {
                 size="medium"
                 variant="contained"
                 component={RouterLink}
-                to="/"
+                to={PATHS.HOME}
               >
                 Explore
               </Button>

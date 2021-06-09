@@ -25,21 +25,24 @@ import {
 import { Menu as MenuIcon } from "@material-ui/icons";
 
 // hooks
-import useOffSetTop from "../../hooks/useOffSetTop";
+import useOffSetTop from "../../../hooks/useOffSetTop";
 
 // components
-import Logo from "../../components/Logo";
-import MenuPopover from "../../components/MenuPopover";
+import Logo from "../../../components/Logo";
+import MenuPopover from "../../../components/MenuPopover";
 
 // Theme
-import { Theme } from "../../theme";
+import { Theme } from "../../../theme";
+
+// Paths
+import { PATHS } from "../../../routes/paths";
 
 // links
 const MENU_LINKS = [
-  { title: "Home", href: "/" },
-  { title: "Explore", href: "/explore" },
-  { title: "About Us", href: "/about-us" },
-  { title: "Contact Us", href: "/contact-us" },
+  { title: "Home", href: PATHS.HOME },
+  { title: "Explore", href: PATHS.EXPLORE },
+  { title: "About Us", href: PATHS.ABOUT_US },
+  { title: "Contact Us", href: PATHS.CONTACT_US },
 ];
 
 const APP_BAR_MOBILE = 64;
@@ -178,7 +181,7 @@ const Navbar: FC<INavbarProps> = () => {
             justifyContent: "space-between",
           }}
         >
-          <RouterLink to="/">
+          <RouterLink to={PATHS.HOME}>
             <Logo name="plus254" />
           </RouterLink>
           <Box sx={{ flexGrow: 1 }} />
