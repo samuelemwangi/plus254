@@ -5,7 +5,7 @@
 /// Ensures uniformity in format and timezone
 /// </summary>
 
-namespace App.Application.Utilities
+namespace App.Application.Interfaces.Utilities
 {
     public interface IMachineDateTime
     {

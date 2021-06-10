@@ -6,7 +6,7 @@ namespace App.Persistence
 {
     public class AppDbContext : DbContext
     {
-        private string _entityKeyPrefix = "";
+        readonly string _entityKeyPrefix = "";
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options)

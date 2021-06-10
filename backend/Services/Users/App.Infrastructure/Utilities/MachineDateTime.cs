@@ -1,4 +1,4 @@
-﻿using App.Application.Utilities;
+﻿using App.Application.Interfaces.Utilities;
 using System;
 
 /// <summary>
