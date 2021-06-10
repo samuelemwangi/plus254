@@ -73,10 +73,14 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.RegisterUser
 
                 if (identityResult.Succeeded)
                 {
+                    
                     var userRoleResult = await _userManager.AddToRoleAsync(appUser, _configurationSection["defaultRole"]);
                 }
                 else
                 {
+                    // Remove user if there is errors
+                    await _userManager.DeleteAsync(appUser);
+
                     throw new Exception(String.Join(" ", identityResult.Errors.Select(e => e.Description)));
 
                 }

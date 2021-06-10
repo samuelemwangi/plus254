@@ -15,4 +15,8 @@
     <ProjectReference Include="..\App.Persistence\App.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EntitiesCommandsQueries\Token\Queries\GetToken\" />
+  </ItemGroup>
+
 </Project>

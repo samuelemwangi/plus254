@@ -28,9 +28,11 @@ namespace App.Persistence
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
 
-            modelBuilder.Entity<User>().ToTable(_entityKeyPrefix + "user");
+            modelBuilder.Entity<User>().ToTable(_entityKeyPrefix + "user_details");
             modelBuilder.Entity<RefreshToken>().ToTable(_entityKeyPrefix + "refresh_token");
 
+            modelBuilder.Entity<IdentityUser>().ToTable(_entityKeyPrefix + "users");
+            modelBuilder.Entity<IdentityRole>().ToTable(_entityKeyPrefix + "roles");
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable(_entityKeyPrefix + "user_claims");
             modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable(_entityKeyPrefix + "role_claims");
             modelBuilder.Entity<IdentityUserLogin<string>>().ToTable(_entityKeyPrefix + "user_logins").HasKey(i => new { i.LoginProvider, i.ProviderKey });
