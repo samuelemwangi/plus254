@@ -263,3 +263,7 @@ __pycache__/
 
 # Ignore Migrations
 [Ll]ogs/
+
+
+# Ignore .env file 
+.env
