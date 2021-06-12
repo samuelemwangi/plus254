@@ -16,15 +16,17 @@ namespace App.Infrastructure.Notifications
             _notificationServiceLogger = notificationServiceLogger;
         }
 
-        public async Task PublishNotificationAsync(string subject, string mailText, string recipientEmail, string recipientName, bool showSenderTitleInSubject)
+       
+
+        public async Task PublishNotificationAsync(string NotificationType, string NotificationLink, string recipientEmail, string recipientName)
         {
             try
             {
 
                 // Implement sending to queue
                 _notificationServiceLogger.LogInformation("*****************************");
-                _notificationServiceLogger.LogInformation(subject);
-                _notificationServiceLogger.LogInformation(mailText);
+                _notificationServiceLogger.LogInformation(NotificationType);
+                _notificationServiceLogger.LogInformation(NotificationLink);
                 _notificationServiceLogger.LogInformation(recipientEmail);
                 _notificationServiceLogger.LogInformation(recipientName);
                 _notificationServiceLogger.LogInformation("*****************************");
@@ -37,9 +39,6 @@ namespace App.Infrastructure.Notifications
             {
                 _notificationServiceLogger.LogError(e.StackTrace);
             }
-
-
-
         }
     }
 }

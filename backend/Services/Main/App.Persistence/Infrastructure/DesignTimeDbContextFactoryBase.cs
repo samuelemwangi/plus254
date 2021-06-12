@@ -46,7 +46,8 @@ namespace App.Persistence.Infrastructure
                                                         .Replace("DB_USER", dbUser)
                                                         .Replace("DB_PASSWORD", dbPassword);
 
-            return Create(dbConnectionString);
+            // check if env vaiables are set if not use connection string
+            return Create(String.IsNullOrEmpty(dbServer) ? connectionString : dbConnectionString);
         }
 
         private TContext Create(string connectionString)

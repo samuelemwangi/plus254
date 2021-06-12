@@ -59,14 +59,14 @@ namespace App.API
 
 
             // DB Contexts
+            // if env variables not set use connection string as it is 
             services.AddDbContext<AppDbContext>(options =>
-              options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
+              options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(String.IsNullOrEmpty(dbServer) ? connectionString :  dbConnectionString)));
 
             // Register the ConfigurationBuilder instance of AuthSettings
             var authSettings = Configuration.GetSection(nameof(AuthSettings));
             services.Configure<AuthSettings>(authSettings);
-
-            //var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authSettings[nameof(AuthSettings.SecretKey)]));            
+         
 
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey + "" == "" ? authSettings[nameof(AuthSettings.SecretKey)] : secretKey));
 

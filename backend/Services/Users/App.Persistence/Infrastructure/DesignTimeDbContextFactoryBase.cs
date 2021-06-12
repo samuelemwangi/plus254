@@ -42,7 +42,7 @@ namespace App.Persistence.Infrastructure
                                                         .Replace("DB_USER", dbUser)
                                                         .Replace("DB_PASSWORD", dbPassword);
 
-            return Create(dbConnectionString);
+            return Create(String.IsNullOrEmpty(dbServer) ? connectionString  : dbConnectionString);
         }
 
         private TContext Create(string connectionString)

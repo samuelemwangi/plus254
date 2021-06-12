@@ -1,4 +1,4 @@
-﻿using App.Application.EntitiesCommandsQueries.System.SeedDB.Messages;
+﻿using App.Application.EntitiesCommandsQueries.System.SeedDB.Countries;
 using App.Application.Interfaces.Utilities;
 using App.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -17,16 +17,18 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
         private readonly AppDbContext _appDbContext;
         private readonly IConfigurationSection _configurationSection;
         private readonly IMachineLogger _machineLogger;
+        private readonly IMachineDateTime _machineDateTime;
 
 
-        public AppDbSeeder(AppDbContext appDbContext, IConfigurationSection configurationSection, IMachineLogger machineLogger)
+        public AppDbSeeder(AppDbContext appDbContext, IConfigurationSection configurationSection, IMachineLogger machineLogger, IMachineDateTime machineDateTime)
         {
             _appDbContext = appDbContext;
             _configurationSection = configurationSection;            
             _machineLogger = machineLogger;
+            _machineDateTime = machineDateTime;
         }
 
-        public async Task SeedAllAsync(string folderKey, CancellationToken cancellationToken)
+        public async Task SeedAllAsync(string folderKey)
         {
 
 
@@ -46,8 +48,8 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
         public async Task SeedDBTablesAsync()
         {
             // Seed Message Status
-            MessageStatusSeed messageStatusSeed = new(_appDbContext, _machineLogger);
-            await messageStatusSeed.SeedDataAsync();
+            CountrySeed countrySeed = new(_appDbContext, _machineLogger, _machineDateTime);
+            await countrySeed.SeedDataAsync();
         }
 
         private async Task SeedDBUsingSQLScriptsAsync(string targetDirectory)

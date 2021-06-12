@@ -4,6 +4,6 @@ namespace App.Application.Interfaces.Notifications
 {
     public interface INotificationService
     {
-        Task PublishNotificationAsync(string subject, string messageContent, string recipientEmail, string recipientName, bool showSenderTitleInSubject);
+        Task PublishNotificationAsync(string NotificationType, string NotificationLink, string recipientEmail, string recipientName);
     }
 }

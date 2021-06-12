@@ -25,12 +25,14 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
         private readonly AppDbContext _appDbContext;
         private readonly IConfiguration _configuration;
         private readonly IMachineLogger _machineLogger;
+        private readonly IMachineDateTime _machineDateTime;
 
-        public SeedDBCommandHandler(AppDbContext appDbContext, IConfiguration configuration, IMachineLogger machineLogger)
+        public SeedDBCommandHandler(AppDbContext appDbContext, IConfiguration configuration, IMachineLogger machineLogger, IMachineDateTime machineDateTime)
         {
             _appDbContext = appDbContext;
             _configuration = configuration;
             _machineLogger = machineLogger;
+            _machineDateTime = machineDateTime;
 
         }
         public async Task<Unit> Handle(SeedDBCommand request, CancellationToken cancellationToken)
@@ -41,8 +43,8 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
 
                 if (sqlSection == null) throw new Exception("No SQL Section provided in appsettings.json. Kindly provide one");
 
-                AppDbSeeder appDbSeeder = new(_appDbContext, _configuration.GetSection("SQL"), _machineLogger);
-                await appDbSeeder.SeedAllAsync(request.FolderKey, cancellationToken);
+                AppDbSeeder appDbSeeder = new(_appDbContext, _configuration.GetSection("SQL"), _machineLogger, _machineDateTime);
+                await appDbSeeder.SeedAllAsync(request.FolderKey);
             }
             catch (Exception e)
             {
