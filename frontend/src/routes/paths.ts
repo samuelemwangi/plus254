@@ -3,7 +3,7 @@ const path = (link: string, subLink: string) => link + "/" + subLink;
 const ROOT_AUTH = "/auth";
 const ROOT_MAIN = "";
 const ROOT_EXPLORE = "/explore";
-const ROOT_ERROR = "";
+const ROOT_ERROR = "/error";
 
 export const PATHS = {
   // Auth

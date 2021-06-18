@@ -51,9 +51,22 @@ const ContainerStyled = styled(Container)(() => {
   return {};
 });
 
+const TypographyMainLinkStyled = styled(Typography)(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    textAlign: "center",
+    textDecoration: "none",
+    paddingBottom: 30,
+    "& a": {
+      color: appTheme.palette.primary.main,
+    },
+  };
+});
+
 const FormDivStyled = styled("div")(() => {
   return {
-    paddingTop: 40,
+    paddingTop: 10,
   };
 });
 
@@ -119,8 +132,11 @@ const Login: FC<ILoginProps> = () => {
           alignItems="center"
         >
           <Grid item md={6} sm={8} xs={10}>
+            <TypographyMainLinkStyled variant="h3">
+              <Link to="/"> plus254</Link>
+            </TypographyMainLinkStyled>
             <Typography
-              variant={isMobileDevice ? "h5" : "h4"}
+              variant={isMobileDevice ? "h6" : "h5"}
               align="left"
               color="textPrimary"
             >
@@ -161,7 +177,7 @@ const Login: FC<ILoginProps> = () => {
                         type="submit"
                         variant="contained"
                       >
-                        Submit
+                        Login
                       </Button>
                     </Grid>
                     <Grid item xs={6}>

@@ -31,22 +31,20 @@ const TextFieldStyle = styled(TextField)(() => {
 
     // input
     "& input:valid + fieldset": {
-      borderColor: appTheme.palette.text.secondary,
+      borderColor: appTheme.palette.mode === "dark" ? "#ffffff1f" : "#0000003b",
     },
     "& input:invalid + fieldset": {},
     "& input:valid:focus + fieldset": {
       borderColor: appTheme.palette.text.secondary,
-      borderWidth: 2,
     },
 
     // textarea
     "& textarea:valid + fieldset": {
-      borderColor: appTheme.palette.text.secondary,
+      borderColor: appTheme.palette.mode === "dark" ? "#ffffff1f" : "#0000003b",
     },
     "& textarea:invalid + fieldset": {},
     "& textarea:valid:focus + fieldset": {
       borderColor: appTheme.palette.text.secondary,
-      borderWidth: 2,
     },
   };
 });

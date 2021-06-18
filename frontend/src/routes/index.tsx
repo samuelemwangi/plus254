@@ -51,6 +51,36 @@ export const renderRoutes = (routes: Routes = []): JSX.Element => (
 
 const routes: Routes = [
   {
+    path: "/auth",
+    routes: [
+      {
+        exact: true,
+        path: PATHS.LOGIN,
+        component: lazy(() => import("../views/Auth/Login")),
+      },
+      {
+        exact: true,
+        path: PATHS.REGISTER,
+        component: lazy(() => import("../views/Auth/Register")),
+      },
+    ],
+  },
+  {
+    path: "/error",
+    routes: [
+      {
+        exact: true,
+        path: PATHS.ERROR_500,
+        component: lazy(() => import("../views/Errors/SystemErrorView")),
+      },
+      {
+        exact: true,
+        path: PATHS.ERROR_404,
+        component: lazy(() => import("../views/Errors/NotFoundView")),
+      },
+    ],
+  },
+  {
     path: "*",
     layout: MainLayout,
     routes: [
@@ -69,26 +99,7 @@ const routes: Routes = [
         path: PATHS.CONTACT_US,
         component: lazy(() => import("../views/ContactUs")),
       },
-      {
-        exact: true,
-        path: PATHS.LOGIN,
-        component: lazy(() => import("../views/Auth/Login")),
-      },
-      {
-        exact: true,
-        path: PATHS.REGISTER,
-        component: lazy(() => import("../views/Auth/Register")),
-      },
-      {
-        exact: true,
-        path: PATHS.ERROR_500,
-        component: lazy(() => import("../views/Errors/SystemErrorView")),
-      },
-      {
-        exact: true,
-        path: PATHS.ERROR_404,
-        component: lazy(() => import("../views/Errors/NotFoundView")),
-      },
+
       {
         component: () => <Redirect to={PATHS.ERROR_404} />,
       },
