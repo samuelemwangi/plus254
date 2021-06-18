@@ -177,7 +177,7 @@ const Register: FC<IRegisterProps> = () => {
                         color="secondary"
                         size="large"
                         type="submit"
-                        variant="outlined"
+                        variant="contained"
                       >
                         Submit
                       </Button>

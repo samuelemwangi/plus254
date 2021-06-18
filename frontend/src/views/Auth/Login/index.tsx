@@ -159,7 +159,7 @@ const Login: FC<ILoginProps> = () => {
                         color="secondary"
                         size="large"
                         type="submit"
-                        variant="outlined"
+                        variant="contained"
                       >
                         Submit
                       </Button>

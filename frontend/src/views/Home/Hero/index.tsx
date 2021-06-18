@@ -38,7 +38,8 @@ const RootStyle = styled(motion.div)(() => {
 
   return {
     position: "relative",
-    backgroundColor: "#F2F3F5",
+    // backgroundColor: "#F2F3F5",
+    backgroundColor: appTheme.palette.background.default,
     [appTheme.breakpoints.up("md")]: {
       top: 0,
       left: 0,
@@ -162,6 +163,7 @@ const Hero: FC<IHeroProps> = () => {
               <Button
                 size="medium"
                 variant="contained"
+                color="secondary"
                 component={RouterLink}
                 to={PATHS.HOME}
               >

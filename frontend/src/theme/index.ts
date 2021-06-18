@@ -85,7 +85,7 @@ const themesOptions: ThemeOptions[] = [
       },
     },
     palette: {
-      type: "light",
+      mode: "light",
       action: {
         active: colors.blueGrey[600],
       },
@@ -113,7 +113,7 @@ const themesOptions: ThemeOptions[] = [
   {
     name: THEMES.ONE_DARK,
     palette: {
-      type: "dark",
+      mode: "dark",
       action: {
         active: "rgba(255, 255, 255, 0.54)",
         hover: "rgba(255, 255, 255, 0.04)",
@@ -128,10 +128,10 @@ const themesOptions: ThemeOptions[] = [
         paper: "#282C34",
       },
       primary: {
-        main: "#8a85ff",
+        main: "#A7131D",
       },
       secondary: {
-        main: "#8a85ff",
+        main: "#005D28",
       },
       text: {
         primary: "#e6e5e8",

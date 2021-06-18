@@ -210,7 +210,7 @@ const ContactUs: FC<IContactUsProps> = () => {
                       loading={formSubmitting}
                       size="large"
                       type="submit"
-                      variant="outlined"
+                      variant="contained"
                     >
                       Submit
                     </LoadingButton>

@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const RootStyle = styled(AppBar)(({}) => ({
   boxShadow: "none",
+  backgroundImage: "none",
 }));
 
 const ToolbarStyle = styled(Toolbar)(() => {
@@ -118,7 +119,12 @@ const Navbar: FC<INavbarProps> = () => {
                 duration: appTheme.transitions.duration.shortest,
               }),
             "&:hover": { opacity: 0.48 },
-            ...(isHome && { color: "#000" }),
+            ...(isHome && {
+              color:
+                appTheme.palette.mode === "light"
+                  ? "#000"
+                  : appTheme.palette.text.secondary,
+            }),
             ...(offset && { color: appTheme.palette.text.secondary }),
           }}
         >

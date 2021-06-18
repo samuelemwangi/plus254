@@ -21,6 +21,7 @@ const RootStyle = styled("div")(() => {
   const appTheme: Theme = useTheme();
 
   return {
+    backgroundColor: appTheme.palette.background.default,
     paddingTop: appTheme.spacing(15),
     paddingBottom: appTheme.spacing(10),
   };
@@ -57,7 +58,7 @@ const Summary: FC = () => {
           </MotionInView>
 
           <MotionInView variants={varFadeInUp}>
-            <Typography variant="h3" paragraph>
+            <Typography variant="h3" paragraph color="primary">
               We are friendly!
             </Typography>
           </MotionInView>

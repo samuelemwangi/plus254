@@ -32,8 +32,13 @@ const RootStyle = styled("div")(() => {
   const appTheme: Theme = useTheme();
 
   return {
+    backgroundColor: appTheme.palette.background.default,
     padding: appTheme.spacing(15, 0),
     paddingTop: 175,
+    borderBottom:
+      appTheme.palette.mode === "dark"
+        ? "1px solid #3d4046"
+        : "0px solid 3d4046",
     backgroundImage:
       appTheme.palette.mode === "light"
         ? `linear-gradient(180deg, ${alpha(
@@ -134,8 +139,8 @@ const Diversity: FC<IDiversityProps> = () => {
                 <br />
                 <Button
                   size="large"
-                  color="inherit"
-                  variant="outlined"
+                  color="secondary"
+                  variant="contained"
                   component={RouterLink}
                   to="/explore"
                 >

@@ -41,6 +41,24 @@ const RowStyle = styled("div")(() => {
   };
 });
 
+const ListItemTextStyled = styled(ListItemText)(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    "& *": {
+      color: appTheme.palette.text.secondary,
+    },
+  };
+});
+
+const AddressStyled = styled("address")(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    color: appTheme.palette.text.secondary,
+  };
+});
+
 const SocialLinksStyle = styled("div")(() => {
   const appTheme: Theme = useTheme();
 
@@ -100,10 +118,10 @@ const Footer: FC<IFooterProps> = ({ ...rest }) => {
                   }}
                 >
                   <ListItem disableGutters>
-                    <ListItemText primary="-  Information" />
+                    <ListItemTextStyled primary="-  Information" />
                   </ListItem>
                   <ListItem disableGutters>
-                    <ListItemText primary="-  Information" />
+                    <ListItemTextStyled primary="-  Information" />
                   </ListItem>
                 </List>
               </dd>
@@ -117,7 +135,7 @@ const Footer: FC<IFooterProps> = ({ ...rest }) => {
                 </Typography>
               </dt>
               <dd>
-                <address>(+254)111-</address>
+                <AddressStyled>(+254)111-</AddressStyled>
               </dd>
               <dt>
                 <Typography variant="h6" color="textPrimary">
@@ -125,7 +143,7 @@ const Footer: FC<IFooterProps> = ({ ...rest }) => {
                 </Typography>
               </dt>
               <dd>
-                <address>dummy@plus54.com</address>
+                <AddressStyled>dummy@plus54.com</AddressStyled>
               </dd>
               <dt>
                 <Typography variant="h6" color="textPrimary">

@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
         WebkitFilter: "blur(0)",
         filter: "blur(0)",
       },
+      "input:-webkit-autofill": {
+        "backgorund-color": "none",
+      },
     },
   })
 );

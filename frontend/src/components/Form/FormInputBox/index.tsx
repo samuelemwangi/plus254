@@ -2,10 +2,18 @@ import React from "react";
 import type { FC } from "react";
 
 // Material
-import { TextField, experimentalStyled as styled } from "@material-ui/core";
+import {
+  TextField,
+  experimentalStyled as styled,
+  useTheme,
+} from "@material-ui/core";
 
 // React hook form
 import { useController } from "react-hook-form";
+
+// Theme
+
+import { Theme } from "../../../theme";
 
 // Interfaces
 interface IFormInputBoxProps {
@@ -13,7 +21,35 @@ interface IFormInputBoxProps {
 }
 
 // Styles
-const TextFieldStyle = styled(TextField)(() => ({}));
+const TextFieldStyle = styled(TextField)(() => {
+  const appTheme: Theme = useTheme();
+
+  return {
+    "& label.Mui-focused": {
+      color: appTheme.palette.text.secondary,
+    },
+
+    // input
+    "& input:valid + fieldset": {
+      borderColor: appTheme.palette.text.secondary,
+    },
+    "& input:invalid + fieldset": {},
+    "& input:valid:focus + fieldset": {
+      borderColor: appTheme.palette.text.secondary,
+      borderWidth: 2,
+    },
+
+    // textarea
+    "& textarea:valid + fieldset": {
+      borderColor: appTheme.palette.text.secondary,
+    },
+    "& textarea:invalid + fieldset": {},
+    "& textarea:valid:focus + fieldset": {
+      borderColor: appTheme.palette.text.secondary,
+      borderWidth: 2,
+    },
+  };
+});
 
 // Main component
 const FormInputBox: FC<IFormInputBoxProps> = ({

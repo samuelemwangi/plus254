@@ -88,7 +88,7 @@ const NotFoundView: FC<INotFoundViewProps> = () => {
             color="secondary"
             component={RouterLink}
             to={PATHS.HOME}
-            variant="outlined"
+            variant="contained"
           >
             Back to home
           </Button>

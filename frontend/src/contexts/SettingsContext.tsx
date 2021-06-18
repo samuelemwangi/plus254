@@ -23,7 +23,7 @@ interface SettingsProviderProps {
 const defaultSettings: Settings = {
   direction: "ltr",
   responsiveFontSizes: true,
-  theme: THEMES.LIGHT,
+  theme: THEMES.ONE_DARK,
 };
 
 // Read Settings from Local Storage
