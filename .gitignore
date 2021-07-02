@@ -267,3 +267,6 @@ __pycache__/
 
 # Ignore .env file 
 .env
+
+# Ignore docker mounts
+mounts/

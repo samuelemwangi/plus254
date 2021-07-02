@@ -1,7 +1,7 @@
-﻿using App.Application.EntitiesCommandsQueries.Token.Queries.ViewModels;
+﻿using App.Application.EntitiesCommandsQueries.Events.Commands.PublishNotification;
+using App.Application.EntitiesCommandsQueries.Token.Queries.ViewModels;
 using App.Application.EntitiesCommandsQueries.Users.Queries.ViewModels;
 using App.Application.Interfaces.Auth;
-using App.Application.Interfaces.Notifications;
 using App.Application.Interfaces.Utilities;
 using App.Domain.Entities.Identity;
 using App.Persistence;
@@ -37,43 +37,52 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.RegisterUser
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, AuthUserViewModel>
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppDbContext _appDbContext;
         private readonly IJwtFactory _jwtFactory;
         private readonly ITokenFactory _tokenFactory;
         private readonly IMachineDateTime _dateTime;
         private readonly IConfigurationSection _configurationSection;
-        private readonly INotificationService _notificationService;
+        private readonly IMediator _mediator;
 
         public RegisterUserCommandHandler(
             UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             AppDbContext appDbContext,
             IJwtFactory jwtFactory,
             ITokenFactory tokenFactory,
             IMachineDateTime dateTime,
             IConfiguration configuration,
-            INotificationService notificationService
+            IMediator mediator
             )
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _appDbContext = appDbContext;
             _jwtFactory = jwtFactory;
             _tokenFactory = tokenFactory;
             _dateTime = dateTime;
             _configurationSection = configuration.GetSection("Roles");
-            _notificationService = notificationService;
+            _mediator = mediator;
         }
 
         public async Task<AuthUserViewModel> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                // check if default role exists
+                if (!await _roleManager.RoleExistsAsync(_configurationSection["defaultRole"]))
+                {
+                    throw new Exception("Role " + _configurationSection["defaultRole"] + " does not exist");
+                };
+
                 var appUser = new IdentityUser { Email = request.UserEmail, UserName = request.UserEmail, PhoneNumber = request.PhoneNumber, PhoneNumberConfirmed = false };
 
                 var identityResult = await _userManager.CreateAsync(appUser, request.UserPassWord);
 
                 if (identityResult.Succeeded)
                 {
-                    
+
                     var userRoleResult = await _userManager.AddToRoleAsync(appUser, _configurationSection["defaultRole"]);
                 }
                 else
@@ -125,10 +134,17 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.RegisterUser
                 _appDbContext.RefreshToken.Add(userRefreshToken);
 
 
-                await _appDbContext.SaveChangesAsync();
+                await _appDbContext.SaveChangesAsync(cancellationToken);
 
+                //Publish Email Notification
+                await _mediator.Publish(new PublishEmailNotificationCommand
+                {
+                    NotificationType = "EmailConfirm",
+                    EmailLink = "email-confirmation/" + user.Id + "/" + confirmEmailToken,
+                    RecipientEmail = user.UserEmail,
+                    RecipientName = user.FirstName + " " + user.LastName
 
-                await _notificationService.PublishNotificationAsync("EmailConfirm", "email-confirmation/" + user.Id + "/" + confirmEmailToken, user.UserEmail, user.FirstName + " " + user.LastName);
+                }, cancellationToken);
 
 
 

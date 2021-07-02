@@ -3,11 +3,12 @@ using App.API.Helpers;
 using App.Application.EntitiesCommandsQueries.Countries.Commands.CreateCountry;
 using App.Application.EntitiesCommandsQueries.System.SeedDB;
 using App.Application.Infrastructure;
-using App.Application.Interfaces.Notifications;
+using App.Application.Interfaces.Messaging;
 using App.Application.Interfaces.Utilities;
-using App.Infrastructure.Notifications;
+using App.Infrastructure.Messaging;
 using App.Infrastructure.Utilities;
 using App.Persistence;
+using Confluent.Kafka;
 using FluentValidation.AspNetCore;
 using MediatR;
 using MediatR.Pipeline;
@@ -40,12 +41,18 @@ namespace App.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            string connectionString = Configuration.GetConnectionString("AppDB");
-
+            // Read environment Values 
             string dbServer = Configuration.GetValue<string>("DB_SERVER");
             string dbUser = Configuration.GetValue<string>("DB_USER");
             string dbPassword = Configuration.GetValue<string>("DB_PASSWORD");
+
             string secretKey = Configuration.GetValue<string>("SECRET_KEY");
+
+            string kafkaBrokers = Configuration.GetValue<string>("KAFKA_BROKERS");
+
+
+            // Connection string from appsettings
+            string connectionString = Configuration.GetConnectionString("AppDB");
 
             string dbConnectionString = connectionString.Replace("DB_SERVER", dbServer)
                                                         .Replace("DB_USER", dbUser)
@@ -101,7 +108,7 @@ namespace App.API
                     {
                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
                         {
-                            context.Response.Headers.Add("Token-Expired", "true");
+                            context.Response.Headers.Add("X-Token-Expired", "true");
                         }
                         return Task.CompletedTask;
                     }
@@ -117,9 +124,21 @@ namespace App.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "App.API", Version = "v1" });
             });
 
+
+            //Kafka
+            var kafkaConfigs = Configuration.GetSection("Kafka");
+
+            var producerConfig = new ProducerConfig(new ClientConfig
+            {
+                BootstrapServers = String.IsNullOrEmpty(kafkaBrokers) ? kafkaConfigs["BootstrapServers"] : kafkaBrokers
+            });
+
+
+            services.AddSingleton(producerConfig);
+            services.AddSingleton(typeof(IMessageProducer<,>), typeof(MessageProducer<,>));
+
             services.AddTransient<IMachineDateTime, MachineDateTime>();
             services.AddTransient<IMachineLogger, MachineLogger>();
-            services.AddTransient<INotificationService, NotificationService>();
             
 
             //Add Mediator

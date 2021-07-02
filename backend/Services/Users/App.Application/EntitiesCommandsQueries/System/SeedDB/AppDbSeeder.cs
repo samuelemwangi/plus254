@@ -35,8 +35,8 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
             string entityFolderPath = string.Format("{0}{1}{2}", rootFolderPath, Path.DirectorySeparatorChar, folderKey);
 
             await SeedDBTablesAsync();
-            await SeedDBUsingSQLScriptsAsync(string.Format("{0}{1}{2}", entityFolderPath, Path.DirectorySeparatorChar, "Functions"));
-            await SeedDBUsingSQLScriptsAsync(string.Format("{0}{1}{2}", entityFolderPath, Path.DirectorySeparatorChar, "Views"));
+            await SeedDBUsingSQLScriptsAsync(string.Format("{0}{1}{2}", entityFolderPath, Path.DirectorySeparatorChar, "Functions"), cancellationToken);
+            await SeedDBUsingSQLScriptsAsync(string.Format("{0}{1}{2}", entityFolderPath, Path.DirectorySeparatorChar, "Views"), cancellationToken);
 
 
 
@@ -47,7 +47,7 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
             // Seed table 
         }
 
-        private async Task SeedDBUsingSQLScriptsAsync(string targetDirectory)
+        private async Task SeedDBUsingSQLScriptsAsync(string targetDirectory, CancellationToken cancellationToken)
         {
             try
             {
@@ -56,7 +56,8 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
                 foreach (string fileName in fileEntries)
                 {
                     await _appDbContext.Database.ExecuteSqlRawAsync(
-                        File.ReadAllText(fileName).Replace(_configurationSection["EntityPrefixFrom"], _configurationSection["EntityPrefixTo"])
+                        File.ReadAllText(fileName).Replace(_configurationSection["EntityPrefixFrom"], _configurationSection["EntityPrefixTo"]),
+                        cancellationToken
                         );
                 }
 

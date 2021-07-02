@@ -4,17 +4,19 @@ using App.Application.EntitiesCommandsQueries.System.SeedDB;
 using App.Application.EntitiesCommandsQueries.Users.Commands.LoginUser;
 using App.Application.Infrastructure;
 using App.Application.Interfaces.Auth;
-using App.Application.Interfaces.Notifications;
+using App.Application.Interfaces.Messaging;
 using App.Application.Interfaces.Utilities;
 using App.Infrastructure.Auth;
 using App.Infrastructure.Helpers;
 using App.Infrastructure.Interfaces;
-using App.Infrastructure.Notifications;
+using App.Infrastructure.Messaging;
 using App.Infrastructure.Utilities;
 using App.Persistence;
+using Confluent.Kafka;
 using FluentValidation.AspNetCore;
 using MediatR;
 using MediatR.Pipeline;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +30,6 @@ using System;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace App.API
 {
@@ -45,13 +46,16 @@ namespace App.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-
-            string connectionString = Configuration.GetConnectionString("AppDB");
-
+            //Environment variables
             string dbServer = Configuration.GetValue<string>("DB_SERVER");
             string dbUser = Configuration.GetValue<string>("DB_USER");
             string dbPassword = Configuration.GetValue<string>("DB_PASSWORD");
+
             string secretKey = Configuration.GetValue<string>("SECRET_KEY");
+
+            string kafkaBrokers = Configuration.GetValue<string>("KAFKA_BROKERS");
+
+            string connectionString = Configuration.GetConnectionString("AppDB");
 
             string dbConnectionString = connectionString.Replace("DB_SERVER", dbServer)
                                                         .Replace("DB_USER", dbUser)
@@ -165,9 +169,20 @@ namespace App.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "App.API", Version = "v1" });
             });
 
+            //Kafka
+            var kafkaConfigs = Configuration.GetSection("Kafka");
+
+            var producerConfig = new ProducerConfig(new ClientConfig
+            {
+                BootstrapServers = String.IsNullOrEmpty(kafkaBrokers) ? kafkaConfigs["BootstrapServers"] : kafkaBrokers
+            });
+
+
+            services.AddSingleton(producerConfig);
+            services.AddSingleton(typeof(IMessageProducer<,>), typeof(MessageProducer<,>));
+
             services.AddTransient<IMachineDateTime, MachineDateTime>();
             services.AddTransient<IMachineLogger, MachineLogger>();
-            services.AddTransient<INotificationService, NotificationService>();
 
             //Add Mediator
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));

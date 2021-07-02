@@ -1,69 +1,8 @@
 version: "3.7"
 
 services:
-  zookeeper_1:
-    image: confluentinc/cp-zookeeper:latest
-    container_name: plus254_zookeeper_1
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - 22181:2181
-    networks:
-      plus254_network:
-
-  zookeeper_2:
-    image: confluentinc/cp-zookeeper:latest
-    container_name: plus254_zookeeper_2
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - 32181:2181
-    networks:
-      plus254_network:
-
-  kafka_1:
-    image: confluentinc/cp-kafka:latest
-    depends_on:
-      - zookeeper_1
-      - zookeeper_2
-    container_name: plus254_kafka_1
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper_1:2181,zookeeper_2:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka_1:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    ports:
-      - 29092:29092
-    networks:
-      plus254_network:
-
-  kafka_2:
-    image: confluentinc/cp-kafka:latest
-    depends_on:
-      - zookeeper_1
-      - zookeeper_2
-    container_name: plus254_kafka_2
-    environment:
-      KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper_1:2181,zookeeper_2:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka_2:9092,PLAINTEXT_HOST://localhost:39092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    ports:
-      - 39092:39092
-    networks:
-      plus254_network:
-
   backend_main:
     image: backend_main
-    depends_on:
-      - kafka_1
-      - kafka_2
     build:
       context: ./backend/Services/Main
       dockerfile: App.API/Dockerfile.build
@@ -71,6 +10,9 @@ services:
     ports:
       - 8086:80
       - 8087:443
+    volumes:
+      - "./mounts/backend_main/Logs:/app/Logs"
+      - "./mounts/backend_main/SQL:/app/SQL"
     environment:
       DB_SERVER: ${DB_SERVER}
       DB_USER: ${DB_USER}
@@ -80,9 +22,6 @@ services:
 
   backend_users:
     image: backend_users
-    depends_on:
-      - kafka_1
-      - kafka_2
     build:
       context: ./backend/Services/Users
       dockerfile: App.API/Dockerfile.build
@@ -94,6 +33,9 @@ services:
     ports:
       - 8088:80
       - 8089:443
+    volumes:
+      - "./mounts/backend_users/Logs:/app/Logs"
+      - "./mounts/backend_users/SQL:/app/SQL"
     networks:
       plus254_network:
 

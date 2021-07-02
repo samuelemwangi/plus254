@@ -1,4 +1,4 @@
-﻿using App.Application.Interfaces.Notifications;
+﻿using App.Application.EntitiesCommandsQueries.Events.Commands.PublishNotification;
 using App.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -27,13 +27,13 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.ResetPassword
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppDbContext _appDbContext;
-        private readonly INotificationService _notificationService;
         private readonly ILogger<ResetPasswordCommandHandler> _resetPasswordLogger;
-        public ResetPasswordCommandHandler(UserManager<IdentityUser> userManager, INotificationService notificationService, AppDbContext appDbContext)
+        private readonly IMediator _mediator;
+        public ResetPasswordCommandHandler(UserManager<IdentityUser> userManager, IMediator mediator, AppDbContext appDbContext)
         {
             _userManager = userManager;
-            _notificationService = notificationService;
             _appDbContext = appDbContext;
+            _mediator = mediator;
         }
 
         public async Task<int> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
@@ -56,9 +56,16 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.ResetPassword
                 var resetToken = WebEncoders.Base64UrlEncode(resetTokenBytes);
 
 
+                //Publish Email Notification
+                await _mediator.Publish(new PublishEmailNotificationCommand
+                {
+                    NotificationType = "PasswordReset",
+                    EmailLink = "password-reset/" + user.Id + "/" + resetToken,
+                    RecipientEmail = user.Email,
+                    RecipientName = userDetails.FirstName + " " + userDetails.LastName
 
-                await _notificationService.PublishNotificationAsync("PasswordReset", "password-reset/" + user.Id + "/" + resetToken, user.Email, userDetails.FirstName + " " + userDetails.LastName);
-                
+                }, cancellationToken);
+
 
                 return 1;
 
