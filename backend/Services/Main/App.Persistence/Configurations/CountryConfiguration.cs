@@ -10,9 +10,6 @@ namespace App.Persistence.Configurations
         {
             builder.Property(e => e.Name).HasMaxLength(50);
             builder.Property(e => e.Description).HasMaxLength(400);
-
-            
-
         }
     }
 }
