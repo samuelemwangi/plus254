@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="EntitiesCommandsQueries\Events\Commands\PublishNotification\" />
-    <Folder Include="Interfaces\Messaging\" />
   </ItemGroup>
 
 </Project>
