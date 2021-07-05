@@ -76,6 +76,12 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.RegisterUser
                     throw new Exception("Role " + _configurationSection["defaultRole"] + " does not exist");
                 };
 
+                var existingUser = await _userManager.FindByEmailAsync(request.UserEmail);
+
+                if (existingUser != null) throw new Exception(" User with Email "+ request.UserEmail+ " exists");
+
+               
+
                 var appUser = new IdentityUser { Email = request.UserEmail, UserName = request.UserEmail, PhoneNumber = request.PhoneNumber, PhoneNumberConfirmed = false };
 
                 var identityResult = await _userManager.CreateAsync(appUser, request.UserPassWord);
@@ -87,8 +93,6 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.RegisterUser
                 }
                 else
                 {
-                    // Remove user if there is errors
-                    await _userManager.DeleteAsync(appUser);
 
                     throw new Exception(String.Join(" ", identityResult.Errors.Select(e => e.Description)));
 

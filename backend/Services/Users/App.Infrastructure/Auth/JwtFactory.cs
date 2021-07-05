@@ -1,6 +1,6 @@
 ﻿using App.Application.EntitiesCommandsQueries.Token.Queries.ViewModels;
 using App.Application.Interfaces.Auth;
-using App.Infrastructure.Interfaces;
+using App.Infrastructure.Auth.Interfaces;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;

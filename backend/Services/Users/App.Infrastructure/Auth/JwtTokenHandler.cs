@@ -1,4 +1,4 @@
-﻿using App.Infrastructure.Interfaces;
+﻿using App.Infrastructure.Auth.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;

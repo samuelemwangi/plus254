@@ -7,9 +7,10 @@ using App.Application.Interfaces.Auth;
 using App.Application.Interfaces.Messaging;
 using App.Application.Interfaces.Utilities;
 using App.Infrastructure.Auth;
+using App.Infrastructure.Auth.Interfaces;
 using App.Infrastructure.Helpers;
-using App.Infrastructure.Interfaces;
 using App.Infrastructure.Messaging;
+using App.Infrastructure.Messaging.Interfaces;
 using App.Infrastructure.Utilities;
 using App.Persistence;
 using Confluent.Kafka;
@@ -53,7 +54,7 @@ namespace App.API
 
             string secretKey = Configuration.GetValue<string>("SECRET_KEY");
 
-            string kafkaBrokers = Configuration.GetValue<string>("KAFKA_BROKERS");
+            string messagingBrokers = Configuration.GetValue<string>("MESSAGING_BROKERS");
 
             string connectionString = Configuration.GetConnectionString("AppDB");
 
@@ -169,17 +170,19 @@ namespace App.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "App.API", Version = "v1" });
             });
 
-            //Kafka
-            var kafkaConfigs = Configuration.GetSection("Kafka");
+            //Messaging
+            var messagingConfigs = Configuration.GetSection("Messaging");
 
             var producerConfig = new ProducerConfig(new ClientConfig
             {
-                BootstrapServers = String.IsNullOrEmpty(kafkaBrokers) ? kafkaConfigs["BootstrapServers"] : kafkaBrokers
+                BootstrapServers = String.IsNullOrEmpty(messagingBrokers) ? messagingConfigs["BootstrapServers"] : messagingBrokers
             });
 
 
             services.AddSingleton(producerConfig);
             services.AddSingleton(typeof(IMessageProducer<,>), typeof(MessageProducer<,>));
+            services.AddSingleton(typeof(IMessagingService<,>), typeof(MessagingService<,>));
+
 
             services.AddTransient<IMachineDateTime, MachineDateTime>();
             services.AddTransient<IMachineLogger, MachineLogger>();

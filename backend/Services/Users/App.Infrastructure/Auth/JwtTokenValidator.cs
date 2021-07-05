@@ -1,5 +1,5 @@
 ﻿using App.Application.Interfaces.Auth;
-using App.Infrastructure.Interfaces;
+using App.Infrastructure.Auth.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;

@@ -1,7 +1,11 @@
-﻿using App.Application.Interfaces.Messaging;
+﻿using App.Infrastructure.Messaging.Interfaces;
 using Confluent.Kafka;
 using System;
 using System.Threading.Tasks;
+
+/// <summary>
+/// 
+/// </summary>
 
 namespace App.Infrastructure.Messaging
 {
@@ -10,7 +14,7 @@ namespace App.Infrastructure.Messaging
         private readonly IProducer<TKey, TValue> _producer;
         public MessageProducer(ProducerConfig config)
         {
-            _producer = new ProducerBuilder<TKey, TValue>(config).SetValueSerializer(new KafkaSerializer<TValue>()).Build();
+            _producer = new ProducerBuilder<TKey, TValue>(config).SetValueSerializer(new MessageSerializer<TValue>()).Build();
         }
 
 
@@ -18,7 +22,6 @@ namespace App.Infrastructure.Messaging
         {
             await _producer.ProduceAsync(topic, new Message<TKey, TValue> { Key = key, Value = value });
         }
-
 
         public void Dispose()
         {

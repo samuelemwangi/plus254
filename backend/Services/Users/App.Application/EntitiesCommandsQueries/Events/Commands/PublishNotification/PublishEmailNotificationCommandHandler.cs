@@ -22,33 +22,31 @@ namespace App.Application.EntitiesCommandsQueries.Events.Commands.PublishNotific
     }
     internal sealed class PublishEmailNotificationCommandHandler : INotificationHandler<PublishEmailNotificationCommand>
     {
-        private readonly IMessageProducer<string, PublishEmailNotificationCommand> _emailMessageProducer;
+        private readonly IMessagingService<string, PublishEmailNotificationCommand> _messagingService;
         private readonly IConfigurationSection _configurationSection;
-        private readonly ILogger<PublishEmailNotificationCommandHandler> _publishNotificationLogger;
+        private readonly ILogger<PublishEmailNotificationCommandHandler> _logger;
         public PublishEmailNotificationCommandHandler(
-            IMessageProducer<string, PublishEmailNotificationCommand> emailMessageProducer,
+            IMessagingService<string, PublishEmailNotificationCommand> messagingService,
             IConfiguration configuration,
-            ILogger<PublishEmailNotificationCommandHandler> publishNotificationLogger
+            ILogger<PublishEmailNotificationCommandHandler> logger
             )
         {
-            _emailMessageProducer = emailMessageProducer;
-            _configurationSection = configuration.GetSection("Kafka");
-            _publishNotificationLogger = publishNotificationLogger;
+            _messagingService = messagingService;
+            _configurationSection = configuration.GetSection("Messaging");
+            _logger = logger;
         }
         public async Task Handle(PublishEmailNotificationCommand notification, CancellationToken cancellationToken)
         {
             try
             {
-                await _emailMessageProducer.ProduceAsync(_configurationSection.GetSection("Topics")["EmailNotifications"], null, notification);
-
-                _publishNotificationLogger.LogInformation("Message producuded to topic " + _configurationSection.GetSection("Topics")["EmailNotifications"]);
-
+                await _messagingService.HandleMessageAsync(_configurationSection.GetSection("MessageTypes")["NotificationMessages"], null, notification);
+               
             }
             catch (Exception e)
             {
-
-                _publishNotificationLogger.LogError(e.StackTrace);
+                _logger.LogError(e.StackTrace);
             }
+
 
         }
     }

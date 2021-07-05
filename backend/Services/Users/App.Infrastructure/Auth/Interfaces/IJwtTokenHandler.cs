@@ -7,7 +7,7 @@ using System.Security.Claims;
 /// </summary>
 
 
-namespace App.Infrastructure.Interfaces
+namespace App.Infrastructure.Auth.Interfaces
 {
     public interface IJwtTokenHandler
     {
