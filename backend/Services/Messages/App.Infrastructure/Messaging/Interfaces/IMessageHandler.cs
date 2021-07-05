@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace App.Application.Interfaces.Messaging
+namespace App.Infrastructure.Messaging.Interfaces
 {
     public interface IMessageHandler<TKey, TValue>
     {

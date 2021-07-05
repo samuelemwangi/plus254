@@ -4,6 +4,7 @@ using App.Application.EntitiesCommandsQueries.Users.Queries.ViewModels;
 using App.Application.Interfaces.Auth;
 using App.Application.Interfaces.Utilities;
 using App.Domain.Entities.Identity;
+using App.Domain.Enums;
 using App.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -79,7 +80,6 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.RegisterUser
                 var existingUser = await _userManager.FindByEmailAsync(request.UserEmail);
 
                 if (existingUser != null) throw new Exception(" User with Email "+ request.UserEmail+ " exists");
-
                
 
                 var appUser = new IdentityUser { Email = request.UserEmail, UserName = request.UserEmail, PhoneNumber = request.PhoneNumber, PhoneNumberConfirmed = false };
@@ -143,7 +143,7 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.RegisterUser
                 //Publish Email Notification
                 await _mediator.Publish(new PublishEmailNotificationCommand
                 {
-                    NotificationType = "EmailConfirm",
+                    NotifType = NotificationType.CONFIRM_EMAIL,
                     EmailLink = "email-confirmation/" + user.Id + "/" + confirmEmailToken,
                     RecipientEmail = user.UserEmail,
                     RecipientName = user.FirstName + " " + user.LastName

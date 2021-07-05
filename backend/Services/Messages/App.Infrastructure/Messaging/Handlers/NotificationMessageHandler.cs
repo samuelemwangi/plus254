@@ -1,5 +1,5 @@
 ﻿using App.Application.EntitiesCommandsQueries.Events.Queries.ViewModels;
-using App.Application.Interfaces.Messaging;
+using App.Infrastructure.Messaging.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 

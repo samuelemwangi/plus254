@@ -1,5 +1,5 @@
 ﻿using App.Application.EntitiesCommandsQueries.Events.Queries.ViewModels;
-using App.Application.Interfaces.Messaging;
+using App.Infrastructure.Messaging.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,13 +17,13 @@ namespace App.Infrastructure.Messaging.Consumers
         public NotificationMessageConsumer(IMessageConsumer<string, NotificationMessageDTO> messageConsumer, IConfiguration configuration)
         {
             _messageConsumer = messageConsumer;
-            _configurationSection = configuration.GetSection("Kafka");
+            _configurationSection = configuration.GetSection("Messaging");
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             try
             {
-                await _messageConsumer.Consume(_configurationSection.GetSection("Topics")["Notifications"], stoppingToken);
+                await _messageConsumer.Consume(_configurationSection.GetSection("MessageTypes")["NotificationMessages"], stoppingToken);
 
             }
             catch (Exception e)

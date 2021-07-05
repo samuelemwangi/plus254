@@ -1,4 +1,4 @@
-﻿using App.Application.Interfaces.Messaging;
+﻿using App.Infrastructure.Messaging.Interfaces;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -28,7 +28,7 @@ namespace App.Infrastructure.Messaging
             using var scope = _serviceScopeFactory.CreateScope();
 
             _handler = scope.ServiceProvider.GetRequiredService<IMessageHandler<TKey, TValue>>();
-            _consumer = new ConsumerBuilder<TKey, TValue>(_config).SetValueDeserializer(new KafkaDeserializer<TValue>()).Build();
+            _consumer = new ConsumerBuilder<TKey, TValue>(_config).SetValueDeserializer(new MessageDeserializer<TValue>()).Build();
             _topic = topic;
 
             await Task.Run(() => StartConsumerLoop(cancellationToken), cancellationToken);

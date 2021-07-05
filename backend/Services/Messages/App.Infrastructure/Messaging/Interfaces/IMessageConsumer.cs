@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 /// 
 /// </summary>
 
-namespace App.Application.Interfaces.Messaging
+namespace App.Infrastructure.Messaging.Interfaces
 {
     public interface IMessageConsumer<TKey, TValue> where TValue : class
     {

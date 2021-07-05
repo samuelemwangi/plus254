@@ -1,4 +1,5 @@
 ﻿using App.Application.Interfaces.Messaging;
+using App.Domain.Enums;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -16,7 +17,7 @@ namespace App.Application.EntitiesCommandsQueries.Events.Commands.PublishNotific
     {
         public string RecipientEmail { get; set; }
         public string RecipientName { get; set; }
-        public string NotificationType { get; set; }
+        public NotificationType NotifType { get; set; }
         public string EmailLink { get; set; }
 
     }
@@ -40,7 +41,7 @@ namespace App.Application.EntitiesCommandsQueries.Events.Commands.PublishNotific
             try
             {
                 await _messagingService.HandleMessageAsync(_configurationSection.GetSection("MessageTypes")["NotificationMessages"], null, notification);
-               
+
             }
             catch (Exception e)
             {

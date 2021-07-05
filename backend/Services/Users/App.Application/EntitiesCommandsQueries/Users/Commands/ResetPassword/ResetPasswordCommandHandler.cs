@@ -1,4 +1,5 @@
 ﻿using App.Application.EntitiesCommandsQueries.Events.Commands.PublishNotification;
+using App.Domain.Enums;
 using App.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -29,11 +30,17 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.ResetPassword
         private readonly AppDbContext _appDbContext;
         private readonly ILogger<ResetPasswordCommandHandler> _resetPasswordLogger;
         private readonly IMediator _mediator;
-        public ResetPasswordCommandHandler(UserManager<IdentityUser> userManager, IMediator mediator, AppDbContext appDbContext)
+        public ResetPasswordCommandHandler(
+            UserManager<IdentityUser> userManager,
+            IMediator mediator,
+            AppDbContext appDbContext,
+            ILogger<ResetPasswordCommandHandler> resetPasswordLogger
+            )
         {
             _userManager = userManager;
             _appDbContext = appDbContext;
             _mediator = mediator;
+            _resetPasswordLogger = resetPasswordLogger;
         }
 
         public async Task<int> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
@@ -59,7 +66,7 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.ResetPassword
                 //Publish Email Notification
                 await _mediator.Publish(new PublishEmailNotificationCommand
                 {
-                    NotificationType = "PasswordReset",
+                    NotifType = NotificationType.PASSWORD_RESET,
                     EmailLink = "password-reset/" + user.Id + "/" + resetToken,
                     RecipientEmail = user.Email,
                     RecipientName = userDetails.FirstName + " " + userDetails.LastName
@@ -73,7 +80,7 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.ResetPassword
             }
             catch (Exception e)
             {
-                
+
                 _resetPasswordLogger.LogError(e.StackTrace);
 
                 return 0;

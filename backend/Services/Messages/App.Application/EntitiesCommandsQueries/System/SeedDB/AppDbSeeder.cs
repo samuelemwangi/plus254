@@ -1,4 +1,5 @@
-﻿using App.Application.Interfaces.Utilities;
+﻿using App.Application.EntitiesCommandsQueries.System.SeedDB.Notifications;
+using App.Application.Interfaces.Utilities;
 using App.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -46,8 +47,8 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
         public async Task SeedDBTablesAsync()
         {
             // Seed Message Status
-            CountrySeed countrySeed = new(_appDbContext, _machineLogger, _machineDateTime);
-            await countrySeed.SeedDataAsync();
+            NotificationStatusSeed notificationStatusSeed = new(_appDbContext, _machineLogger, _machineDateTime);
+            await notificationStatusSeed.SeedDataAsync();
         }
 
         private async Task SeedDBUsingSQLScriptsAsync(string targetDirectory)

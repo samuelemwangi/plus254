@@ -5,7 +5,7 @@ using System.Text;
 
 namespace App.Infrastructure.Messaging
 {
-    internal sealed class KafkaDeserializer<T> : IDeserializer<T>
+    internal sealed class MessageDeserializer<T> : IDeserializer<T>
     {
         public T Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
         {

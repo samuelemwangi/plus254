@@ -48,7 +48,7 @@ namespace App.API
 
             string secretKey = Configuration.GetValue<string>("SECRET_KEY");
 
-            string kafkaBrokers = Configuration.GetValue<string>("KAFKA_BROKERS");
+            string messagingBrokers = Configuration.GetValue<string>("MESSAGING_BROKERS");
 
 
             // Connection string from appsettings
@@ -126,11 +126,11 @@ namespace App.API
 
 
             //Kafka
-            var kafkaConfigs = Configuration.GetSection("Kafka");
+            var messagingConfigs = Configuration.GetSection("Messaging");
 
             var producerConfig = new ProducerConfig(new ClientConfig
             {
-                BootstrapServers = String.IsNullOrEmpty(kafkaBrokers) ? kafkaConfigs["BootstrapServers"] : kafkaBrokers
+                BootstrapServers = String.IsNullOrEmpty(messagingBrokers) ? messagingConfigs["BootstrapServers"] : messagingBrokers
             });
 
 
