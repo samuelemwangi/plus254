@@ -1,4 +1,4 @@
-﻿using App.Application.EntitiesCommandsQueries.Events.Queries.ViewModels;
+﻿using App.Application.EntitiesCommandsQueries.NotificationMessages.Queries.ViewModels;
 using App.Infrastructure.Messaging.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -14,10 +14,16 @@ namespace App.Infrastructure.Messaging.Consumers
         private readonly IMessageConsumer<string, NotificationMessageDTO> _messageConsumer;
         private readonly ILogger<NotificationMessageConsumer> _notificationMessageLogger;
         private readonly IConfigurationSection _configurationSection;
-        public NotificationMessageConsumer(IMessageConsumer<string, NotificationMessageDTO> messageConsumer, IConfiguration configuration)
+        public NotificationMessageConsumer(
+            IMessageConsumer<string, NotificationMessageDTO> messageConsumer,
+            IConfiguration configuration,
+            ILogger<NotificationMessageConsumer> notificationMessageLogger
+
+            )
         {
             _messageConsumer = messageConsumer;
             _configurationSection = configuration.GetSection("Messaging");
+            _notificationMessageLogger = notificationMessageLogger;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -32,6 +38,14 @@ namespace App.Infrastructure.Messaging.Consumers
 
             }
 
+        }
+
+        public override void Dispose()
+        {
+            _messageConsumer.Close();
+            _messageConsumer.Dispose();
+            base.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

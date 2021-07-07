@@ -66,9 +66,10 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.ResetPassword
                 //Publish Email Notification
                 await _mediator.Publish(new PublishEmailNotificationCommand
                 {
-                    NotifType = NotificationType.PASSWORD_RESET,
-                    EmailLink = "password-reset/" + user.Id + "/" + resetToken,
-                    RecipientEmail = user.Email,
+                    MessageType = "EMAIL",
+                    NotifType = NotificationMessageType.PASSWORD_RESET,
+                    MessageLink = user.Id + "/" + resetToken,
+                    Recipient = user.Email,
                     RecipientName = userDetails.FirstName + " " + userDetails.LastName
 
                 }, cancellationToken);

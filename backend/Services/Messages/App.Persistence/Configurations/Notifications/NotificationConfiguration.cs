@@ -8,6 +8,9 @@ namespace App.Persistence.Configurations.Notifications
     {
         public void Configure(EntityTypeBuilder<Notification> builder)
         {
+            builder.Property(e => e.RefId).HasMaxLength(100);
+            builder.HasIndex(e => e.RefId);
+
             builder.Property(e => e.Sender).HasMaxLength(80);
             builder.HasIndex(e => e.Sender);
 
@@ -17,7 +20,7 @@ namespace App.Persistence.Configurations.Notifications
 
             builder.Property(e => e.CCRecipient).HasMaxLength(400);
 
-            builder.Property(e => e.Body).HasMaxLength(800);
+            builder.Property(e => e.Body).HasMaxLength(2000);
 
             builder.HasOne(p => p.NotificationStatus)
                 .WithMany(c => c.Notifications)

@@ -43,12 +43,12 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
 
                 if (sqlSection == null) throw new Exception("No SQL Section provided in appsettings.json. Kindly provide one");
 
-                AppDbSeeder appDbSeeder = new(_appDbContext, _configuration.GetSection("SQL"), _machineLogger, _machineDateTime);
+                AppDbSeeder appDbSeeder = new(_appDbContext, _configuration, _machineLogger, _machineDateTime);
                 await appDbSeeder.SeedAllAsync(request.FolderKey);
             }
             catch (Exception e)
             {
-                _machineLogger.LogDetails(LogLevel.Error, e.Message);
+                _machineLogger.LogDetails(LogLevel.Error, e.StackTrace);
 
             }
             return Unit.Value;

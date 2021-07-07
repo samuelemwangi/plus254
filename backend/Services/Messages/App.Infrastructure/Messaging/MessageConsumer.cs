@@ -1,6 +1,7 @@
 ﻿using App.Infrastructure.Messaging.Interfaces;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,11 +17,12 @@ namespace App.Infrastructure.Messaging
 
 
         private readonly IServiceScopeFactory _serviceScopeFactory;
-
-        public MessageConsumer(ConsumerConfig config, IServiceScopeFactory serviceScopeFactory)
+        private readonly ILogger<MessageConsumer<TKey, TValue>> _logger;
+        public MessageConsumer(ConsumerConfig config, IServiceScopeFactory serviceScopeFactory, ILogger<MessageConsumer<TKey, TValue>> logger)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _config = config;
+            _logger = logger;
         }
 
         public async Task Consume(string topic, CancellationToken cancellationToken)
@@ -55,8 +57,8 @@ namespace App.Infrastructure.Messaging
                 }
                 catch (ConsumeException e)
                 {
-                    // Consumer errors should generally be ignored (or logged) unless fatal.
-                    Console.WriteLine($"Consume error: {e.Error.Reason}");
+                    // Consumer errors should generally be ignored (or logged) unless fatal.                    
+                    _logger.LogError($"Consume error: {e.Error.Reason}");
 
                     if (e.Error.IsFatal)
                     {
@@ -65,7 +67,7 @@ namespace App.Infrastructure.Messaging
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Unexpected error: {e}");
+                    _logger.LogError($"Unexpected error: {e.StackTrace}");                    
                     break;
                 }
             }

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            color: #222;
+            text-align: left;
+        }
+
+        .confirm-link {
+            color: #ffffff;
+            border: none;
+            font-size: 14px;
+            border-radius: 20px;
+            background-color: #150b6a;
+            text-decoration: none;
+            height: 32px;
+            vertical-align: middle;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Dear {{user_name}},</p>
+    <p>
+        Thank you for registering with {{sender_title}}. <br />
+        To confirm your account kindly click on the link below. <br />
+        <br />
+        <a href="{{link}}" class="confirm-link" style="color: #ffffff;"> Click here </a>
+    </p>
+
+    <p>Regards,</p>
+    <p>{{sender_title}} Team</p>
+</body>
+</html>

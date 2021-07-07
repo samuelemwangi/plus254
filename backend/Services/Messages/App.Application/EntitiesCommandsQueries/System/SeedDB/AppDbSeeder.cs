@@ -15,16 +15,23 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
 
         private readonly AppDbContext _appDbContext;
         private readonly IConfigurationSection _configurationSection;
+        private readonly IConfiguration _configuration;
         private readonly IMachineLogger _machineLogger;
         private readonly IMachineDateTime _machineDateTime;
 
 
-        public AppDbSeeder(AppDbContext appDbContext, IConfigurationSection configurationSection, IMachineLogger machineLogger, IMachineDateTime machineDateTime)
+        public AppDbSeeder(
+            AppDbContext appDbContext,
+            IConfiguration configuration,
+            IMachineLogger machineLogger,
+            IMachineDateTime machineDateTime
+            )
         {
             _appDbContext = appDbContext;
-            _configurationSection = configurationSection;            
+            _configurationSection = configuration.GetSection("SQL");
             _machineLogger = machineLogger;
             _machineDateTime = machineDateTime;
+            _configuration = configuration;
         }
 
         public async Task SeedAllAsync(string folderKey)
@@ -47,8 +54,13 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
         public async Task SeedDBTablesAsync()
         {
             // Seed Message Status
-            NotificationStatusSeed notificationStatusSeed = new(_appDbContext, _machineLogger, _machineDateTime);
+            NotificationStatusSeed notificationStatusSeed = new(_appDbContext, _machineLogger, _machineDateTime, _configuration);
             await notificationStatusSeed.SeedDataAsync();
+
+
+            // Seed Message Type
+            NotificationTypeSeed notificationTypeSeed = new(_appDbContext, _machineLogger, _machineDateTime, _configuration);
+            await notificationTypeSeed.SeedDataAsync();
         }
 
         private async Task SeedDBUsingSQLScriptsAsync(string targetDirectory)
@@ -67,7 +79,7 @@ namespace App.Application.EntitiesCommandsQueries.System.SeedDB
             }
             catch (Exception e)
             {
-                
+
                 _machineLogger.LogDetails(LogLevel.Error, e.Message);
 
             }

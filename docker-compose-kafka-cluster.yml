@@ -3,7 +3,7 @@ version: "3.7"
 services:
   zookeeper_1:
     image: confluentinc/cp-zookeeper:latest
-    container_name: plus254_zookeeper_1
+    container_name: zookeeper_1
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -17,7 +17,7 @@ services:
 
   zookeeper_2:
     image: confluentinc/cp-zookeeper:latest
-    container_name: plus254_zookeeper_2
+    container_name: zookeeper_2
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -34,7 +34,7 @@ services:
     depends_on:
       - zookeeper_1
       - zookeeper_2
-    container_name: plus254_kafka_1
+    container_name: kafka_1
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper_1:2181,zookeeper_2:2181
@@ -54,7 +54,7 @@ services:
     depends_on:
       - zookeeper_1
       - zookeeper_2
-    container_name: plus254_kafka_2
+    container_name: kafka_2
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: zookeeper_1:2181,zookeeper_2:2181

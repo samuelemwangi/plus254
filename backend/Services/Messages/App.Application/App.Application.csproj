@@ -15,8 +15,4 @@
     <ProjectReference Include="..\App.Persistence\App.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntitiesCommandsQueries\Events\Commands\PublishNotification\" />
-  </ItemGroup>
-
 </Project>

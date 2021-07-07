@@ -1,6 +1,6 @@
 ﻿namespace App.Domain.Enums
 {
-    public enum NotificationType
+    public enum NotificationMessageType
     {
         PASSWORD_RESET,
         CONFIRM_EMAIL,

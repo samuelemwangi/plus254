@@ -15,10 +15,12 @@ namespace App.Application.EntitiesCommandsQueries.Events.Commands.PublishNotific
 {
     internal sealed class PublishEmailNotificationCommand : INotification
     {
-        public string RecipientEmail { get; set; }
+        public string MessageType { get; set; }
+        public string Recipient { get; set; }
         public string RecipientName { get; set; }
-        public NotificationType NotifType { get; set; }
-        public string EmailLink { get; set; }
+        public NotificationMessageType NotifType { get; set; }
+        public string MessageLink { get; set; }
+        public string CustomMessage { get; set; }
 
     }
     internal sealed class PublishEmailNotificationCommandHandler : INotificationHandler<PublishEmailNotificationCommand>

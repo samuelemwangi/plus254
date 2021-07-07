@@ -2,6 +2,7 @@
 {
     public class Notification : BaseEntity
     {
+        public string RefId { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
         public string Sender { get; set; }

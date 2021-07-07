@@ -143,9 +143,10 @@ namespace App.Application.EntitiesCommandsQueries.Users.Commands.RegisterUser
                 //Publish Email Notification
                 await _mediator.Publish(new PublishEmailNotificationCommand
                 {
-                    NotifType = NotificationType.CONFIRM_EMAIL,
-                    EmailLink = "email-confirmation/" + user.Id + "/" + confirmEmailToken,
-                    RecipientEmail = user.UserEmail,
+                    MessageType = "EMAIL",
+                    NotifType = NotificationMessageType.CONFIRM_EMAIL,
+                    MessageLink = user.Id + "/" + confirmEmailToken,
+                    Recipient = user.UserEmail,
                     RecipientName = user.FirstName + " " + user.LastName
 
                 }, cancellationToken);

@@ -1,14 +1,18 @@
 using App.API.Extensions;
 using App.API.Helpers;
 using App.Application.EntitiesCommandsQueries;
-using App.Application.EntitiesCommandsQueries.Events.Queries.ViewModels;
+using App.Application.EntitiesCommandsQueries.NotificationMessages.Queries.ViewModels;
 using App.Application.EntitiesCommandsQueries.System.SeedDB;
 using App.Application.Infrastructure;
+using App.Application.Interfaces.FileOperations;
+using App.Application.Interfaces.Notifications;
 using App.Application.Interfaces.Utilities;
+using App.Infrastructure.FileOperations;
 using App.Infrastructure.Messaging;
 using App.Infrastructure.Messaging.Consumers;
 using App.Infrastructure.Messaging.Handlers;
 using App.Infrastructure.Messaging.Interfaces;
+using App.Infrastructure.Notifications;
 using App.Infrastructure.Utilities;
 using App.Persistence;
 using Confluent.Kafka;
@@ -155,6 +159,9 @@ namespace App.API
             services.AddTransient<IMachineDateTime, MachineDateTime>();
             services.AddTransient<IMachineLogger, MachineLogger>();
 
+            services.AddTransient<IFileUtils, FileUtils>();
+            services.AddTransient<IStringUtils, StringUtils>();
+            services.AddTransient<IEmailService, EmailService>();
 
             //Add Mediator
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
