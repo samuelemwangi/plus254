@@ -25,7 +25,7 @@
     "@types/react-router-dom": "^5.1.7",
     "framer-motion": "^4.1.16",
     "history": "^5.0.0",
-    "immer": "^8.0.1",
+    "immer": "^9.0.6",
     "jss": "^10.5.1",
     "jss-rtl": "^0.3.0",
     "lodash": "^4.17.21",
